@@ -1,4 +1,4 @@
-package sgol13.evolution.simulator;
+package sgol13.evolution.simulator.simulation;
 
 import java.util.Objects;
 
