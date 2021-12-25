@@ -12,9 +12,9 @@ public class MapFieldTest {
     @Test
     public void addRemoveTest() {
 
-        var an1 = new Animal(null, null, 0);
-        var an2 = new Animal(null, null, 0);
-        var an3 = new Animal(null, null, 0);
+        var an1 = new Animal(null, null, 0, 0);
+        var an2 = new Animal(null, null, 0, 0);
+        var an3 = new Animal(null, null, 0, 0);
 
         var field = new MapField(new Vector2d(0, 0), null);
 
@@ -32,13 +32,13 @@ public class MapFieldTest {
     @Test
     public void doEatingTest1() {
 
-        var an1 = new Animal(null, null, 10);
-        var an2 = new Animal(null, null, 7);
-        var an3 = new Animal(null, null, 9);
-        var an4 = new Animal(null, null, 3);
-        var an5 = new Animal(null, null, 5);
-        var an6 = new Animal(null, null, 10);
-        var an7 = new Animal(null, null, 10);
+        var an1 = new Animal(null, null, 10, 0);
+        var an2 = new Animal(null, null, 7, 0);
+        var an3 = new Animal(null, null, 9, 0);
+        var an4 = new Animal(null, null, 3, 0);
+        var an5 = new Animal(null, null, 5, 0);
+        var an6 = new Animal(null, null, 10, 0);
+        var an7 = new Animal(null, null, 10, 0);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -68,10 +68,10 @@ public class MapFieldTest {
     @Test
     public void doEatingTest2() {
 
-        var an1 = new Animal(null, null, 10);
-        var an2 = new Animal(null, null, 7);
-        var an3 = new Animal(null, null, 9);
-        var an4 = new Animal(null, null, 3);
+        var an1 = new Animal(null, null, 10, 0);
+        var an2 = new Animal(null, null, 7, 0);
+        var an3 = new Animal(null, null, 9, 0);
+        var an4 = new Animal(null, null, 3, 0);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -96,13 +96,13 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest1() {
 
-        var an1 = new Animal(null, null, 10);
-        var an2 = new Animal(null, null, 7);
-        var an3 = new Animal(null, null, 9);
-        var an4 = new Animal(null, null, 3);
-        var an5 = new Animal(null, null, 5);
-        var an6 = new Animal(null, null, 10);
-        var an7 = new Animal(null, null, 10);
+        var an1 = new Animal(null, null, 10, 0);
+        var an2 = new Animal(null, null, 7, 0);
+        var an3 = new Animal(null, null, 9, 0);
+        var an4 = new Animal(null, null, 3, 0);
+        var an5 = new Animal(null, null, 5, 0);
+        var an6 = new Animal(null, null, 10, 0);
+        var an7 = new Animal(null, null, 10, 0);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -127,13 +127,13 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest2() {
 
-        var an1 = new Animal(null, null, 20);
-        var an2 = new Animal(null, null, 16);
-        var an3 = new Animal(null, null, 16);
-        var an4 = new Animal(null, null, 3);
-        var an5 = new Animal(null, null, 5);
-        var an6 = new Animal(null, null, 10);
-        var an7 = new Animal(null, null, 10);
+        var an1 = new Animal(null, null, 20, 0);
+        var an2 = new Animal(null, null, 16, 0);
+        var an3 = new Animal(null, null, 16, 0);
+        var an4 = new Animal(null, null, 3, 0);
+        var an5 = new Animal(null, null, 5, 0);
+        var an6 = new Animal(null, null, 10, 0);
+        var an7 = new Animal(null, null, 10, 0);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -158,10 +158,10 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest3() {
 
-        var an1 = new Animal(null, null, 20);
-        var an2 = new Animal(null, null, 16);
-        var an3 = new Animal(null, null, 16);
-        var an4 = new Animal(null, null, 3);
+        var an1 = new Animal(null, null, 20, 0);
+        var an2 = new Animal(null, null, 16, 0);
+        var an3 = new Animal(null, null, 16, 0);
+        var an4 = new Animal(null, null, 3, 0);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -181,7 +181,7 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest4() {
 
-        var an1 = new Animal(null, null, 20);
+        var an1 = new Animal(null, null, 20, 0);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -198,8 +198,8 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest5() {
 
-        var an1 = new Animal(null, null, 20);
-        var an2 = new Animal(null, null, 15);
+        var an1 = new Animal(null, null, 20, 0);
+        var an2 = new Animal(null, null, 15, 0);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;

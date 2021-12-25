@@ -14,20 +14,23 @@ public class Animal implements Comparable<Animal> {
     private MoveDirection direction;
     private Vector2d position;
     private final IMap map;
+    private final int moveEnergy;
 
     // create an animal with random genotype
-    public Animal(IMap map, Vector2d position, int startEnergy) {
-        this(map, position, startEnergy, Genotype.createRandomGenotype());
+    public Animal(IMap map, Vector2d position, int startEnergy, int moveEnergy) {
+        this(map, position, startEnergy, moveEnergy, Genotype.createRandomGenotype());
     }
 
     // create an animal with given genotype
-    public Animal(IMap map, Vector2d position, int startEnergy, Genotype genotype) {
+    public Animal(IMap map, Vector2d position,
+            int startEnergy, int moveEnergy, Genotype genotype) {
 
         this.id = animalsCounter++;
         this.map = map;
         this.position = position;
         this.energy = startEnergy;
         this.genotype = genotype;
+        this.moveEnergy = moveEnergy;
 
         setRandomDirection();
     }
@@ -35,7 +38,8 @@ public class Animal implements Comparable<Animal> {
     public static Animal reproduce(Animal animal1, Animal animal2) {
 
         // random direction (in constructor), position is copied from parent
-        Animal newAnimal = new Animal(animal1.map, animal1.position, 0);
+        Animal newAnimal =
+                new Animal(animal1.map, animal1.position, 0, animal1.moveEnergy);
         newAnimal.position = animal1.position;
 
         // genotype is a mix of parents' genotypes
@@ -78,6 +82,7 @@ public class Animal implements Comparable<Animal> {
             position = map.updatePosition(this, position, direction);
         }
 
+        energy -= moveEnergy;
     }
 
     @Override

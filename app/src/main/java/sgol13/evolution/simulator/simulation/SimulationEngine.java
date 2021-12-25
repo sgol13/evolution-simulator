@@ -28,6 +28,7 @@ public class SimulationEngine {
 
     private void simulateDay() {
 
+        removeDead();
         simulateMoving();
         simulateEating();
         simulateReproducing();
@@ -42,6 +43,21 @@ public class SimulationEngine {
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    private void removeDead() {
+
+        var it = animals.iterator();
+        while (it.hasNext()) {
+
+            var animal = it.next();
+
+            // check if the animal is dead
+            if (animal.getEnergy() <= 0) {
+                map.removeAnimal(animal);
+                it.remove();
+            }
         }
     }
 
@@ -65,7 +81,7 @@ public class SimulationEngine {
 
             var newAnimal = field.doReproducing();
             if (newAnimal != null) {
-                map.place(newAnimal);
+                map.placeAnimal(newAnimal);
                 animals.add(newAnimal);
             }
         }

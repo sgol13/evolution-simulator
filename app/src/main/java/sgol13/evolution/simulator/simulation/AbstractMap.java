@@ -45,7 +45,7 @@ public abstract class AbstractMap implements IMap {
             Vector2d position, MoveDirection direction);
 
     @Override
-    public boolean place(Animal animal) {
+    public boolean placeAnimal(Animal animal) {
         return fields.get(animal.getPosition()).addAnimal(animal);
     }
 
@@ -72,12 +72,18 @@ public abstract class AbstractMap implements IMap {
         var newAnimals = new LinkedList<Animal>();
         for (var position : newPositions) {
 
-            var newAnimal = new Animal(this, position, config.startEnergy);
-            place(newAnimal);
+            var newAnimal = new Animal(this, position,
+                    config.startEnergy, config.moveEnergy);
+            placeAnimal(newAnimal);
             newAnimals.add(newAnimal);
         }
 
         return newAnimals;
+    }
+
+    @Override
+    public boolean removeAnimal(Animal animal) {
+        return fields.get(animal.getPosition()).removeAnimal(animal);
     }
 
     @Override

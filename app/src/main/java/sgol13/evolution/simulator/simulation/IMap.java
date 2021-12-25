@@ -7,9 +7,11 @@ public interface IMap {
 
     Vector2d updatePosition(Animal animal, Vector2d position, MoveDirection direction);
 
-    boolean place(Animal animal);
+    boolean placeAnimal(Animal animal);
 
     LinkedList<Animal> placeRandomAnimals(int animalsNum);
+
+    boolean removeAnimal(Animal animal);
 
     MapField getField(Vector2d position);
 
