@@ -2,18 +2,21 @@ package sgol13.evolution.simulator.simulation;
 
 import java.util.Random;
 
-public class Animal {
+public class Animal implements Comparable<Animal> {
 
     private static final Random randomGenerator = new Random();
+    private static int animalsCounter = 0;
 
+    private final int id;
     private Genotype genotype;
     private int energy;
     private MoveDirection direction;
     private Vector2d position;
-    private final IWorldMap map;
+    private final IMap map;
 
-    public Animal(IWorldMap map) {
+    public Animal(IMap map) {
 
+        this.id = animalsCounter++;
         this.map = map;
         setRandomDirection();
     }
@@ -34,6 +37,45 @@ public class Animal {
         return newAnimal;
     }
 
+    public void eat(int addEnergy) {
+        energy += addEnergy;
+    }
+
+    public void move() {
+
+        var relativeDirection = genotype.randomDirection();
+        direction = direction.add(relativeDirection);
+
+        // move only if the direction was FORWARD or BACKWARD
+        if (relativeDirection == MoveDirection.FORWARD ||
+                relativeDirection == MoveDirection.BACKWARD) {
+
+            Vector2d newPosition = position.add(direction.toUnitVector());
+
+            if (map.canMoveTo(newPosition)) {
+
+
+                // move
+                // change position in map
+            }
+
+        }
+
+    }
+
+    @Override
+    public int compareTo(Animal other) {
+
+        if (energy == other.energy) // each id is globally unique
+            return id - other.id;
+
+        return other.energy - energy;
+    }
+
+    public void setPosition(Vector2d position) {
+        this.position = position;
+    }
+
     private void setRandomDirection() {
 
         int randDir = randomGenerator.nextInt(MoveDirection.getValuesNum());
@@ -45,17 +87,4 @@ public class Animal {
         energy -= energy / 4;
         return energy;
     }
-
-    public void move() {
-
-        direction = direction.add(genotype.randomDirection());
-
-    }
-
-    /*     private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        for (var observer : observersList)
-            observer.positionChanged(new Vector2d(oldPosition), new Vector2d(newPosition));
-    }
-     */
-
 }

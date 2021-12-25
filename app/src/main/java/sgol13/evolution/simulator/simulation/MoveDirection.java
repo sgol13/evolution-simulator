@@ -1,7 +1,9 @@
 package sgol13.evolution.simulator.simulation;
 
 public enum MoveDirection {
-    UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT;
+
+    FORWARD, FORWARD_RIGHT, RIGHT, BACKWARD_RIGHT, // 
+    BACKWARD, BACKWARD_LEFT, LEFT, FORWARD_LEFT;
 
     private static final MoveDirection[] values = values();
 
@@ -31,18 +33,18 @@ public enum MoveDirection {
 
     public Vector2d toUnitVector() {
         return switch (this) {
-        case UP -> new Vector2d(0, 1);
-        case UP_RIGHT -> new Vector2d(1, 1);
+        case FORWARD -> new Vector2d(0, 1);
+        case FORWARD_RIGHT -> new Vector2d(1, 1);
         case RIGHT -> new Vector2d(1, 0);
-        case DOWN_RIGHT -> new Vector2d(1, -1);
-        case DOWN -> new Vector2d(0, -1);
-        case DOWN_LEFT -> new Vector2d(-1, -1);
+        case BACKWARD_RIGHT -> new Vector2d(1, -1);
+        case BACKWARD -> new Vector2d(0, -1);
+        case BACKWARD_LEFT -> new Vector2d(-1, -1);
         case LEFT -> new Vector2d(-1, 0);
-        case UP_LEFT -> new Vector2d(-1, 1);
+        case FORWARD_LEFT -> new Vector2d(-1, 1);
         };
     }
 
-    public static int getValuesNum(){
+    public static int getValuesNum() {
         return values.length;
     }
 }
