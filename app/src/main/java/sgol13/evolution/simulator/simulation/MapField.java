@@ -15,25 +15,12 @@ public class MapField implements Comparable<MapField> {
     private final SimulationConfig config;
     private final Vector2d position;
     private final SortedSet<Animal> animals = new TreeSet<Animal>();
-    private final SortedSet<MapField> emptyFields;
-    private final SortedSet<MapField> fieldsWithoutAnimals;
-    private final SortedSet<MapField> fieldsContainingAnimals;
     private boolean isGrassed = false;
 
-    public MapField(Vector2d position,
-            SortedSet<MapField> emptyFields,
-            SortedSet<MapField> fieldsWithoutAnimals,
-            SortedSet<MapField> fieldsContainingAnimals,
-            SimulationConfig config) {
+    public MapField(Vector2d position, SimulationConfig config) {
 
         this.position = position;
-        this.emptyFields = emptyFields;
-        this.fieldsWithoutAnimals = fieldsWithoutAnimals;
-        this.fieldsContainingAnimals = fieldsContainingAnimals;
         this.config = config;
-
-        emptyFields.add(this);
-        fieldsWithoutAnimals.add(this);
     }
 
     @Override
@@ -46,38 +33,17 @@ public class MapField implements Comparable<MapField> {
     }
 
     public boolean addAnimal(Animal animal) {
-
-        boolean result = animals.add(animal);
-        if (result && animals.size() == 1) {
-
-            if (!isGrassed)
-                emptyFields.remove(this);
-
-            fieldsWithoutAnimals.remove(this);
-            fieldsContainingAnimals.add(this);
-        }
-        return result;
+        return animals.add(animal);
     }
 
     public boolean removeAnimal(Animal animal) {
-
-        boolean result = animals.remove(animal);
-        if (result && animals.isEmpty()) {
-
-            if (!isGrassed)
-                emptyFields.add(this);
-
-            fieldsWithoutAnimals.add(this);
-            fieldsContainingAnimals.remove(this);
-        }
-        return result;
+        return animals.remove(animal);
     }
 
     public boolean addGrass() {
 
         if (animals.isEmpty() && !isGrassed) {
             isGrassed = true;
-            emptyFields.remove(this);
             return true;
         }
         return false;
@@ -85,6 +51,10 @@ public class MapField implements Comparable<MapField> {
 
     public boolean isGrassed() {
         return isGrassed;
+    }
+
+    public boolean isEmpty() {
+        return animals.isEmpty();
     }
 
     public boolean doEating() {

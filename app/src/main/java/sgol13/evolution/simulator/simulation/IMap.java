@@ -1,5 +1,7 @@
 package sgol13.evolution.simulator.simulation;
 
+import java.util.Collection;
+import java.util.LinkedList;
 
 public interface IMap {
 
@@ -7,9 +9,11 @@ public interface IMap {
 
     boolean place(Animal animal);
 
-    Animal placeRandomAnimal();
+    LinkedList<Animal> placeRandomAnimals(int animalsNum);
 
     MapField getField(Vector2d position);
 
     MapSnapshot getSnapshot();
+
+    Collection<MapField> getAllFields();
 }

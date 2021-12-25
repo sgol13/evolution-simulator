@@ -17,6 +17,8 @@ public class App {
         config.initialAnimals = 5;
         config.initialGrass = 4;
 
+        config.startEnergy = 200;
+
         var engine = new SimulationEngine(config, new BoundedMap(config));
         engine.run();
     }

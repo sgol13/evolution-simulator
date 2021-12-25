@@ -2,7 +2,7 @@ package sgol13.evolution.simulator.simulation;
 
 import java.util.Objects;
 
-public class Vector2d {
+public class Vector2d implements Comparable<Vector2d> {
     public final int x, y;
 
     public Vector2d(Vector2d other) {
@@ -70,6 +70,14 @@ public class Vector2d {
             return false;
         Vector2d other_vector = (Vector2d) other;
         return x == other_vector.x && y == other_vector.y;
+    }
+
+    @Override
+    public int compareTo(Vector2d other) {
+
+        if (x != other.x)
+            return other.x - x;
+        return other.y - y;
     }
 
     public Vector2d opposite() {

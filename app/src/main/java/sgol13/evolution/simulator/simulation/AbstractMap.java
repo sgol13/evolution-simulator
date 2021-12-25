@@ -1,23 +1,24 @@
 package sgol13.evolution.simulator.simulation;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.function.Consumer;
 import sgol13.evolution.simulator.SimulationConfig;
 
 public abstract class AbstractMap implements IMap {
 
     private final SimulationConfig config;
     private final Random randomGenerator = new Random();
-    private final SortedSet<MapField> jungleEmptyFields = new TreeSet<MapField>();
-    // private final Set<MapField> steppeEmptyFields = new HashSet<MapField>();
-    private final SortedSet<MapField> fieldsWithoutAnimals = new TreeSet<MapField>();
-    private final SortedSet<MapField> fieldsContainingAnimals = new TreeSet<MapField>();
     protected final Vector2d mapSize;
 
-    protected final Map<Vector2d, MapField> fields = new HashMap<Vector2d, MapField>();
+    protected final LinkedHashMap<Vector2d, MapField> fields =
+            new LinkedHashMap<Vector2d, MapField>();
 
     public AbstractMap(SimulationConfig config) {
 
@@ -32,9 +33,7 @@ public abstract class AbstractMap implements IMap {
         for (int x = 0; x < mapSize.x; x++) {
             for (int y = 0; y < mapSize.y; y++) {
 
-                var newField = new MapField(new Vector2d(x, y),
-                        jungleEmptyFields, fieldsWithoutAnimals,
-                        fieldsContainingAnimals, config);
+                var newField = new MapField(new Vector2d(x, y), config);
 
                 fields.put(new Vector2d(x, y), newField);
             }
@@ -51,11 +50,34 @@ public abstract class AbstractMap implements IMap {
     }
 
     @Override
-    public Animal placeRandomAnimal() {
+    public LinkedList<Animal> placeRandomAnimals(int animalsNum) {
 
+        // get all empty positions on the map
+        var emptyPositions = new ArrayList<Vector2d>();
+        for (int x = 0; x < mapSize.x; x++) {
+            for (int y = 0; y < mapSize.y; y++) {
+                var position = new Vector2d(x, y);
+                if (fields.get(position).isEmpty())
+                    emptyPositions.add(position);
+            }
+        }
 
-        //  var newAnimal = new Animal(map, position, config.start)
-        return null;
+        // randomly select animalsNum empty positions (if there are enough)
+        animalsNum = Math.min(animalsNum, emptyPositions.size());
+
+        Collections.shuffle(emptyPositions);
+        var newPositions = emptyPositions.subList(0, animalsNum);
+
+        // place an animal on every selected empty position
+        var newAnimals = new LinkedList<Animal>();
+        for (var position : newPositions) {
+
+            var newAnimal = new Animal(this, position, config.startEnergy);
+            place(newAnimal);
+            newAnimals.add(newAnimal);
+        }
+
+        return newAnimals;
     }
 
     @Override
@@ -87,5 +109,10 @@ public abstract class AbstractMap implements IMap {
         }
 
         return snapshot;
+    }
+
+    @Override
+    public Collection<MapField> getAllFields() {
+        return fields.values();
     }
 }

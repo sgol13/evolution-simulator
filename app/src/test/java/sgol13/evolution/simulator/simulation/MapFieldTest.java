@@ -12,63 +12,25 @@ public class MapFieldTest {
     @Test
     public void addRemoveTest() {
 
-        var emptyFields = new TreeSet<MapField>();
-        var fieldsWithoutAnimals = new TreeSet<MapField>();
-        var fieldsContainingAnimals = new TreeSet<MapField>();
-
         var an1 = new Animal(null, null, 0);
         var an2 = new Animal(null, null, 0);
         var an3 = new Animal(null, null, 0);
 
-        var field = new MapField(new Vector2d(0, 0), emptyFields,
-                fieldsWithoutAnimals, fieldsContainingAnimals, null);
-
-        assertTrue(emptyFields.size() == 1);
-        assertTrue(fieldsWithoutAnimals.size() == 1);
-        assertTrue(fieldsContainingAnimals.size() == 0);
+        var field = new MapField(new Vector2d(0, 0), null);
 
         assertTrue(field.addAnimal(an1));
-
-        assertTrue(emptyFields.size() == 0);
-        assertTrue(fieldsWithoutAnimals.size() == 0);
-        assertTrue(fieldsContainingAnimals.size() == 1);
-
         assertTrue(field.addAnimal(an2));
         assertTrue(field.addAnimal(an3));
-
-        assertTrue(emptyFields.size() == 0);
-        assertTrue(fieldsWithoutAnimals.size() == 0);
-        assertTrue(fieldsContainingAnimals.size() == 1);
-
         assertTrue(field.removeAnimal(an2));
         assertFalse(field.addGrass());
-
-        assertTrue(emptyFields.size() == 0);
-        assertTrue(fieldsWithoutAnimals.size() == 0);
-        assertTrue(fieldsContainingAnimals.size() == 1);
-
         assertTrue(field.removeAnimal(an1));
         assertTrue(field.removeAnimal(an3));
-
         assertFalse(field.removeAnimal(an2));
-
-        assertTrue(emptyFields.size() == 1);
-        assertTrue(fieldsWithoutAnimals.size() == 1);
-        assertTrue(fieldsContainingAnimals.size() == 0);
-
         assertTrue(field.addGrass());
-
-        assertTrue(emptyFields.size() == 0);
-        assertTrue(fieldsWithoutAnimals.size() == 1);
-        assertTrue(fieldsContainingAnimals.size() == 0);
     }
 
     @Test
     public void doEatingTest1() {
-
-        var emptyFields = new TreeSet<MapField>();
-        var fieldsWithoutAnimals = new TreeSet<MapField>();
-        var fieldsContainingAnimals = new TreeSet<MapField>();
 
         var an1 = new Animal(null, null, 10);
         var an2 = new Animal(null, null, 7);
@@ -81,8 +43,7 @@ public class MapFieldTest {
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
 
-        var field = new MapField(new Vector2d(0, 0), emptyFields,
-                fieldsWithoutAnimals, fieldsContainingAnimals, config);
+        var field = new MapField(new Vector2d(0, 0), config);
         field.addGrass();
 
         field.addAnimal(an1);
@@ -107,10 +68,6 @@ public class MapFieldTest {
     @Test
     public void doEatingTest2() {
 
-        var emptyFields = new TreeSet<MapField>();
-        var fieldsWithoutAnimals = new TreeSet<MapField>();
-        var fieldsContainingAnimals = new TreeSet<MapField>();
-
         var an1 = new Animal(null, null, 10);
         var an2 = new Animal(null, null, 7);
         var an3 = new Animal(null, null, 9);
@@ -119,8 +76,7 @@ public class MapFieldTest {
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
 
-        var field = new MapField(new Vector2d(0, 0), emptyFields,
-                fieldsWithoutAnimals, fieldsContainingAnimals, config);
+        var field = new MapField(new Vector2d(0, 0), config);
         field.addGrass();
 
         field.addAnimal(an1);
@@ -140,10 +96,6 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest1() {
 
-        var emptyFields = new TreeSet<MapField>();
-        var fieldsWithoutAnimals = new TreeSet<MapField>();
-        var fieldsContainingAnimals = new TreeSet<MapField>();
-
         var an1 = new Animal(null, null, 10);
         var an2 = new Animal(null, null, 7);
         var an3 = new Animal(null, null, 9);
@@ -156,8 +108,7 @@ public class MapFieldTest {
         config.plantEnergy = 10;
         config.startEnergy = 8;
 
-        var field = new MapField(new Vector2d(0, 0), emptyFields,
-                fieldsWithoutAnimals, fieldsContainingAnimals, config);
+        var field = new MapField(new Vector2d(0, 0), config);
 
         field.addAnimal(an1);
         field.addAnimal(an2);
@@ -176,10 +127,6 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest2() {
 
-        var emptyFields = new TreeSet<MapField>();
-        var fieldsWithoutAnimals = new TreeSet<MapField>();
-        var fieldsContainingAnimals = new TreeSet<MapField>();
-
         var an1 = new Animal(null, null, 20);
         var an2 = new Animal(null, null, 16);
         var an3 = new Animal(null, null, 16);
@@ -192,8 +139,7 @@ public class MapFieldTest {
         config.plantEnergy = 10;
         config.startEnergy = 8;
 
-        var field = new MapField(new Vector2d(0, 0), emptyFields,
-                fieldsWithoutAnimals, fieldsContainingAnimals, config);
+        var field = new MapField(new Vector2d(0, 0), config);
 
         field.addAnimal(an1);
         field.addAnimal(an2);
@@ -212,10 +158,6 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest3() {
 
-        var emptyFields = new TreeSet<MapField>();
-        var fieldsWithoutAnimals = new TreeSet<MapField>();
-        var fieldsContainingAnimals = new TreeSet<MapField>();
-
         var an1 = new Animal(null, null, 20);
         var an2 = new Animal(null, null, 16);
         var an3 = new Animal(null, null, 16);
@@ -225,8 +167,7 @@ public class MapFieldTest {
         config.plantEnergy = 10;
         config.startEnergy = 42;
 
-        var field = new MapField(new Vector2d(0, 0), emptyFields,
-                fieldsWithoutAnimals, fieldsContainingAnimals, config);
+        var field = new MapField(new Vector2d(0, 0), config);
 
         field.addAnimal(an1);
         field.addAnimal(an2);
@@ -240,18 +181,13 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest4() {
 
-        var emptyFields = new TreeSet<MapField>();
-        var fieldsWithoutAnimals = new TreeSet<MapField>();
-        var fieldsContainingAnimals = new TreeSet<MapField>();
-
         var an1 = new Animal(null, null, 20);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
         config.startEnergy = 13;
 
-        var field = new MapField(new Vector2d(0, 0), emptyFields,
-                fieldsWithoutAnimals, fieldsContainingAnimals, config);
+        var field = new MapField(new Vector2d(0, 0), config);
 
         field.addAnimal(an1);
 
@@ -262,10 +198,6 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest5() {
 
-        var emptyFields = new TreeSet<MapField>();
-        var fieldsWithoutAnimals = new TreeSet<MapField>();
-        var fieldsContainingAnimals = new TreeSet<MapField>();
-
         var an1 = new Animal(null, null, 20);
         var an2 = new Animal(null, null, 15);
 
@@ -273,8 +205,7 @@ public class MapFieldTest {
         config.plantEnergy = 10;
         config.startEnergy = 10;
 
-        var field = new MapField(new Vector2d(0, 0), emptyFields,
-                fieldsWithoutAnimals, fieldsContainingAnimals, config);
+        var field = new MapField(new Vector2d(0, 0), config);
 
         field.addAnimal(an1);
         field.addAnimal(an2);
