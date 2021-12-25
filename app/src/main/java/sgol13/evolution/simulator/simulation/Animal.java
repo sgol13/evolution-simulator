@@ -1,7 +1,7 @@
 package sgol13.evolution.simulator.simulation;
 
 import java.util.Random;
-import org.checkerframework.framework.qual.PostconditionAnnotation;
+import static java.lang.System.out;
 
 public class Animal implements Comparable<Animal> {
 
@@ -16,15 +16,16 @@ public class Animal implements Comparable<Animal> {
     private final IMap map;
 
     // create an animal with random genotype
-    public Animal(IMap map, int startEnergy) {
-        this(map, startEnergy, Genotype.createRandomGenotype());
+    public Animal(IMap map, Vector2d position, int startEnergy) {
+        this(map, position, startEnergy, Genotype.createRandomGenotype());
     }
 
     // create an animal with given genotype
-    public Animal(IMap map, int startEnergy, Genotype genotype) {
+    public Animal(IMap map, Vector2d position, int startEnergy, Genotype genotype) {
 
         this.id = animalsCounter++;
         this.map = map;
+        this.position = position;
         this.energy = startEnergy;
         this.genotype = genotype;
 
@@ -34,7 +35,7 @@ public class Animal implements Comparable<Animal> {
     public static Animal reproduce(Animal animal1, Animal animal2) {
 
         // random direction (in constructor), position is copied from parent
-        Animal newAnimal = new Animal(animal1.map, 0);
+        Animal newAnimal = new Animal(animal1.map, animal1.position, 0);
         newAnimal.position = animal1.position;
 
         // genotype is a mix of parents' genotypes
@@ -59,16 +60,20 @@ public class Animal implements Comparable<Animal> {
         return id;
     }
 
+    public Vector2d getPosition() {
+        return position;
+    }
+
     public void move() {
 
         var relativeDirection = genotype.randomDirection();
         direction = direction.add(relativeDirection);
+        // out.println("     " + relativeDirection);
+        // out.println(direction);
 
         // move only if the direction was FORWARD or BACKWARD
         if (relativeDirection == MoveDirection.FORWARD ||
                 relativeDirection == MoveDirection.BACKWARD) {
-
-            // Vector2d newPosition = position.add(direction.toUnitVector());
 
             position = map.updatePosition(this, position, direction);
         }

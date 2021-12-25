@@ -158,7 +158,7 @@ public class MapField {
         return newAnimal;
     }
 
-    /*     public Animal[] getAnimals() {
+    public Animal[] getAnimals() {
         return animals.toArray(new Animal[0]);
-    } */
+    }
 }

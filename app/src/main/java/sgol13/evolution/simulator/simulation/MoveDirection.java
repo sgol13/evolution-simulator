@@ -16,7 +16,7 @@ public enum MoveDirection {
     }
 
     public MoveDirection add(MoveDirection other) {
-        return nextRepeat(ordinal());
+        return nextRepeat(other.ordinal());
     }
 
     public MoveDirection next() {

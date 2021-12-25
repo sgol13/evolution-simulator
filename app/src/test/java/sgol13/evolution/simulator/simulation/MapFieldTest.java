@@ -16,9 +16,9 @@ public class MapFieldTest {
         var fieldsWithoutAnimals = new HashSet<MapField>();
         var fieldsContainingAnimals = new HashSet<MapField>();
 
-        var an1 = new Animal(null, 0);
-        var an2 = new Animal(null, 0);
-        var an3 = new Animal(null, 0);
+        var an1 = new Animal(null, null, 0);
+        var an2 = new Animal(null, null, 0);
+        var an3 = new Animal(null, null, 0);
 
         var field = new MapField(emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, null);
@@ -70,13 +70,13 @@ public class MapFieldTest {
         var fieldsWithoutAnimals = new HashSet<MapField>();
         var fieldsContainingAnimals = new HashSet<MapField>();
 
-        var an1 = new Animal(null, 10);
-        var an2 = new Animal(null, 7);
-        var an3 = new Animal(null, 9);
-        var an4 = new Animal(null, 3);
-        var an5 = new Animal(null, 5);
-        var an6 = new Animal(null, 10);
-        var an7 = new Animal(null, 10);
+        var an1 = new Animal(null, null, 10);
+        var an2 = new Animal(null, null, 7);
+        var an3 = new Animal(null, null, 9);
+        var an4 = new Animal(null, null, 3);
+        var an5 = new Animal(null, null, 5);
+        var an6 = new Animal(null, null, 10);
+        var an7 = new Animal(null, null, 10);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -111,10 +111,10 @@ public class MapFieldTest {
         var fieldsWithoutAnimals = new HashSet<MapField>();
         var fieldsContainingAnimals = new HashSet<MapField>();
 
-        var an1 = new Animal(null, 10);
-        var an2 = new Animal(null, 7);
-        var an3 = new Animal(null, 9);
-        var an4 = new Animal(null, 3);
+        var an1 = new Animal(null, null, 10);
+        var an2 = new Animal(null, null, 7);
+        var an3 = new Animal(null, null, 9);
+        var an4 = new Animal(null, null, 3);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -144,13 +144,13 @@ public class MapFieldTest {
         var fieldsWithoutAnimals = new HashSet<MapField>();
         var fieldsContainingAnimals = new HashSet<MapField>();
 
-        var an1 = new Animal(null, 10);
-        var an2 = new Animal(null, 7);
-        var an3 = new Animal(null, 9);
-        var an4 = new Animal(null, 3);
-        var an5 = new Animal(null, 5);
-        var an6 = new Animal(null, 10);
-        var an7 = new Animal(null, 10);
+        var an1 = new Animal(null, null, 10);
+        var an2 = new Animal(null, null, 7);
+        var an3 = new Animal(null, null, 9);
+        var an4 = new Animal(null, null, 3);
+        var an5 = new Animal(null, null, 5);
+        var an6 = new Animal(null, null, 10);
+        var an7 = new Animal(null, null, 10);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -180,13 +180,13 @@ public class MapFieldTest {
         var fieldsWithoutAnimals = new HashSet<MapField>();
         var fieldsContainingAnimals = new HashSet<MapField>();
 
-        var an1 = new Animal(null, 20);
-        var an2 = new Animal(null, 16);
-        var an3 = new Animal(null, 16);
-        var an4 = new Animal(null, 3);
-        var an5 = new Animal(null, 5);
-        var an6 = new Animal(null, 10);
-        var an7 = new Animal(null, 10);
+        var an1 = new Animal(null, null, 20);
+        var an2 = new Animal(null, null, 16);
+        var an3 = new Animal(null, null, 16);
+        var an4 = new Animal(null, null, 3);
+        var an5 = new Animal(null, null, 5);
+        var an6 = new Animal(null, null, 10);
+        var an7 = new Animal(null, null, 10);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -216,10 +216,10 @@ public class MapFieldTest {
         var fieldsWithoutAnimals = new HashSet<MapField>();
         var fieldsContainingAnimals = new HashSet<MapField>();
 
-        var an1 = new Animal(null, 20);
-        var an2 = new Animal(null, 16);
-        var an3 = new Animal(null, 16);
-        var an4 = new Animal(null, 3);
+        var an1 = new Animal(null, null, 20);
+        var an2 = new Animal(null, null, 16);
+        var an3 = new Animal(null, null, 16);
+        var an4 = new Animal(null, null, 3);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -244,7 +244,7 @@ public class MapFieldTest {
         var fieldsWithoutAnimals = new HashSet<MapField>();
         var fieldsContainingAnimals = new HashSet<MapField>();
 
-        var an1 = new Animal(null, 20);
+        var an1 = new Animal(null, null, 20);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
@@ -266,8 +266,8 @@ public class MapFieldTest {
         var fieldsWithoutAnimals = new HashSet<MapField>();
         var fieldsContainingAnimals = new HashSet<MapField>();
 
-        var an1 = new Animal(null, 20);
-        var an2 = new Animal(null, 15);
+        var an1 = new Animal(null, null, 20);
+        var an2 = new Animal(null, null, 15);
 
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;

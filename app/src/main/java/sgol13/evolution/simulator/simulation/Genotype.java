@@ -46,13 +46,14 @@ public class Genotype {
             arraycopy(genotype2.genes, 0, new_genotype.genes, 0, div);
             arraycopy(genotype1.genes, div, new_genotype.genes, div, GENOTYPE_SIZE - div);
         }
+        Arrays.sort(new_genotype.genes);
 
         return new_genotype;
     }
 
     public MoveDirection randomDirection() {
 
-        int gene = genes[randomGenerator.nextInt(GENES_VALUES_NUM)];
+        int gene = genes[randomGenerator.nextInt(GENOTYPE_SIZE)];
         return MoveDirection.toDirection(gene);
     }
 

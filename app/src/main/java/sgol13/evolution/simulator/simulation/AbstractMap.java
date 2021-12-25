@@ -9,7 +9,7 @@ import sgol13.evolution.simulator.SimulationConfig;
 public abstract class AbstractMap implements IMap {
 
     private final Set<MapField> jungleEmptyFields = new HashSet<MapField>();
-    private final Set<MapField> steppeEmptyFields = new HashSet<MapField>();
+    // private final Set<MapField> steppeEmptyFields = new HashSet<MapField>();
     private final Set<MapField> fieldsWithoutAnimals = new HashSet<MapField>();
     private final Set<MapField> fieldsContainingAnimals = new HashSet<MapField>();
     protected final Vector2d mapSize;
@@ -42,11 +42,11 @@ public abstract class AbstractMap implements IMap {
 
     @Override
     public boolean place(Animal animal) {
-        return false;
+        return fields.get(animal.getPosition()).addAnimal(animal);
     }
 
     @Override
     public MapField getField(Vector2d position) {
-        return null;
+        return fields.get(position);
     }
 }
