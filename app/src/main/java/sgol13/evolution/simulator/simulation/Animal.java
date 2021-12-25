@@ -14,11 +14,18 @@ public class Animal implements Comparable<Animal> {
     private Vector2d position;
     private final IMap map;
 
+    // create an animal with random genotype
     public Animal(IMap map, int startEnergy) {
+        this(map, startEnergy, Genotype.createRandomGenotype());
+    }
+
+    // create an animal with given genotype
+    public Animal(IMap map, int startEnergy, Genotype genotype) {
 
         this.id = animalsCounter++;
         this.map = map;
         this.energy = startEnergy;
+        this.genotype = genotype;
 
         setRandomDirection();
     }
@@ -64,11 +71,9 @@ public class Animal implements Comparable<Animal> {
 
             if (map.canMoveTo(newPosition)) {
 
-
-                // move
-                // change position in map
+                map.updatePosition(this, position, newPosition);
+                position = newPosition;
             }
-
         }
 
     }
@@ -94,7 +99,8 @@ public class Animal implements Comparable<Animal> {
 
     private int giveEnergyForChild() {
 
-        energy -= energy / 4;
-        return energy;
+        int energyForChild = energy / 4;
+        energy -= energyForChild;
+        return energyForChild;
     }
 }
