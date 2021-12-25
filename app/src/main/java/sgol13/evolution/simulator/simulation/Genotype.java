@@ -50,6 +50,12 @@ public class Genotype {
         return new_genotype;
     }
 
+    public MoveDirection randomDirection() {
+
+        int gene = genes[randomGenerator.nextInt(GENES_VALUES_NUM)];
+        return MoveDirection.toDirection(gene);
+    }
+
     public String toString() {
         return Arrays.toString(genes).replace(",", "");
     }

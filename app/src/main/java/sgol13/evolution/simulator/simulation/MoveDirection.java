@@ -5,6 +5,10 @@ public enum MoveDirection {
 
     private static final MoveDirection[] values = values();
 
+    public static MoveDirection toDirection(int n) {
+        return values[n % values.length];
+    }
+
     public String toString() {
         return String.valueOf(ordinal());
     }
