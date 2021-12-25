@@ -2,7 +2,7 @@ package sgol13.evolution.simulator.simulation;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import java.util.HashSet;
+import java.util.TreeSet;
 import org.junit.Test;
 import sgol13.evolution.simulator.SimulationConfig;
 import static java.lang.System.out;
@@ -12,15 +12,15 @@ public class MapFieldTest {
     @Test
     public void addRemoveTest() {
 
-        var emptyFields = new HashSet<MapField>();
-        var fieldsWithoutAnimals = new HashSet<MapField>();
-        var fieldsContainingAnimals = new HashSet<MapField>();
+        var emptyFields = new TreeSet<MapField>();
+        var fieldsWithoutAnimals = new TreeSet<MapField>();
+        var fieldsContainingAnimals = new TreeSet<MapField>();
 
         var an1 = new Animal(null, null, 0);
         var an2 = new Animal(null, null, 0);
         var an3 = new Animal(null, null, 0);
 
-        var field = new MapField(emptyFields,
+        var field = new MapField(new Vector2d(0, 0), emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, null);
 
         assertTrue(emptyFields.size() == 1);
@@ -66,9 +66,9 @@ public class MapFieldTest {
     @Test
     public void doEatingTest1() {
 
-        var emptyFields = new HashSet<MapField>();
-        var fieldsWithoutAnimals = new HashSet<MapField>();
-        var fieldsContainingAnimals = new HashSet<MapField>();
+        var emptyFields = new TreeSet<MapField>();
+        var fieldsWithoutAnimals = new TreeSet<MapField>();
+        var fieldsContainingAnimals = new TreeSet<MapField>();
 
         var an1 = new Animal(null, null, 10);
         var an2 = new Animal(null, null, 7);
@@ -81,7 +81,7 @@ public class MapFieldTest {
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
 
-        var field = new MapField(emptyFields,
+        var field = new MapField(new Vector2d(0, 0), emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, config);
         field.addGrass();
 
@@ -107,9 +107,9 @@ public class MapFieldTest {
     @Test
     public void doEatingTest2() {
 
-        var emptyFields = new HashSet<MapField>();
-        var fieldsWithoutAnimals = new HashSet<MapField>();
-        var fieldsContainingAnimals = new HashSet<MapField>();
+        var emptyFields = new TreeSet<MapField>();
+        var fieldsWithoutAnimals = new TreeSet<MapField>();
+        var fieldsContainingAnimals = new TreeSet<MapField>();
 
         var an1 = new Animal(null, null, 10);
         var an2 = new Animal(null, null, 7);
@@ -119,7 +119,7 @@ public class MapFieldTest {
         SimulationConfig config = new SimulationConfig();
         config.plantEnergy = 10;
 
-        var field = new MapField(emptyFields,
+        var field = new MapField(new Vector2d(0, 0), emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, config);
         field.addGrass();
 
@@ -140,9 +140,9 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest1() {
 
-        var emptyFields = new HashSet<MapField>();
-        var fieldsWithoutAnimals = new HashSet<MapField>();
-        var fieldsContainingAnimals = new HashSet<MapField>();
+        var emptyFields = new TreeSet<MapField>();
+        var fieldsWithoutAnimals = new TreeSet<MapField>();
+        var fieldsContainingAnimals = new TreeSet<MapField>();
 
         var an1 = new Animal(null, null, 10);
         var an2 = new Animal(null, null, 7);
@@ -156,7 +156,7 @@ public class MapFieldTest {
         config.plantEnergy = 10;
         config.startEnergy = 8;
 
-        var field = new MapField(emptyFields,
+        var field = new MapField(new Vector2d(0, 0), emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, config);
 
         field.addAnimal(an1);
@@ -176,9 +176,9 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest2() {
 
-        var emptyFields = new HashSet<MapField>();
-        var fieldsWithoutAnimals = new HashSet<MapField>();
-        var fieldsContainingAnimals = new HashSet<MapField>();
+        var emptyFields = new TreeSet<MapField>();
+        var fieldsWithoutAnimals = new TreeSet<MapField>();
+        var fieldsContainingAnimals = new TreeSet<MapField>();
 
         var an1 = new Animal(null, null, 20);
         var an2 = new Animal(null, null, 16);
@@ -192,7 +192,7 @@ public class MapFieldTest {
         config.plantEnergy = 10;
         config.startEnergy = 8;
 
-        var field = new MapField(emptyFields,
+        var field = new MapField(new Vector2d(0, 0), emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, config);
 
         field.addAnimal(an1);
@@ -212,9 +212,9 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest3() {
 
-        var emptyFields = new HashSet<MapField>();
-        var fieldsWithoutAnimals = new HashSet<MapField>();
-        var fieldsContainingAnimals = new HashSet<MapField>();
+        var emptyFields = new TreeSet<MapField>();
+        var fieldsWithoutAnimals = new TreeSet<MapField>();
+        var fieldsContainingAnimals = new TreeSet<MapField>();
 
         var an1 = new Animal(null, null, 20);
         var an2 = new Animal(null, null, 16);
@@ -225,7 +225,7 @@ public class MapFieldTest {
         config.plantEnergy = 10;
         config.startEnergy = 42;
 
-        var field = new MapField(emptyFields,
+        var field = new MapField(new Vector2d(0, 0), emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, config);
 
         field.addAnimal(an1);
@@ -240,9 +240,9 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest4() {
 
-        var emptyFields = new HashSet<MapField>();
-        var fieldsWithoutAnimals = new HashSet<MapField>();
-        var fieldsContainingAnimals = new HashSet<MapField>();
+        var emptyFields = new TreeSet<MapField>();
+        var fieldsWithoutAnimals = new TreeSet<MapField>();
+        var fieldsContainingAnimals = new TreeSet<MapField>();
 
         var an1 = new Animal(null, null, 20);
 
@@ -250,7 +250,7 @@ public class MapFieldTest {
         config.plantEnergy = 10;
         config.startEnergy = 13;
 
-        var field = new MapField(emptyFields,
+        var field = new MapField(new Vector2d(0, 0), emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, config);
 
         field.addAnimal(an1);
@@ -262,9 +262,9 @@ public class MapFieldTest {
     @Test
     public void doReproducingTest5() {
 
-        var emptyFields = new HashSet<MapField>();
-        var fieldsWithoutAnimals = new HashSet<MapField>();
-        var fieldsContainingAnimals = new HashSet<MapField>();
+        var emptyFields = new TreeSet<MapField>();
+        var fieldsWithoutAnimals = new TreeSet<MapField>();
+        var fieldsContainingAnimals = new TreeSet<MapField>();
 
         var an1 = new Animal(null, null, 20);
         var an2 = new Animal(null, null, 15);
@@ -273,7 +273,7 @@ public class MapFieldTest {
         config.plantEnergy = 10;
         config.startEnergy = 10;
 
-        var field = new MapField(emptyFields,
+        var field = new MapField(new Vector2d(0, 0), emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, config);
 
         field.addAnimal(an1);

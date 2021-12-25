@@ -1,6 +1,5 @@
 package sgol13.evolution.simulator.simulation;
 
-import sgol13.evolution.simulator.SimulationConfig;
 
 public interface IMap {
 
@@ -8,5 +7,9 @@ public interface IMap {
 
     boolean place(Animal animal);
 
+    Animal placeRandomAnimal();
+
     MapField getField(Vector2d position);
+
+    MapSnapshot getSnapshot();
 }

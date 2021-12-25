@@ -14,6 +14,8 @@ public class App {
         SimulationConfig config = new SimulationConfig();
         config.mapWidth = 8;
         config.mapHeight = 5;
+        config.initialAnimals = 5;
+        config.initialGrass = 4;
 
         var engine = new SimulationEngine(config, new BoundedMap(config));
         engine.run();

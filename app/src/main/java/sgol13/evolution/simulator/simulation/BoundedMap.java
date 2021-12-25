@@ -4,8 +4,8 @@ import sgol13.evolution.simulator.SimulationConfig;
 
 public class BoundedMap extends AbstractMap {
 
-    public BoundedMap(SimulationConfig configuration) {
-        super(configuration);
+    public BoundedMap(SimulationConfig config) {
+        super(config);
     }
 
     @Override

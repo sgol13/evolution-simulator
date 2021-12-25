@@ -8,29 +8,41 @@ import java.util.TreeSet;
 import sgol13.evolution.simulator.SimulationConfig;
 import static java.lang.System.out;
 
-public class MapField {
+public class MapField implements Comparable<MapField> {
 
     private static final Random randomGenerator = new Random();
 
-    private final SimulationConfig configuration;
+    private final SimulationConfig config;
+    private final Vector2d position;
     private final SortedSet<Animal> animals = new TreeSet<Animal>();
-    private final Set<MapField> emptyFields;
-    private final Set<MapField> fieldsWithoutAnimals;
-    private final Set<MapField> fieldsContainingAnimals;
+    private final SortedSet<MapField> emptyFields;
+    private final SortedSet<MapField> fieldsWithoutAnimals;
+    private final SortedSet<MapField> fieldsContainingAnimals;
     private boolean isGrassed = false;
 
-    public MapField(Set<MapField> emptyFields,
-            Set<MapField> fieldsWithoutAnimals,
-            Set<MapField> fieldsContainingAnimals,
-            SimulationConfig configuration) {
+    public MapField(Vector2d position,
+            SortedSet<MapField> emptyFields,
+            SortedSet<MapField> fieldsWithoutAnimals,
+            SortedSet<MapField> fieldsContainingAnimals,
+            SimulationConfig config) {
 
+        this.position = position;
         this.emptyFields = emptyFields;
         this.fieldsWithoutAnimals = fieldsWithoutAnimals;
         this.fieldsContainingAnimals = fieldsContainingAnimals;
-        this.configuration = configuration;
+        this.config = config;
 
         emptyFields.add(this);
         fieldsWithoutAnimals.add(this);
+    }
+
+    @Override
+    public int compareTo(MapField other) {
+
+        if (position.x != other.position.x)
+            return position.x - other.position.x;
+
+        return position.y - other.position.y;
     }
 
     public boolean addAnimal(Animal animal) {
@@ -71,6 +83,10 @@ public class MapField {
         return false;
     }
 
+    public boolean isGrassed() {
+        return isGrassed;
+    }
+
     public boolean doEating() {
 
         if (animals.isEmpty() || !isGrassed)
@@ -92,7 +108,7 @@ public class MapField {
         }
 
         // divide plant energy equally among all animals with max energy
-        int energyForEach = configuration.plantEnergy / eatingAnimals.size();
+        int energyForEach = config.plantEnergy / eatingAnimals.size();
         eatingAnimals.forEach(animal -> animal.eat(energyForEach));
 
         isGrassed = false;
@@ -152,13 +168,13 @@ public class MapField {
         // reproduce on condition that the energy level is sufficient
         // (at least 50% of the startEnergy)
         Animal newAnimal = null;
-        if (2 * animal2.getEnergy() >= configuration.startEnergy)
+        if (2 * animal2.getEnergy() >= config.startEnergy)
             newAnimal = Animal.reproduce(animal1, animal2);
 
         return newAnimal;
     }
 
-    public Animal[] getAnimals() {
+    public Animal[] getAnimalsGroup() {
         return animals.toArray(new Animal[0]);
     }
 }

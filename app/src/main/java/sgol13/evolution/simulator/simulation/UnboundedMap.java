@@ -4,8 +4,8 @@ import sgol13.evolution.simulator.SimulationConfig;
 
 public class UnboundedMap extends AbstractMap {
 
-    public UnboundedMap(SimulationConfig configuration) {
-        super(configuration);
+    public UnboundedMap(SimulationConfig config) {
+        super(config);
     }
 
     @Override
