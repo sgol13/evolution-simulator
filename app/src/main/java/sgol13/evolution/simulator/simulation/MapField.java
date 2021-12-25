@@ -71,10 +71,10 @@ public class MapField {
         return false;
     }
 
-    public void doEating() {
+    public boolean doEating() {
 
-        if (animals.isEmpty())
-            return;
+        if (animals.isEmpty() || !isGrassed)
+            return false;
 
         // get the list of animals with max energy
         var eatingAnimals = new LinkedList<Animal>();
@@ -94,6 +94,9 @@ public class MapField {
         // divide plant energy equally among all animals with max energy
         int energyForEach = configuration.plantEnergy / eatingAnimals.size();
         eatingAnimals.forEach(animal -> animal.eat(energyForEach));
+
+        isGrassed = false;
+        return true;
     }
 
     // returns an animal that was born (null if the animals didn't reproduce)
@@ -155,7 +158,7 @@ public class MapField {
         return newAnimal;
     }
 
-    public Animal[] getAnimals() {
+    /*     public Animal[] getAnimals() {
         return animals.toArray(new Animal[0]);
-    }
+    } */
 }

@@ -1,6 +1,7 @@
 package sgol13.evolution.simulator.simulation;
 
 import java.util.Random;
+import org.checkerframework.framework.qual.PostconditionAnnotation;
 
 public class Animal implements Comparable<Animal> {
 
@@ -67,13 +68,9 @@ public class Animal implements Comparable<Animal> {
         if (relativeDirection == MoveDirection.FORWARD ||
                 relativeDirection == MoveDirection.BACKWARD) {
 
-            Vector2d newPosition = position.add(direction.toUnitVector());
+            // Vector2d newPosition = position.add(direction.toUnitVector());
 
-            if (map.canMoveTo(newPosition)) {
-
-                map.updatePosition(this, position, newPosition);
-                position = newPosition;
-            }
+            position = map.updatePosition(this, position, direction);
         }
 
     }

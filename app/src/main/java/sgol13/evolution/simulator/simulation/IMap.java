@@ -3,9 +3,7 @@ package sgol13.evolution.simulator.simulation;
 
 public interface IMap {
 
-    boolean canMoveTo(Vector2d position);
-
-    void updatePosition(Animal animal, Vector2d oldPosition, Vector2d newPosition);
+    Vector2d updatePosition(Animal animal, Vector2d position, MoveDirection direction);
 
     boolean place(Animal animal);
 

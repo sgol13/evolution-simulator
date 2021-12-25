@@ -83,6 +83,7 @@ public class MapFieldTest {
 
         var field = new MapField(emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, config);
+        field.addGrass();
 
         field.addAnimal(an1);
         field.addAnimal(an2);
@@ -93,16 +94,14 @@ public class MapFieldTest {
         field.addAnimal(an7);
 
         field.doEating();
-        field.doEating();
-        field.doEating();
 
-        assertTrue(an1.getEnergy() == 19);
+        assertTrue(an1.getEnergy() == 13);
         assertTrue(an2.getEnergy() == 7);
         assertTrue(an3.getEnergy() == 9);
         assertTrue(an4.getEnergy() == 3);
         assertTrue(an5.getEnergy() == 5);
-        assertTrue(an6.getEnergy() == 19);
-        assertTrue(an7.getEnergy() == 19);
+        assertTrue(an6.getEnergy() == 13);
+        assertTrue(an7.getEnergy() == 13);
     }
 
     @Test
@@ -122,6 +121,7 @@ public class MapFieldTest {
 
         var field = new MapField(emptyFields,
                 fieldsWithoutAnimals, fieldsContainingAnimals, config);
+        field.addGrass();
 
         field.addAnimal(an1);
         field.addAnimal(an2);
@@ -131,7 +131,7 @@ public class MapFieldTest {
         field.doEating();
         field.doEating();
 
-        assertTrue(an1.getEnergy() == 30);
+        assertTrue(an1.getEnergy() == 20);
         assertTrue(an2.getEnergy() == 7);
         assertTrue(an3.getEnergy() == 9);
         assertTrue(an4.getEnergy() == 3);
