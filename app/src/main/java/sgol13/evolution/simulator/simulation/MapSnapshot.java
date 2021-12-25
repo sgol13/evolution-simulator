@@ -72,7 +72,7 @@ public class MapSnapshot {
 
     public String toString() {
 
-        var ss = new StringBuilder();
+        var sb = new StringBuilder();
 
         for (int row = 0; row < mapSize.y; row++) {
             for (int col = 0; col < mapSize.x; col++) {
@@ -80,18 +80,18 @@ public class MapSnapshot {
                 int animalsNum = getAnimalsNumber(row, col);
                 if (animalsNum > 0) {
                     if (animalsNum >= 10)
-                        ss.append("0");
+                        sb.append("0");
                     else
-                        ss.append(animalsNum);
+                        sb.append(animalsNum);
                 } else if (isGrassed(row, col)) {
-                    ss.append('#');
+                    sb.append('#');
                 } else {
-                    ss.append(' ');
+                    sb.append(' ');
                 }
             }
-            ss.append("|\n");
+            sb.append("|\n");
         }
 
-        return ss.toString();
+        return sb.toString();
     }
 }
