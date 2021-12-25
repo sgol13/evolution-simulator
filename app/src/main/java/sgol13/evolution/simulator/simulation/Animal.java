@@ -14,17 +14,19 @@ public class Animal implements Comparable<Animal> {
     private Vector2d position;
     private final IMap map;
 
-    public Animal(IMap map) {
+    public Animal(IMap map, int startEnergy) {
 
         this.id = animalsCounter++;
         this.map = map;
+        this.energy = startEnergy;
+
         setRandomDirection();
     }
 
     public static Animal reproduce(Animal animal1, Animal animal2) {
 
         // random direction (in constructor), position is copied from parent
-        Animal newAnimal = new Animal(animal1.map);
+        Animal newAnimal = new Animal(animal1.map, 0);
         newAnimal.position = animal1.position;
 
         // genotype is a mix of parents' genotypes
@@ -39,6 +41,14 @@ public class Animal implements Comparable<Animal> {
 
     public void eat(int addEnergy) {
         energy += addEnergy;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public int getID() {
+        return id;
     }
 
     public void move() {
