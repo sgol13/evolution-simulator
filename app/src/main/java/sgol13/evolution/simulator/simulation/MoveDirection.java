@@ -13,6 +13,10 @@ public enum MoveDirection {
         return String.valueOf(ordinal());
     }
 
+    public MoveDirection add(MoveDirection other) {
+        return nextRepeat(ordinal());
+    }
+
     public MoveDirection next() {
         return values[(ordinal() + 1) % values.length];
     }
@@ -36,5 +40,9 @@ public enum MoveDirection {
         case LEFT -> new Vector2d(-1, 0);
         case UP_LEFT -> new Vector2d(-1, 1);
         };
+    }
+
+    public static int getValuesNum(){
+        return values.length;
     }
 }
