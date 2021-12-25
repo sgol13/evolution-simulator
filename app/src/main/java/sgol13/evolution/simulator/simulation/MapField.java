@@ -138,8 +138,14 @@ public class MapField implements Comparable<MapField> {
         // reproduce on condition that the energy level is sufficient
         // (at least 50% of the startEnergy)
         Animal newAnimal = null;
-        if (2 * animal2.getEnergy() >= config.startEnergy)
+        if (2 * animal2.getEnergy() >= config.startEnergy) {
             newAnimal = Animal.reproduce(animal1, animal2);
+            animals.remove(animal1);
+            animals.remove(animal2);
+
+            animals.add(animal1);
+            animals.add(animal2);
+        }
 
         return newAnimal;
     }

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 import sgol13.evolution.simulator.SimulationConfig;
+import static java.lang.System.out;
 
 public abstract class AbstractMap implements IMap {
 
