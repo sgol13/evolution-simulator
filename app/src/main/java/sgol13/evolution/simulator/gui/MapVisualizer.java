@@ -1,5 +1,6 @@
 package sgol13.evolution.simulator.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
@@ -24,16 +25,24 @@ public class MapVisualizer {
 
     // sizes
     private static final int MAP_WIDTH_PX = 600;
+    private static final int INTERNAL_MARGIN_WIDTH = 2;
     private static final int GAP_BETWEEN_FIELDS_PX = 2;
     private static final double[] RADIUS_MULTIPLIERS = {1.0, 1.2, 1.4, 1.6, 1.8};
     private int squareSide;
 
     private final SimulationConfig config;
     private final GridPane mapGrid = new GridPane();
+    private final VBox mapBox = new VBox();
 
     public MapVisualizer(SimulationConfig config) {
 
         this.config = config;
+        mapBox.getChildren().add(mapGrid);
+        mapBox.setStyle("-fx-border-style: solid inside;" +
+                "-fx-border-width: 2;" +
+                "-fx-border-color: black;" +
+                "-fx-background-color: whitesmoke");
+
         initMapGrid();
     }
 
@@ -104,8 +113,8 @@ public class MapVisualizer {
         return Color.color(r, g, b);
     }
 
-    public GridPane getNode() {
-        return mapGrid;
+    public VBox getNode() {
+        return mapBox;
     }
 
     private void initMapGrid() {
@@ -115,6 +124,8 @@ public class MapVisualizer {
 
         mapGrid.setVgap(GAP_BETWEEN_FIELDS_PX);
         mapGrid.setHgap(GAP_BETWEEN_FIELDS_PX);
+        mapGrid.setPadding(new Insets(INTERNAL_MARGIN_WIDTH, INTERNAL_MARGIN_WIDTH,
+                INTERNAL_MARGIN_WIDTH, INTERNAL_MARGIN_WIDTH));
 
         // calculate dimensions of a singe square
         squareSide = (MAP_WIDTH_PX - (config.mapWidth - 1) * GAP_BETWEEN_FIELDS_PX)
