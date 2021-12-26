@@ -9,6 +9,8 @@ public interface IMap {
 
     boolean placeAnimal(Animal animal);
 
+    void placeAnimalOnRandomField(Animal animal);
+
     LinkedList<Animal> placeRandomAnimals(int animalsNum);
 
     boolean removeAnimal(Animal animal);

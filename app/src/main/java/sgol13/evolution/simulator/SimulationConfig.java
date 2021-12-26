@@ -12,4 +12,6 @@ public class SimulationConfig {
 
     public int initialAnimals;
     public int initialGrass;
+
+    public boolean magicStrategy;
 }

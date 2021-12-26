@@ -64,6 +64,21 @@ public abstract class AbstractMap implements IMap {
     }
 
     @Override
+    public void placeAnimalOnRandomField(Animal animal) {
+
+        Vector2d position;
+        do {
+            int x = randomGenerator.nextInt(mapSize.x);
+            int y = randomGenerator.nextInt(mapSize.y);
+            position = new Vector2d(x, y);
+
+        } while (!fields.get(position).isEmpty());
+
+        animal.setPosition(position);
+        placeAnimal(animal);
+    }
+
+    @Override
     public LinkedList<Animal> placeRandomAnimals(int animalsNum) {
 
         // get all empty positions on the map

@@ -14,15 +14,16 @@ public class App {
         SimulationConfig config = new SimulationConfig();
         config.mapWidth = 40;
         config.mapHeight = 25;
-        config.initialAnimals = 800;
+        config.initialAnimals = 100;
         config.initialGrass = 4;
-        config.jungleRatio = 0.25;
+        config.jungleRatio = 0.2;
 
         config.startEnergy = 200;
         config.moveEnergy = 1;
-        config.plantEnergy = 30;
+        config.plantEnergy = 1;
+        config.magicStrategy = true;
 
-        var engine = new SimulationEngine(config, new BoundedMap(config));
+        var engine = new SimulationEngine(config, new UnboundedMap(config));
         engine.run();
     }
 }

@@ -49,6 +49,7 @@ public class SimulationEngine {
     private void removeDead() {
 
         var it = animals.iterator();
+        var deadAnimals = new LinkedList<Animal>();
         while (it.hasNext()) {
 
             var animal = it.next();
@@ -57,6 +58,25 @@ public class SimulationEngine {
             if (animal.getEnergy() <= 0) {
                 map.removeAnimal(animal);
                 it.remove();
+                deadAnimals.add(animal);
+            }
+        }
+
+        // magic strategy - add 5 new animals if not more than 5 left
+        if (config.magicStrategy && animals.size() <= 5) {
+
+            var newAnimals = new LinkedList<Animal>();
+            for (var animal : animals)
+                newAnimals.add(animal.clone());
+
+            it = deadAnimals.iterator();
+            while (it.hasNext() && newAnimals.size() < 5)
+                newAnimals.add(it.next());
+
+            for (var animal : newAnimals) {
+                animal.eat(config.startEnergy);
+                animals.add(animal);
+                map.placeAnimalOnRandomField(animal);
             }
         }
     }

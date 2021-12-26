@@ -107,6 +107,11 @@ public class Animal implements Comparable<Animal> {
         return false;
     }
 
+    @Override
+    public Animal clone() {
+        return new Animal(map, position, 0, moveEnergy, genotype);
+    }
+
     public void setPosition(Vector2d position) {
         this.position = position;
     }
