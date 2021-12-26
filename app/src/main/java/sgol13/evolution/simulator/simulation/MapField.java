@@ -2,7 +2,6 @@ package sgol13.evolution.simulator.simulation;
 
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import sgol13.evolution.simulator.SimulationConfig;
@@ -100,7 +99,7 @@ public class MapField implements Comparable<MapField> {
         while (it.hasNext() && (equalEnergy || reproducingAnimals.size() < 2)) {
 
             var animal = it.next();
-            out.println(animal.getEnergy());
+            // out.println(animal.getEnergy());
             equalEnergy = animal.getEnergy() == reproducingAnimals.getLast().getEnergy();
 
             if (equalEnergy || reproducingAnimals.size() < 2)
@@ -109,9 +108,9 @@ public class MapField implements Comparable<MapField> {
             equalEnergy = animal.getEnergy() == reproducingAnimals.getLast().getEnergy();
         }
 
-        for (var a : reproducingAnimals)
+        /* for (var a : reproducingAnimals)
             out.print(a.getEnergy() + " ");
-        out.println("");
+        out.println(""); */
 
         // find indices for random selection
         int equalsFirst = 0;
@@ -139,9 +138,11 @@ public class MapField implements Comparable<MapField> {
         // (at least 50% of the startEnergy)
         Animal newAnimal = null;
         if (2 * animal2.getEnergy() >= config.startEnergy) {
-            newAnimal = Animal.reproduce(animal1, animal2);
+
             animals.remove(animal1);
             animals.remove(animal2);
+
+            newAnimal = Animal.reproduce(animal1, animal2);
 
             animals.add(animal1);
             animals.add(animal2);

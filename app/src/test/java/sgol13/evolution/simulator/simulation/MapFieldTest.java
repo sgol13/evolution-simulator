@@ -2,7 +2,6 @@ package sgol13.evolution.simulator.simulation;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import java.util.TreeSet;
 import org.junit.Test;
 import sgol13.evolution.simulator.SimulationConfig;
 import static java.lang.System.out;

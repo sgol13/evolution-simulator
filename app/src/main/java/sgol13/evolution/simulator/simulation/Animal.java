@@ -68,6 +68,10 @@ public class Animal implements Comparable<Animal> {
         return position;
     }
 
+    public Genotype getGenotype() {
+        return genotype;
+    }
+
     public void move() {
 
         var relativeDirection = genotype.randomDirection();
@@ -92,6 +96,17 @@ public class Animal implements Comparable<Animal> {
             return id - other.id;
 
         return other.energy - energy;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (other instanceof Animal) {
+
+            Animal otherAnimal = (Animal) other;
+            return otherAnimal.id == id;
+        }
+        return false;
     }
 
     public void setPosition(Vector2d position) {

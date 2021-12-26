@@ -33,8 +33,8 @@ public class SimulationEngine {
         simulateEating();
         simulateReproducing();
 
-        out.print("\033[H\033[2J");
-        out.flush();
+        // out.print("\033[H\033[2J");
+        // out.flush();
         out.println(map.getSnapshot());
         out.println(animals.size());
 
@@ -55,7 +55,11 @@ public class SimulationEngine {
 
             // check if the animal is dead
             if (animal.getEnergy() <= 0) {
-                map.removeAnimal(animal);
+                boolean r = map.removeAnimal(animal);
+                if (r == false)
+                    out.println("X " + animal.getPosition());
+                else
+                    out.println("SUKCES" + animal.getPosition());
                 it.remove();
             }
         }

@@ -3,12 +3,9 @@ package sgol13.evolution.simulator.simulation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Random;
-import java.util.function.Consumer;
 import sgol13.evolution.simulator.SimulationConfig;
 import static java.lang.System.out;
 
@@ -108,6 +105,7 @@ public abstract class AbstractMap implements IMap {
                     var animalsGroup = field.getAnimalsGroup();
                     if (animalsGroup.length > 0) {
 
+                        out.println(position + " " + animalsGroup[0].getID());
                         snapshot.addAnimalsGroup(position, animalsGroup.length,
                                 animalsGroup[0].getEnergy());
                     }

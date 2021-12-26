@@ -14,7 +14,7 @@ public class App {
         SimulationConfig config = new SimulationConfig();
         config.mapWidth = 8;
         config.mapHeight = 5;
-        config.initialAnimals = 5;
+        config.initialAnimals = 30;
         config.initialGrass = 4;
 
         config.startEnergy = 200;
