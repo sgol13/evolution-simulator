@@ -4,7 +4,7 @@ public class SimulationConfig {
 
     public int mapWidth;
     public int mapHeight;
-    public int jungleRatio;
+    public double jungleRatio;
 
     public int startEnergy;
     public int moveEnergy;

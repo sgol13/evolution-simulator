@@ -19,7 +19,6 @@ public class SimulationEngine {
     public void run() {
 
         initAnimals();
-        initGrass();
 
         while (!finishFlag) {
             simulateDay();
@@ -32,14 +31,15 @@ public class SimulationEngine {
         simulateMoving();
         simulateEating();
         simulateReproducing();
+        map.placeTwoRandomGrassFields();
 
-        // out.print("\033[H\033[2J");
-        // out.flush();
+        out.print("\033[H\033[2J");
+        out.flush();
         out.println(map.getSnapshot());
         out.println(animals.size());
 
         try {
-            Thread.sleep(20);
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -55,11 +55,7 @@ public class SimulationEngine {
 
             // check if the animal is dead
             if (animal.getEnergy() <= 0) {
-                boolean r = map.removeAnimal(animal);
-                if (r == false)
-                    out.println("X " + animal.getPosition());
-                else
-                    out.println("SUKCES" + animal.getPosition());
+                map.removeAnimal(animal);
                 it.remove();
             }
         }
@@ -89,10 +85,6 @@ public class SimulationEngine {
                 animals.add(newAnimal);
             }
         }
-    }
-
-    private void initGrass() {
-
     }
 
     private void initAnimals() {

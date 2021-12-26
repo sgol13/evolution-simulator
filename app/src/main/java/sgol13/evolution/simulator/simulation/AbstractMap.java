@@ -14,6 +14,8 @@ public abstract class AbstractMap implements IMap {
     private final SimulationConfig config;
     private final Random randomGenerator = new Random();
     protected final Vector2d mapSize;
+    private Vector2d jungleLowerLeft;
+    private Vector2d jungleUpperRight;
 
     protected final LinkedHashMap<Vector2d, MapField> fields =
             new LinkedHashMap<Vector2d, MapField>();
@@ -22,6 +24,7 @@ public abstract class AbstractMap implements IMap {
 
         this.config = config;
         this.mapSize = new Vector2d(config.mapWidth, config.mapHeight);
+        initJungle();
         initFields(config);
     }
 
@@ -32,10 +35,23 @@ public abstract class AbstractMap implements IMap {
             for (int y = 0; y < mapSize.y; y++) {
 
                 var newField = new MapField(new Vector2d(x, y), config);
-
                 fields.put(new Vector2d(x, y), newField);
             }
         }
+    }
+
+    // calculates and saves jungle rectangle
+    private void initJungle() {
+
+        double sqrtRatio = Math.sqrt(config.jungleRatio);
+        int x1 = (int) Math.round(mapSize.x * (1.0 - sqrtRatio) / 2.0);
+        int y1 = (int) Math.round(mapSize.y * (1.0 - sqrtRatio) / 2.0);
+
+        int x2 = mapSize.x - x1;
+        int y2 = mapSize.y - y1;
+
+        jungleLowerLeft = new Vector2d(x1, y1);
+        jungleUpperRight = new Vector2d(x2, y2);
     }
 
     @Override
@@ -51,7 +67,7 @@ public abstract class AbstractMap implements IMap {
     public LinkedList<Animal> placeRandomAnimals(int animalsNum) {
 
         // get all empty positions on the map
-        var emptyPositions = new ArrayList<Vector2d>();
+        var emptyPositions = new LinkedList<Vector2d>();
         for (int x = 0; x < mapSize.x; x++) {
             for (int y = 0; y < mapSize.y; y++) {
                 var position = new Vector2d(x, y);
@@ -85,6 +101,49 @@ public abstract class AbstractMap implements IMap {
     }
 
     @Override
+    public void placeTwoRandomGrassFields() {
+
+        // get all empty positions on the map
+        var emptyJunglePositions = new ArrayList<Vector2d>();
+        var emptySteppePositions = new ArrayList<Vector2d>();
+
+        for (int x = 0; x < mapSize.x; x++) {
+            for (int y = 0; y < mapSize.y; y++) {
+                var position = new Vector2d(x, y);
+                var field = fields.get(position);
+                if (field.isEmpty() && !field.isGrassed()) {
+
+                    if (isJungle(position))
+                        emptyJunglePositions.add(position);
+                    else
+                        emptySteppePositions.add(position);
+                }
+            }
+        }
+
+
+        if (!emptyJunglePositions.isEmpty())
+            placeGrassOnRandomPosition(emptyJunglePositions);
+
+        if (!emptySteppePositions.isEmpty())
+            placeGrassOnRandomPosition(emptySteppePositions);
+    }
+
+    private void placeGrassOnRandomPosition(ArrayList<Vector2d> positions) {
+
+        int index = randomGenerator.nextInt(positions.size());
+        var position = positions.get(index);
+
+        fields.get(position).addGrass();
+    }
+
+    private boolean isJungle(Vector2d position) {
+
+        return position.follows(jungleLowerLeft) &&
+                position.strictlyPrecedes(jungleUpperRight);
+    }
+
+    @Override
     public MapField getField(Vector2d position) {
         return fields.get(position);
     }
@@ -105,7 +164,6 @@ public abstract class AbstractMap implements IMap {
                     var animalsGroup = field.getAnimalsGroup();
                     if (animalsGroup.length > 0) {
 
-                        out.println(position + " " + animalsGroup[0].getID());
                         snapshot.addAnimalsGroup(position, animalsGroup.length,
                                 animalsGroup[0].getEnergy());
                     }

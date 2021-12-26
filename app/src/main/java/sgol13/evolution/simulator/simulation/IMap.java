@@ -13,6 +13,8 @@ public interface IMap {
 
     boolean removeAnimal(Animal animal);
 
+    void placeTwoRandomGrassFields();
+
     MapField getField(Vector2d position);
 
     MapSnapshot getSnapshot();

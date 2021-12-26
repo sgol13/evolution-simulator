@@ -76,8 +76,6 @@ public class Animal implements Comparable<Animal> {
 
         var relativeDirection = genotype.randomDirection();
         direction = direction.add(relativeDirection);
-        // out.println("     " + relativeDirection);
-        // out.println(direction);
 
         // move only if the direction was FORWARD or BACKWARD
         if (relativeDirection == MoveDirection.FORWARD ||

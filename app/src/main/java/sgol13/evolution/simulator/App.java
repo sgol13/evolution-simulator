@@ -12,13 +12,15 @@ public class App {
     public static void main(String[] args) {
 
         SimulationConfig config = new SimulationConfig();
-        config.mapWidth = 8;
-        config.mapHeight = 5;
-        config.initialAnimals = 30;
+        config.mapWidth = 40;
+        config.mapHeight = 25;
+        config.initialAnimals = 800;
         config.initialGrass = 4;
+        config.jungleRatio = 0.25;
 
         config.startEnergy = 200;
         config.moveEnergy = 1;
+        config.plantEnergy = 30;
 
         var engine = new SimulationEngine(config, new BoundedMap(config));
         engine.run();

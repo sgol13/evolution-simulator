@@ -1,8 +1,6 @@
 package sgol13.evolution.simulator.simulation;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
@@ -37,27 +35,6 @@ public class MapField implements Comparable<MapField> {
     public boolean addAnimal(Animal animal) {
         return animals.add(animal);
     }
-
-    /* public boolean removeAnimal(Animal animal) {
-    
-        boolean r = animals.remove(animal);
-        if (!r) {
-    
-            out.println(animal.getID() + " " + animal.getPosition());
-            for (var an : animals)
-                out.print(an.getID() + " ");
-            out.println("");
-    
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    
-        return r;
-    } */
 
     public boolean removeAnimal(Animal animal) {
         return animals.remove(animal);
@@ -137,10 +114,6 @@ public class MapField implements Comparable<MapField> {
 
             equalEnergy = animal.getEnergy() == reproducingAnimals.getLast().getEnergy();
         }
-
-        /* for (var a : reproducingAnimals)
-            out.print(a.getEnergy() + " ");
-        out.println(""); */
 
         // find indices for random selection
         int equalsFirst = 0;
