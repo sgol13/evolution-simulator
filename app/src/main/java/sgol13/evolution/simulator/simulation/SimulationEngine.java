@@ -1,7 +1,9 @@
 package sgol13.evolution.simulator.simulation;
 
 import java.util.LinkedList;
+import javafx.application.Platform;
 import sgol13.evolution.simulator.SimulationConfig;
+import sgol13.evolution.simulator.gui.SimulationVisualizer;
 import sgol13.evolution.simulator.snapshots.SimulationSnapshot;
 import static java.lang.System.out;
 import java.time.Duration;
@@ -10,6 +12,7 @@ import java.time.Instant;
 public class SimulationEngine implements Runnable {
 
     private final SimulationConfig config;
+    private final SimulationVisualizer visualizer;
     private final IMap map;
     private boolean finishFlag = false;
     private boolean pauseFlag = false;
@@ -17,7 +20,10 @@ public class SimulationEngine implements Runnable {
     private Instant previousTime;
     private long dayTime;
 
-    public SimulationEngine(SimulationConfig config, IMap map) {
+    public SimulationEngine(SimulationVisualizer visualizer,
+            SimulationConfig config, IMap map) {
+
+        this.visualizer = visualizer;
         this.config = config;
         this.map = map;
         this.dayTime = config.defaultDaytime;
@@ -29,6 +35,8 @@ public class SimulationEngine implements Runnable {
         initAnimals();
         previousTime = Instant.now();
 
+        int daysInFrame = 0;
+
         while (!finishFlag) {
 
             simulateDay();
@@ -37,6 +45,12 @@ public class SimulationEngine implements Runnable {
             out.flush();
             out.println(map.getMapSnapshot());
             out.println(animals.size());
+
+            if (++daysInFrame == config.defaultDaysPerFrame) {
+
+                Platform.runLater(() -> visualizer.update(getSimulationSnapshot()));
+                daysInFrame = 0;
+            }
 
             // wait for the next day
             var currentTime = Instant.now();
@@ -77,7 +91,7 @@ public class SimulationEngine implements Runnable {
         map.placeTwoRandomGrassFields();
     }
 
-    synchronized public SimulationSnapshot getSimulationSnapshot() {
+    synchronized private SimulationSnapshot getSimulationSnapshot() {
 
         var mapSnapshot = map.getMapSnapshot();
         return new SimulationSnapshot(mapSnapshot);
