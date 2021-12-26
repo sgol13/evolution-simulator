@@ -9,12 +9,12 @@ public class SimulationConfig {
     public double jungleRatio = 0.2;
 
     public int startEnergy = 200;
-    public int moveEnergy = 1;
-    public int plantEnergy = 30;
+    public int moveEnergy = 5;
+    public int plantEnergy = 200;
 
-    public int initialAnimals = 100;
+    public int initialAnimals = 400;
 
     public boolean magicStrategy = false;
-    public long defaultDaytime = 100;
+    public long defaultDaytime = 50;
     public int defaultDaysPerFrame = 1;
 }

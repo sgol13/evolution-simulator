@@ -12,17 +12,20 @@ import javafx.scene.shape.Rectangle;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.snapshots.MapSnapshot;
 import static java.lang.System.out;
+import org.checkerframework.checker.units.qual.g;
 
 public class MapVisualizer {
 
-    private static final Color GRASS_COLOR = Color.BLUE;
-    private static final Color[] ENERGY_COLORS = {
-            Color.BROWN, Color.RED, Color.ORANGERED, Color.DARKORANGE,
-            Color.ORANGE, Color.YELLOW, Color.GREENYELLOW, Color.LIME};
+    //colors
+    private static final Color GRASS_COLOR = Color.GREEN;
+    private static final Color MAX_ENERGY_COLOR = Color.color(1, 0, 1);
+    private static final Color MIN_ENERGY_COLOR = Color.color(0, 1, 1);
+    private static final double MAX_ENERGY_TO_START_ENERGY_RATIO = 2.0;
 
+    // sizes
     private static final int MAP_WIDTH_PX = 600;
     private static final int GAP_BETWEEN_FIELDS_PX = 2;
-    private static final double[] RADIUS_MULTIPLIERS = {0.9, 1.0, 1.1, 1.2, 1.3, 1.4};
+    private static final double[] RADIUS_MULTIPLIERS = {1.0, 1.2, 1.4, 1.6, 1.8};
     private int squareSide;
 
     private final SimulationConfig config;
@@ -47,7 +50,6 @@ public class MapVisualizer {
 
         int animalsNum = snapshot.getAnimalsNumber(row, col);
         if (animalsNum > 0) {
-
 
             var animalSquare = new Circle(calculateCircleRadius(animalsNum));
             var color = calculateFieldColor(snapshot.getMaxEnergy(row, col));
@@ -76,7 +78,30 @@ public class MapVisualizer {
     }
 
     private Color calculateFieldColor(int energy) {
-        return Color.GREEN;
+
+        // calculates the color proportionally to its energy
+        // MAX_ENERGY_COLOR is when an animal has
+        // MAX_ENERGY_TO_START_ENERGY_RATIO * config.startEnergy energy points
+        // MIN_ENERGY_COLOR is when an animal has 0 energy points
+
+        double maxEnergy = MAX_ENERGY_TO_START_ENERGY_RATIO * config.startEnergy;
+        double energyLevel = energy / maxEnergy;
+
+        energyLevel = Math.min(1.0, energyLevel);
+
+        double maxR = MAX_ENERGY_COLOR.getRed();
+        double maxG = MAX_ENERGY_COLOR.getGreen();
+        double maxB = MAX_ENERGY_COLOR.getBlue();
+
+        double minR = MIN_ENERGY_COLOR.getRed();
+        double minG = MIN_ENERGY_COLOR.getGreen();
+        double minB = MIN_ENERGY_COLOR.getBlue();
+
+        double r = minR + (energyLevel * (maxR - minR));
+        double g = minG + (energyLevel * (maxG - minG));
+        double b = minB + (energyLevel * (maxB - minB));
+
+        return Color.color(r, g, b);
     }
 
     public GridPane getNode() {
@@ -86,14 +111,14 @@ public class MapVisualizer {
     private void initMapGrid() {
 
         mapGrid.setAlignment(Pos.CENTER);
+        // mapGrid.setAlignment(Pos.BASELINE_CENTER);
+
         mapGrid.setVgap(GAP_BETWEEN_FIELDS_PX);
         mapGrid.setHgap(GAP_BETWEEN_FIELDS_PX);
 
         // calculate dimensions of a singe square
         squareSide = (MAP_WIDTH_PX - (config.mapWidth - 1) * GAP_BETWEEN_FIELDS_PX)
                 / config.mapWidth;
-
-        out.println(squareSide);
 
         for (int row = 0; row < config.mapHeight; row++)
             mapGrid.getRowConstraints().add(new RowConstraints(squareSide));
