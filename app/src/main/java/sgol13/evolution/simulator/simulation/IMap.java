@@ -2,6 +2,7 @@ package sgol13.evolution.simulator.simulation;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import sgol13.evolution.simulator.snapshots.MapSnapshot;
 
 public interface IMap {
 

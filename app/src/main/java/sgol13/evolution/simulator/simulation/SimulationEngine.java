@@ -2,6 +2,7 @@ package sgol13.evolution.simulator.simulation;
 
 import java.util.LinkedList;
 import sgol13.evolution.simulator.SimulationConfig;
+import sgol13.evolution.simulator.snapshots.SimulationSnapshot;
 import static java.lang.System.out;
 import java.time.Duration;
 import java.time.Instant;
@@ -147,8 +148,9 @@ public class SimulationEngine implements Runnable {
         animals.addAll(map.placeRandomAnimals(config.initialAnimals));
     }
 
-    public void finishSimulation() {
+    synchronized public void finishSimulation() {
         finishFlag = true;
+        notify();
     }
 
     synchronized public void pauseSimulation() {

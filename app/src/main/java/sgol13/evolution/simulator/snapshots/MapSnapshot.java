@@ -1,9 +1,10 @@
-package sgol13.evolution.simulator.simulation;
+package sgol13.evolution.simulator.snapshots;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import sgol13.evolution.simulator.simulation.Vector2d;
 
 public class MapSnapshot {
 

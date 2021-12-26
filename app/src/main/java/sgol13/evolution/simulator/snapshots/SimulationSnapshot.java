@@ -1,4 +1,4 @@
-package sgol13.evolution.simulator.simulation;
+package sgol13.evolution.simulator.snapshots;
 
 public class SimulationSnapshot {
 

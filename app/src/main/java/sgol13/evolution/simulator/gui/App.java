@@ -1,15 +1,23 @@
-package sgol13.evolution.simulator;
+package sgol13.evolution.simulator.gui;
 
-import sgol13.evolution.simulator.simulation.Animal;
-import sgol13.evolution.simulator.simulation.BoundedMap;
-import sgol13.evolution.simulator.simulation.IMap;
+import javafx.application.*;
+import javafx.event.ActionEvent;
+import javafx.stage.*;
+import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.simulation.SimulationEngine;
 import sgol13.evolution.simulator.simulation.UnboundedMap;
+import javafx.scene.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import static java.lang.System.out;
-import sgol13.evolution.simulator.simulation.Vector2d;
 
-public class App {
-    public static void main(String[] args) throws InterruptedException {
+public class App extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+
 
         SimulationConfig config = new SimulationConfig();
         config.mapWidth = 40;
@@ -29,12 +37,12 @@ public class App {
 
         thread.start();
 
-        Thread.sleep(3000);
-
-        engine.pauseSimulation();
-        Thread.sleep(3000);
-        engine.resumeSimulation();
-        Thread.sleep(3000);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
 
         engine.finishSimulation();
 
