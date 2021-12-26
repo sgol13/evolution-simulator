@@ -11,6 +11,7 @@ public class SimulationEngine implements Runnable {
     private final SimulationConfig config;
     private final IMap map;
     private boolean finishFlag = false;
+    private boolean pauseFlag = false;
     private final LinkedList<Animal> animals = new LinkedList<Animal>();
     private Instant previousTime;
     private long dayTime;
@@ -31,6 +32,12 @@ public class SimulationEngine implements Runnable {
 
             simulateDay();
 
+            out.print("\033[H\033[2J");
+            out.flush();
+            out.println(map.getMapSnapshot());
+            out.println(animals.size());
+
+            // wait for the next day
             var currentTime = Instant.now();
             var elapsedTime = Duration.between(previousTime, currentTime);
             previousTime = currentTime;
@@ -44,6 +51,19 @@ public class SimulationEngine implements Runnable {
                     // chill out, really no serious consequences if interrupted
                 }
             }
+
+            // pause if the flag is set
+            synchronized (this) {
+                try {
+                    while (pauseFlag && !finishFlag)
+                        wait();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
         }
     }
 
@@ -56,16 +76,10 @@ public class SimulationEngine implements Runnable {
         map.placeTwoRandomGrassFields();
     }
 
-    synchronized public void getSimulationSnapshot() {
+    synchronized public SimulationSnapshot getSimulationSnapshot() {
 
-        out.print("\033[H\033[2J");
-        out.flush();
-        out.println(map.getMapSnapshot());
-        out.println(animals.size());
-        var currentTime = Instant.now();
-        var elapsedTime = Duration.between(previousTime, currentTime);
-        out.println(elapsedTime.toMillis());
-
+        var mapSnapshot = map.getMapSnapshot();
+        return new SimulationSnapshot(mapSnapshot);
     }
 
     private void removeDead() {
@@ -133,7 +147,16 @@ public class SimulationEngine implements Runnable {
         animals.addAll(map.placeRandomAnimals(config.initialAnimals));
     }
 
-    public void finish() {
+    public void finishSimulation() {
         finishFlag = true;
+    }
+
+    synchronized public void pauseSimulation() {
+        pauseFlag = true;
+    }
+
+    synchronized public void resumeSimulation() {
+        pauseFlag = false;
+        notify();
     }
 }

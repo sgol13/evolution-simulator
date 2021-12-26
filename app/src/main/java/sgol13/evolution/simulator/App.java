@@ -9,7 +9,7 @@ import static java.lang.System.out;
 import sgol13.evolution.simulator.simulation.Vector2d;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         SimulationConfig config = new SimulationConfig();
         config.mapWidth = 40;
@@ -29,18 +29,14 @@ public class App {
 
         thread.start();
 
-        int m = 500;
-        while (m-- > 0) {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            engine.getSimulationSnapshot();
-        }
+        Thread.sleep(3000);
 
-        engine.finish();
+        engine.pauseSimulation();
+        Thread.sleep(3000);
+        engine.resumeSimulation();
+        Thread.sleep(3000);
+
+        engine.finishSimulation();
 
         try {
             thread.join();
