@@ -22,8 +22,31 @@ public class App {
         config.moveEnergy = 1;
         config.plantEnergy = 1;
         config.magicStrategy = true;
+        config.defaultDaytime = 200;
 
         var engine = new SimulationEngine(config, new UnboundedMap(config));
-        engine.run();
+        Thread thread = new Thread(engine);
+
+        thread.start();
+
+        int m = 500;
+        while (m-- > 0) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            engine.getSimulationSnapshot();
+        }
+
+        engine.finish();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

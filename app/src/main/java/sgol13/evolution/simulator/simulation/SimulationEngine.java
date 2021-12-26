@@ -3,47 +3,69 @@ package sgol13.evolution.simulator.simulation;
 import java.util.LinkedList;
 import sgol13.evolution.simulator.SimulationConfig;
 import static java.lang.System.out;
+import java.time.Duration;
+import java.time.Instant;
 
-public class SimulationEngine {
+public class SimulationEngine implements Runnable {
 
     private final SimulationConfig config;
     private final IMap map;
     private boolean finishFlag = false;
     private final LinkedList<Animal> animals = new LinkedList<Animal>();
+    private Instant previousTime;
+    private long dayTime;
 
     public SimulationEngine(SimulationConfig config, IMap map) {
         this.config = config;
         this.map = map;
+        this.dayTime = config.defaultDaytime;
     }
 
+    @Override
     public void run() {
 
         initAnimals();
+        previousTime = Instant.now();
 
         while (!finishFlag) {
+
             simulateDay();
+
+            var currentTime = Instant.now();
+            var elapsedTime = Duration.between(previousTime, currentTime);
+            previousTime = currentTime;
+
+            long leftTime = dayTime - elapsedTime.toMillis();
+            if (leftTime > 0) {
+
+                try {
+                    Thread.sleep(leftTime);
+                } catch (InterruptedException e) {
+                    // chill out, really no serious consequences if interrupted
+                }
+            }
         }
     }
 
-    private void simulateDay() {
+    synchronized private void simulateDay() {
 
         removeDead();
         simulateMoving();
         simulateEating();
         simulateReproducing();
         map.placeTwoRandomGrassFields();
+    }
+
+    synchronized public void getSimulationSnapshot() {
 
         out.print("\033[H\033[2J");
         out.flush();
-        out.println(map.getSnapshot());
+        out.println(map.getMapSnapshot());
         out.println(animals.size());
+        var currentTime = Instant.now();
+        var elapsedTime = Duration.between(previousTime, currentTime);
+        out.println(elapsedTime.toMillis());
 
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     private void removeDead() {

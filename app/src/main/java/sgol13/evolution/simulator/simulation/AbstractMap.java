@@ -164,7 +164,7 @@ public abstract class AbstractMap implements IMap {
     }
 
     @Override
-    public MapSnapshot getSnapshot() {
+    public MapSnapshot getMapSnapshot() {
 
         var snapshot = new MapSnapshot(mapSize);
         for (int x = 0; x < mapSize.x; x++) {

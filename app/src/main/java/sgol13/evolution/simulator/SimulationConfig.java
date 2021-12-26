@@ -14,4 +14,5 @@ public class SimulationConfig {
     public int initialGrass;
 
     public boolean magicStrategy;
+    public long defaultDaytime;
 }

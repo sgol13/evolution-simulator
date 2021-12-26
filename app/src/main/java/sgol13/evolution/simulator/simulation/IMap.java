@@ -19,7 +19,7 @@ public interface IMap {
 
     MapField getField(Vector2d position);
 
-    MapSnapshot getSnapshot();
+    MapSnapshot getMapSnapshot();
 
     Collection<MapField> getAllFields();
 }
