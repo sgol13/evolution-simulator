@@ -1,9 +1,12 @@
 package sgol13.evolution.simulator.simulation;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.Set;
 import sgol13.evolution.simulator.SimulationConfig;
 import static java.lang.System.out;
 
@@ -13,7 +16,7 @@ public class MapField implements Comparable<MapField> {
 
     private final SimulationConfig config;
     private final Vector2d position;
-    private final SortedSet<Animal> animals = new TreeSet<Animal>();
+    private final Set<Animal> animals = new HashSet<Animal>();
     private boolean isGrassed = false;
 
     public MapField(Vector2d position, SimulationConfig config) {
@@ -34,6 +37,27 @@ public class MapField implements Comparable<MapField> {
     public boolean addAnimal(Animal animal) {
         return animals.add(animal);
     }
+
+    /* public boolean removeAnimal(Animal animal) {
+    
+        boolean r = animals.remove(animal);
+        if (!r) {
+    
+            out.println(animal.getID() + " " + animal.getPosition());
+            for (var an : animals)
+                out.print(an.getID() + " ");
+            out.println("");
+    
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    
+        return r;
+    } */
 
     public boolean removeAnimal(Animal animal) {
         return animals.remove(animal);
@@ -62,8 +86,11 @@ public class MapField implements Comparable<MapField> {
             return false;
 
         // get the list of animals with max energy
+        var sortedAnimals = new LinkedList<Animal>(animals);
+        Collections.sort(sortedAnimals);
+
         var eatingAnimals = new LinkedList<Animal>();
-        var it = animals.iterator();
+        var it = sortedAnimals.iterator();
         eatingAnimals.add(it.next());
 
         boolean equalEnergy = true;
@@ -90,9 +117,12 @@ public class MapField implements Comparable<MapField> {
         if (animals.size() < 2)
             return null;
 
+
         // get the list of animals with max energy (at least two)
+        var sortedAnimals = new LinkedList<Animal>(animals);
+        Collections.sort(sortedAnimals);
         var reproducingAnimals = new LinkedList<Animal>();
-        var it = animals.iterator();
+        var it = sortedAnimals.iterator();
         reproducingAnimals.add(it.next());
 
         boolean equalEnergy = true;
@@ -138,14 +168,7 @@ public class MapField implements Comparable<MapField> {
         // (at least 50% of the startEnergy)
         Animal newAnimal = null;
         if (2 * animal2.getEnergy() >= config.startEnergy) {
-
-            animals.remove(animal1);
-            animals.remove(animal2);
-
             newAnimal = Animal.reproduce(animal1, animal2);
-
-            animals.add(animal1);
-            animals.add(animal2);
         }
 
         return newAnimal;
