@@ -41,10 +41,10 @@ public class SimulationEngine implements Runnable {
 
             simulateDay();
 
-            out.print("\033[H\033[2J");
+            /* out.print("\033[H\033[2J");
             out.flush();
             out.println(map.getMapSnapshot());
-            out.println(animals.size());
+            out.println(animals.size()); */
 
             if (++daysInFrame == config.defaultDaysPerFrame) {
 
@@ -84,8 +84,8 @@ public class SimulationEngine implements Runnable {
 
     synchronized private void simulateDay() {
 
-        removeDead();
         simulateMoving();
+        removeDead();
         simulateEating();
         simulateReproducing();
         map.placeTwoRandomGrassFields();

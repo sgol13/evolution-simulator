@@ -30,7 +30,7 @@ public class SimulationVisualizer {
         this.engine = new SimulationEngine(this, config, map);
         this.simThread = new Thread(engine);
 
-        this.mapVisualizer = new MapVisualizer();
+        this.mapVisualizer = new MapVisualizer(config);
         mainGrid.add(mapVisualizer.getNode(), 0, 0);
     }
 

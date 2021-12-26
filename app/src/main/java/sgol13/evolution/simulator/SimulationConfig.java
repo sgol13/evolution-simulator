@@ -5,7 +5,7 @@ public class SimulationConfig {
     public boolean boundedMap = true;
 
     public int mapWidth = 40;
-    public int mapHeight = 25;
+    public int mapHeight = 30;
     public double jungleRatio = 0.2;
 
     public int startEnergy = 200;
@@ -15,6 +15,6 @@ public class SimulationConfig {
     public int initialAnimals = 100;
 
     public boolean magicStrategy = false;
-    public long defaultDaytime = 50;
+    public long defaultDaytime = 100;
     public int defaultDaysPerFrame = 1;
 }

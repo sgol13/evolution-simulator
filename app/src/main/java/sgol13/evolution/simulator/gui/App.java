@@ -33,9 +33,9 @@ public class App extends Application {
         var config = new SimulationConfig();
         var visualizer = new SimulationVisualizer(config);
 
-        var scene = new Scene(visualizer.getNode(), 600, 450);
-        primaryStage.setX(350);
-        primaryStage.setY(200);
+        var scene = new Scene(visualizer.getNode(), 650, 500);
+        primaryStage.setX(300);
+        primaryStage.setY(150);
 
         visualizer.start();
 
