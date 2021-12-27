@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 public class QueueChart {
 
     private static final int CHART_DAYS_SPAN = 200;
+    private static final int PREFERRED_WIDTH_PX = 350;
+    private static final int PREFERRED_HEIGHT_PX = 180;
 
     private final VBox chartBox = new VBox();
     private final LineChart<Number, Number> chart;
@@ -40,6 +42,8 @@ public class QueueChart {
         chart.setCreateSymbols(false);
         chart.getData().add(dataSeries);
         chart.setStyle("CHART_COLOR_1:" + color + ";");
+
+        chart.setPrefSize(PREFERRED_WIDTH_PX, PREFERRED_HEIGHT_PX);
 
         chartBox.getChildren().add(new Label(label));
         chartBox.getChildren().add(chart);

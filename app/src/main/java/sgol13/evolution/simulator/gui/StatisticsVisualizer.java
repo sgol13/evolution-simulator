@@ -1,11 +1,15 @@
 package sgol13.evolution.simulator.gui;
 
+import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import sgol13.evolution.simulator.snapshots.StatisticsSnapshot;
 import static java.lang.System.out;
 
 public class StatisticsVisualizer {
+
+    private static final int DOMINANT_GENOTYPE_FONT_SIZE = 12;
 
     private final VBox chartsBox = new VBox();
     private final QueueChart animalsNumChart =
@@ -15,7 +19,7 @@ public class StatisticsVisualizer {
             new QueueChart("Grass", "#009933");
 
     private final QueueChart averageEnergyChart =
-            new QueueChart("Average energy", "##cc0099");
+            new QueueChart("Average energy", "#cc0099");
 
     private final QueueChart averageLifespanChart =
             new QueueChart("Average lifespan", "#ff9900");
@@ -23,13 +27,21 @@ public class StatisticsVisualizer {
     private final QueueChart averageChildrenNumChart =
             new QueueChart("Average children number", "#99cc00");
 
+    private final Text dominantGenotype = new Text();
+
     public StatisticsVisualizer() {
+
+        chartsBox.getChildren().add(dominantGenotype);
 
         chartsBox.getChildren().add(animalsNumChart.getNode());
         chartsBox.getChildren().add(grassFieldsNumChart.getNode());
         chartsBox.getChildren().add(averageEnergyChart.getNode());
         chartsBox.getChildren().add(averageLifespanChart.getNode());
         chartsBox.getChildren().add(averageChildrenNumChart.getNode());
+
+        // dominantGenotype.setFont(new Font(DOMINANT_GENOTYPE_FONT_SIZE));
+
+        chartsBox.setAlignment(Pos.CENTER);
     }
 
     public void update(StatisticsSnapshot snapshot) {
@@ -39,6 +51,8 @@ public class StatisticsVisualizer {
         averageEnergyChart.update(snapshot.getAverageEnergyLevel());
         averageLifespanChart.update(snapshot.getAverageLifespan());
         averageChildrenNumChart.update(snapshot.getAverageChildrenNum());
+
+        dominantGenotype.setText("Dominant genotype\n" + snapshot.getDominantGenotype());
     }
 
     public VBox getNode() {

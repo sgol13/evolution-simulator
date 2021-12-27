@@ -78,6 +78,8 @@ public class Genotype {
     }
 
     public String toString() {
-        return Arrays.toString(genes).replace(",", "");
+        return Arrays.toString(genes)
+                .replace(",", "")
+                .replace(" ", "");
     }
 }

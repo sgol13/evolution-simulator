@@ -33,7 +33,7 @@ public class App extends Application {
         var config = new SimulationConfig();
         var visualizer = new SimulationVisualizer(config);
 
-        var scene = new Scene(visualizer.getNode());
+        var scene = new Scene(visualizer.getNode(), 1920, 1080);
         primaryStage.setX(300);
         primaryStage.setY(150);
 

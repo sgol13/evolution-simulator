@@ -1,7 +1,9 @@
 package sgol13.evolution.simulator.gui;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
@@ -24,10 +26,10 @@ public class MapVisualizer {
     private static final double MAX_ENERGY_TO_START_ENERGY_RATIO = 2.0;
 
     // sizes
-    private static final int MAP_WIDTH_PX = 600;
+    private static final int MAP_WIDTH_PX = 550;
     private static final int INTERNAL_MARGIN_WIDTH = 2;
     private static final int GAP_BETWEEN_FIELDS_PX = 2;
-    private static final double[] RADIUS_MULTIPLIERS = {1.0, 1.2, 1.4, 1.6, 1.8};
+    private static final double[] RADIUS_MULTIPLIERS = {0.5, 1.2, 1.4, 1.6, 1.8};
     private int squareSide;
 
     private final SimulationConfig config;
@@ -62,10 +64,13 @@ public class MapVisualizer {
         int animalsNum = snapshot.getAnimalsNumber(row, col);
         if (animalsNum > 0) {
 
-            var animalSquare = new Circle(calculateCircleRadius(animalsNum));
+            var animalCircle = new Circle(calculateCircleRadius(animalsNum));
             var color = calculateFieldColor(snapshot.getMaxEnergy(row, col));
-            animalSquare.setFill(color);
-            mapGrid.add(animalSquare, col, row);
+            animalCircle.setFill(color);
+            mapGrid.add(animalCircle, col, row);
+
+            GridPane.setHalignment(animalCircle, HPos.CENTER);
+            GridPane.setValignment(animalCircle, VPos.CENTER);
 
         } else if (snapshot.isGrassed(row, col)) {
 
@@ -74,6 +79,9 @@ public class MapVisualizer {
             grassSquare.setArcHeight(squareSide / 2);
             grassSquare.setArcWidth(squareSide / 2);
             mapGrid.add(grassSquare, col, row);
+
+            GridPane.setHalignment(grassSquare, HPos.CENTER);
+            GridPane.setValignment(grassSquare, VPos.CENTER);
         }
     }
 
