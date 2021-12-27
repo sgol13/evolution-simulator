@@ -22,9 +22,10 @@ public class QueueChart {
     public QueueChart(String label, Color color) {
 
         xAxis = new NumberAxis();
-        xAxis.setAutoRanging(true);
+        xAxis.setAutoRanging(false);
         xAxis.setForceZeroInRange(false);
         xAxis.setAnimated(false);
+        xAxis.setTickLabelsVisible(false);
 
         yAxis = new NumberAxis();
         yAxis.setAutoRanging(true);
@@ -33,6 +34,7 @@ public class QueueChart {
         chart = new LineChart<Number, Number>(xAxis, yAxis);
         chart.setCreateSymbols(false);
         chart.getData().add(dataSeries);
+
         chartBox.getChildren().add(new Label(label));
         chartBox.getChildren().add(chart);
     }
@@ -44,7 +46,8 @@ public class QueueChart {
 
         if (day > CHART_DAYS_SPAN) {
             dataSeries.getData().remove(0);
-            // xAxis.autoRange()
+            xAxis.setLowerBound(Math.max(0, day - CHART_DAYS_SPAN));
+            xAxis.setUpperBound(day);
         }
 
     }

@@ -9,19 +9,19 @@ public class StatisticsVisualizer {
 
     private final VBox chartsBox = new VBox();
     private final QueueChart animalsNumChart =
-            new QueueChart("Animals", Color.RED);
+            new QueueChart("Animals", Color.BLUE);
 
     private final QueueChart grassFieldsNumChart =
-            new QueueChart("Grass", Color.RED);
+            new QueueChart("Grass", Color.GREEN);
 
     private final QueueChart averageEnergyChart =
-            new QueueChart("Average energy", Color.RED);
+            new QueueChart("Average energy", Color.VIOLET);
 
     private final QueueChart averageLifespanChart =
             new QueueChart("Average lifespan", Color.RED);
 
     private final QueueChart averageChildrenNumChart =
-            new QueueChart("Average children number", Color.RED);
+            new QueueChart("Average children number", Color.GREY);
 
     public StatisticsVisualizer() {
 
@@ -33,15 +33,6 @@ public class StatisticsVisualizer {
     }
 
     public void update(StatisticsSnapshot snapshot) {
-
-        var s = snapshot;
-        out.println("animals: " + s.getAnimalsNum());
-        out.println("grass: " + s.getGrassFieldsNum());
-        out.println("av energy: " + s.getAverageEnergyLevel());
-        out.println("av lifespan: " + s.getAverageLifespan());
-        out.println("av children: " + s.getAverageChildrenNum());
-        out.println("genotype: " + s.getDominantGenotype());
-        out.println("");
 
         animalsNumChart.update(snapshot.getAnimalsNum());
         grassFieldsNumChart.update(snapshot.getGrassFieldsNum());
