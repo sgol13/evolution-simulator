@@ -18,7 +18,7 @@ public class SimulationEngine implements Runnable {
     private boolean pauseFlag = true;
     private final LinkedList<Animal> animals = new LinkedList<Animal>();
     private Instant previousTime;
-    private long dayTime;
+    private double simulationSpeed;
 
     public SimulationEngine(SimulationVisualizer visualizer,
             SimulationConfig config, IMap map) {
@@ -26,7 +26,7 @@ public class SimulationEngine implements Runnable {
         this.visualizer = visualizer;
         this.config = config;
         this.map = map;
-        this.dayTime = config.defaultDaytime;
+        this.simulationSpeed = config.defaultSimulationSpeed;
     }
 
     @Override
@@ -35,28 +35,18 @@ public class SimulationEngine implements Runnable {
         initAnimals();
         previousTime = Instant.now();
 
-        int daysInFrame = 0;
-
         while (!finishFlag) {
 
             simulateDay();
 
-            /* out.print("\033[H\033[2J");
-            out.flush();
-            out.println(map.getMapSnapshot());
-            out.println(animals.size()); */
-
-            if (++daysInFrame == config.defaultDaysPerFrame) {
-
-                Platform.runLater(() -> visualizer.update(getSimulationSnapshot()));
-                daysInFrame = 0;
-            }
+            Platform.runLater(() -> visualizer.update(getSimulationSnapshot()));
 
             // wait for the next day
             var currentTime = Instant.now();
             var elapsedTime = Duration.between(previousTime, currentTime);
             previousTime = currentTime;
 
+            long dayTime = (long) (config.minSpeedDayTime / simulationSpeed);
             long leftTime = dayTime - elapsedTime.toMillis();
             if (leftTime > 0) {
 
@@ -174,5 +164,9 @@ public class SimulationEngine implements Runnable {
     synchronized public void resumeSimulation() {
         pauseFlag = false;
         notify();
+    }
+
+    public void changeSpeed(double newValue) {
+        simulationSpeed = newValue;
     }
 }

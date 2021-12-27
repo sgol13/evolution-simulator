@@ -15,6 +15,6 @@ public class SimulationConfig {
     public int initialAnimals = 400;
 
     public boolean magicStrategy = false;
-    public long defaultDaytime = 50;
-    public int defaultDaysPerFrame = 1;
+    public long minSpeedDayTime = 500;
+    public double defaultSimulationSpeed = 10;
 }

@@ -46,7 +46,6 @@ public class MapVisualizer {
                 "-fx-padding: 10;" +
                 "-fx-background-color: whitesmoke");
 
-
         initMapGrid();
     }
 

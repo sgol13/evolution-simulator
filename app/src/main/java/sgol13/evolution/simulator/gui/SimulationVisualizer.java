@@ -7,6 +7,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,6 +18,7 @@ import sgol13.evolution.simulator.simulation.IMap;
 import sgol13.evolution.simulator.simulation.SimulationEngine;
 import sgol13.evolution.simulator.simulation.UnboundedMap;
 import sgol13.evolution.simulator.snapshots.SimulationSnapshot;
+import static java.lang.System.out;
 
 public class SimulationVisualizer {
 
@@ -70,13 +73,21 @@ public class SimulationVisualizer {
         var controlsBox = new HBox();
         controlsBox.setAlignment(Pos.CENTER);
         controlsBox.setSpacing(20);
-
-        var slider = new Slider(1, 20, 10);
         mapControlsBox.getChildren().add(controlsBox);
+
         var speedLabel = new Label("Speed");
         speedLabel.setStyle("-fx-font-size:20");
         controlsBox.getChildren().add(speedLabel);
+
+        var slider = new Slider(1, 40, 10);
         controlsBox.getChildren().add(slider);
+        slider.setPrefWidth(200);
+        slider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+                    Number newValue) {
+                engine.changeSpeed((double) newValue);
+            }
+        });
 
         var button = new Button("Start");
         button.setStyle("-fx-font-size:20");
