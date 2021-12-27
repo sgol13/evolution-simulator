@@ -2,10 +2,13 @@ package sgol13.evolution.simulator.gui;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.simulation.BoundedMap;
@@ -24,7 +27,7 @@ public class SimulationVisualizer {
     private final Thread simThread;
 
     private final GridPane mainGrid = new GridPane();
-    private final VBox mapButtonBox = new VBox();
+    private final VBox mapControlsBox = new VBox();
     private final MapVisualizer mapVisualizer;
 
     public SimulationVisualizer(SimulationConfig config) {
@@ -35,12 +38,12 @@ public class SimulationVisualizer {
         this.simThread = new Thread(engine);
         this.mapVisualizer = new MapVisualizer(config);
 
-        mapButtonBox.getChildren().add(mapVisualizer.getNode());
-        mapButtonBox.setSpacing(20);
+        mapControlsBox.getChildren().add(mapVisualizer.getNode());
+        mapControlsBox.setSpacing(20);
 
-        mainGrid.add(mapButtonBox, 0, 0);
+        mainGrid.add(mapControlsBox, 0, 0);
 
-        initStartButton();
+        initControls();
     }
 
     public void update(SimulationSnapshot snapshot) {
@@ -62,10 +65,22 @@ public class SimulationVisualizer {
         return mainGrid;
     }
 
-    private void initStartButton() {
+    private void initControls() {
+
+        var controlsBox = new HBox();
+        controlsBox.setAlignment(Pos.CENTER);
+        controlsBox.setSpacing(20);
+
+        var slider = new Slider(1, 20, 10);
+        mapControlsBox.getChildren().add(controlsBox);
+        var speedLabel = new Label("Speed");
+        speedLabel.setStyle("-fx-font-size:20");
+        controlsBox.getChildren().add(speedLabel);
+        controlsBox.getChildren().add(slider);
 
         var button = new Button("Start");
         button.setStyle("-fx-font-size:20");
+        button.setMinWidth(150);
 
         button.setOnAction(event -> {
 
@@ -81,7 +96,6 @@ public class SimulationVisualizer {
             }
         });
 
-        mapButtonBox.getChildren().add(button);
-        mapButtonBox.setAlignment(Pos.CENTER);
+        controlsBox.getChildren().add(button);
     }
 }

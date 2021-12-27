@@ -43,6 +43,7 @@ public class MapVisualizer {
         mapBox.setStyle("-fx-border-style: solid inside;" +
                 "-fx-border-width: 2;" +
                 "-fx-border-color: black;" +
+                "-fx-padding: 10;" +
                 "-fx-background-color: whitesmoke");
 
 
