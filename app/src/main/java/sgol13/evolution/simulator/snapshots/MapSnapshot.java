@@ -1,11 +1,11 @@
 package sgol13.evolution.simulator.snapshots;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import static java.lang.System.out;
 import sgol13.evolution.simulator.simulation.Animal;
 import sgol13.evolution.simulator.simulation.Genotype;
 import sgol13.evolution.simulator.simulation.Vector2d;
@@ -145,6 +145,10 @@ public class MapSnapshot {
     }
 
     public String getDominantGenotype() {
+
+        if (dominantGenotype == null)
+            return null;
+
         return dominantGenotype.toString();
     }
 }

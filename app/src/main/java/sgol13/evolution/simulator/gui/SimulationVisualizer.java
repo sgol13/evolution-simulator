@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.simulation.BoundedMap;
@@ -78,7 +79,10 @@ public class SimulationVisualizer {
         }
 
         var genotype = snapshot.getMapSnapshot().getDominantGenotype();
-        genotypeText.setText(genotype);
+        if (genotype != null)
+            genotypeText.setText(genotype);
+        else
+            genotypeText.setText("[- - - - - - - -]");
     }
 
     public void start() {
@@ -139,14 +143,24 @@ public class SimulationVisualizer {
 
     private void initDominantGenotype() {
 
-        genotypeText.setStyle("-fx-font-size:20");
+        genotypeText.setFont(Font.font("Monospaced", 20));
 
         var label = new Label("Dominant genotype");
         label.setStyle("-fx-font-size:20");
         var button = new Button("Show");
         button.setStyle("-fx-font-size:20");
         button.setMinWidth(120);
+        button.setOnAction(event -> {
 
+            mapVisualizer.toggleShowDominantGenotype();
+            if (mapVisualizer.isShowingDominantGenotype()) {
+                button.setText("Hide");
+            } else {
+                button.setText("Show");
+            }
+        });
+
+        genotypeBox.setAlignment(Pos.CENTER);
         genotypeBox.setSpacing(20);
         genotypeBox.getChildren().addAll(label, genotypeText, button);
         mapControlsBox.getChildren().add(genotypeBox);

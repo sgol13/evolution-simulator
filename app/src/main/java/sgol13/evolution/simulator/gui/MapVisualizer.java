@@ -41,6 +41,8 @@ public class MapVisualizer {
     private final SimulationConfig config;
     private final GridPane mapGrid = new GridPane();
     private final VBox mapBox = new VBox();
+    private boolean showDominantGenotypeFlag = false;
+    private MapSnapshot previousSnapshot;
 
     public MapVisualizer(SimulationEngine engine, SimulationConfig config) {
 
@@ -64,6 +66,8 @@ public class MapVisualizer {
         for (int row = 0; row < config.mapHeight; row++)
             for (int col = 0; col < config.mapWidth; col++)
                 updateField(snapshot, row, col);
+
+        previousSnapshot = snapshot;
     }
 
     private void updateField(MapSnapshot snapshot, int row, int col) {
@@ -73,13 +77,15 @@ public class MapVisualizer {
 
             var animalCircle = new Circle(calculateCircleRadius(animalsNum));
 
-            if (snapshot.isDominantGenotype(row, col)) {
-                animalCircle.setFill(DOMINANT_GENOTYPE_COLOR);
-            }
-
             if (snapshot.getObservedAnimalColumn() == col &&
                     snapshot.getObservedAnimalRow() == row) {
                 animalCircle.setFill(OBSERVED_ANIMAL_COLOR);
+
+            } else if (snapshot.isDominantGenotype(row, col)
+                    && showDominantGenotypeFlag) {
+
+                animalCircle.setFill(DOMINANT_GENOTYPE_COLOR);
+
             } else {
                 var color = calculateFieldColor(snapshot.getMaxEnergy(row, col));
                 animalCircle.setFill(color);
@@ -178,4 +184,13 @@ public class MapVisualizer {
             mapGrid.getColumnConstraints().add(new ColumnConstraints(squareSide));
     }
 
+    public void toggleShowDominantGenotype() {
+
+        showDominantGenotypeFlag = !showDominantGenotypeFlag;
+        update(previousSnapshot);
+    }
+
+    public boolean isShowingDominantGenotype() {
+        return showDominantGenotypeFlag;
+    }
 }

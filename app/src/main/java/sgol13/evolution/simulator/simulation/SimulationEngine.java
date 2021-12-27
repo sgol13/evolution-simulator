@@ -98,9 +98,11 @@ public class SimulationEngine implements Runnable {
         var mapSnapshot = map.getMapSnapshot();
         mapSnapshot.setObservedAnimal(observedAnimal);
         var dominantGenotype = findDominantGenotype();
-        mapSnapshot.setDominantGenotype(dominantGenotype);
-        mapSnapshot.addDominantGenotypePositions(
-                findAllDominantGenotypes(dominantGenotype));
+        if (dominantGenotype != null) {
+            mapSnapshot.setDominantGenotype(dominantGenotype);
+            mapSnapshot.addDominantGenotypePositions(
+                    findAllDominantGenotypes(dominantGenotype));
+        }
         var statisticsSnapshot = getStatisticsSnapshot();
         var observedAnimalSnapshot = getObservedAnimalSnapshot();
 
@@ -125,7 +127,7 @@ public class SimulationEngine implements Runnable {
         for (var animal : animals) {
             var genotype = animal.getGenotype();
             if (genotypesCounters.containsKey(genotype)) {
-                genotypesCounters.put(genotype, genotypesCounters.get(genotype));
+                genotypesCounters.put(genotype, genotypesCounters.get(genotype) + 1);
             } else {
                 genotypesCounters.put(genotype, 1);
             }
@@ -139,6 +141,9 @@ public class SimulationEngine implements Runnable {
                 maxEntry = entry;
             }
         }
+
+        if (maxEntry == null || maxEntry.getValue() < 2)
+            return null;
 
         return maxEntry.getKey();
     }
