@@ -16,6 +16,7 @@ public class Animal implements Comparable<Animal> {
     private final IMap map;
     private final int moveEnergy;
     private int childrenNumber = 0;
+    private long birthDay;
 
     // create an animal with random genotype
     public Animal(IMap map, Vector2d position, int startEnergy, int moveEnergy) {
@@ -75,6 +76,14 @@ public class Animal implements Comparable<Animal> {
 
     public int getChildrenNumber() {
         return childrenNumber;
+    }
+
+    public void setBirthDay(long daysCounter) {
+        this.birthDay = daysCounter;
+    }
+
+    public long getBirthDay() {
+        return birthDay;
     }
 
     public void move() {

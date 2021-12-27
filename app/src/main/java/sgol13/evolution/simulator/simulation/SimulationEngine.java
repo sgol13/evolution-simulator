@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.gui.SimulationVisualizer;
 import sgol13.evolution.simulator.snapshots.SimulationSnapshot;
+import sgol13.evolution.simulator.snapshots.StatisticsSnapshot;
 import static java.lang.System.out;
 import java.time.Duration;
 import java.time.Instant;
@@ -19,6 +20,9 @@ public class SimulationEngine implements Runnable {
     private final LinkedList<Animal> animals = new LinkedList<Animal>();
     private Instant previousTime;
     private double simulationSpeed;
+    private long daysCounter = 0;
+    private long deathAnimalsCounter = 0;
+    private long totalDeathAnimalsLifespan = 0;
 
     public SimulationEngine(SimulationVisualizer visualizer,
             SimulationConfig config, IMap map) {
@@ -68,7 +72,7 @@ public class SimulationEngine implements Runnable {
                 }
             }
 
-
+            daysCounter++;
         }
     }
 
@@ -84,7 +88,19 @@ public class SimulationEngine implements Runnable {
     synchronized private SimulationSnapshot getSimulationSnapshot() {
 
         var mapSnapshot = map.getMapSnapshot();
-        return new SimulationSnapshot(mapSnapshot);
+        var statisticsSnapshot = getStatisticsSnapshot();
+
+        return new SimulationSnapshot(mapSnapshot, statisticsSnapshot);
+    }
+
+    private StatisticsSnapshot getStatisticsSnapshot() {
+
+        var snapshot = new StatisticsSnapshot();
+        snapshot.setGrassFieldsNum(map.getGrassFieldsNum());
+        snapshot.setAverageLifespan(getAverageLifespan());
+        animals.forEach(animal -> snapshot.addAnimal(animal));
+
+        return snapshot;
     }
 
     private void removeDead() {
@@ -97,6 +113,10 @@ public class SimulationEngine implements Runnable {
 
             // check if the animal is dead
             if (animal.getEnergy() <= 0) {
+
+                totalDeathAnimalsLifespan += daysCounter - animal.getBirthDay();
+                deathAnimalsCounter++;
+
                 map.removeAnimal(animal);
                 it.remove();
                 deadAnimals.add(animal);
@@ -116,10 +136,19 @@ public class SimulationEngine implements Runnable {
 
             for (var animal : newAnimals) {
                 animal.eat(config.startEnergy);
+                animal.setBirthDay(daysCounter);
                 animals.add(animal);
                 map.placeAnimalOnRandomField(animal);
             }
         }
+    }
+
+    private double getAverageLifespan() {
+
+        if (deathAnimalsCounter == 0)
+            return 0;
+
+        return totalDeathAnimalsLifespan / deathAnimalsCounter;
     }
 
     private void simulateMoving() {
@@ -149,7 +178,10 @@ public class SimulationEngine implements Runnable {
     }
 
     private void initAnimals() {
-        animals.addAll(map.placeRandomAnimals(config.initialAnimals));
+
+        var newAnimals = map.placeRandomAnimals(config.initialAnimals);
+        newAnimals.forEach(animal -> animal.setBirthDay(daysCounter));
+        animals.addAll(newAnimals);
     }
 
     synchronized public void finishSimulation() {

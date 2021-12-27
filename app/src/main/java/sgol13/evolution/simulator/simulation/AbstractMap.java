@@ -194,4 +194,16 @@ public abstract class AbstractMap implements IMap {
     public Collection<MapField> getAllFields() {
         return fields.values();
     }
+
+    @Override
+    public int getGrassFieldsNum() {
+
+        int grassFieldsNum = 0;
+        for (int x = 0; x < mapSize.x; x++)
+            for (int y = 0; y < mapSize.y; y++)
+                if (fields.get(new Vector2d(x, y)).isGrassed())
+                    grassFieldsNum++;
+
+        return grassFieldsNum;
+    }
 }

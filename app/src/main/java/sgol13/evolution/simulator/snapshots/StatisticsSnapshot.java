@@ -9,9 +9,9 @@ public class StatisticsSnapshot {
 
     private int animalsNum = 0;
     private int grassFieldsNum = 0;
-    private float totalEnergyLevel = 0;
-    private float averageLifespan = 0;
-    private float totalChildrenNum = 0;
+    private double totalEnergyLevel = 0;
+    private double averageLifespan = 0;
+    private double totalChildrenNum = 0;
 
     private Map<Genotype, Integer> genotypesCounters = new HashMap<Genotype, Integer>();
 
@@ -23,15 +23,15 @@ public class StatisticsSnapshot {
         return grassFieldsNum;
     }
 
-    public float getAverageEnergyLevel() {
+    public double getAverageEnergyLevel() {
         return totalEnergyLevel / animalsNum;
     }
 
-    public float getAverageLifespan() {
+    public double getAverageLifespan() {
         return averageLifespan;
     }
 
-    public float getAverageChildrenNumber() {
+    public double getAverageChildrenNumber() {
         return totalChildrenNum / animalsNum;
     }
 
@@ -65,5 +65,9 @@ public class StatisticsSnapshot {
 
     public void setGrassFieldsNum(int grassFieldsNum) {
         this.grassFieldsNum = grassFieldsNum;
+    }
+
+    public void setAverageLifespan(double averageLifespan) {
+        this.averageLifespan = averageLifespan;
     }
 }

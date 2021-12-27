@@ -23,4 +23,6 @@ public interface IMap {
     MapSnapshot getMapSnapshot();
 
     Collection<MapField> getAllFields();
+
+    int getGrassFieldsNum();
 }
