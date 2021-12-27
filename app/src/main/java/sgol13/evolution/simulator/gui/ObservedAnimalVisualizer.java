@@ -3,6 +3,7 @@ package sgol13.evolution.simulator.gui;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import sgol13.evolution.simulator.snapshots.ObservedAnimalSnapshot;
@@ -27,6 +28,7 @@ public class ObservedAnimalVisualizer {
         String[] labelsArray = {"Animal ID", "Genotype", "Energy", "Children"};
 
         for (int i = 0; i < labelsArray.length; i++) {
+
             var label = new Label(labelsArray[i]);
             label.setFont(new Font(FONT_SIZE));
             grid.add(label, 0, i + 1);
@@ -43,6 +45,7 @@ public class ObservedAnimalVisualizer {
         values.get(0).setText(String.valueOf(snapshot.getID()));
         values.get(1).setText(snapshot.getGenotype().toString());
         values.get(2).setText(String.valueOf(snapshot.getEnergy()));
+        values.get(2).setFill(Color.BLACK);
         values.get(3).setText(String.valueOf(snapshot.getChildrenNumber()));
     }
 
@@ -57,7 +60,10 @@ public class ObservedAnimalVisualizer {
 
     public void close() {
         openFlag = false;
-        grid.setVisible(false);
+
+        // animal is dead
+        values.get(2).setText("DEAD");
+        values.get(2).setFill(Color.RED);
     }
 
     public boolean isOpened() {

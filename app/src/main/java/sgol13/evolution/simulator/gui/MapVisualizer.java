@@ -24,7 +24,7 @@ public class MapVisualizer {
 
     //colors
     private static final Color GRASS_COLOR = Color.GREEN;
-    private static final Color OBSERVED_ANIMAL_COLOR = Color.ORANGE;
+    private static final Color OBSERVED_ANIMAL_COLOR = Color.RED;
     private static final Color MAX_ENERGY_COLOR = Color.color(1, 0, 1);
     private static final Color MIN_ENERGY_COLOR = Color.color(0, 1, 1);
     private static final double MAX_ENERGY_TO_START_ENERGY_RATIO = 2.0;
