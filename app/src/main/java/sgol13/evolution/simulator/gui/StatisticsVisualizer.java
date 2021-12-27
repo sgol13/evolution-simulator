@@ -9,19 +9,19 @@ public class StatisticsVisualizer {
 
     private final VBox chartsBox = new VBox();
     private final QueueChart animalsNumChart =
-            new QueueChart("Animals", Color.BLUE);
+            new QueueChart("Animals", "#00ccff");
 
     private final QueueChart grassFieldsNumChart =
-            new QueueChart("Grass", Color.GREEN);
+            new QueueChart("Grass", "#009933");
 
     private final QueueChart averageEnergyChart =
-            new QueueChart("Average energy", Color.VIOLET);
+            new QueueChart("Average energy", "##cc0099");
 
     private final QueueChart averageLifespanChart =
-            new QueueChart("Average lifespan", Color.RED);
+            new QueueChart("Average lifespan", "#ff9900");
 
     private final QueueChart averageChildrenNumChart =
-            new QueueChart("Average children number", Color.GREY);
+            new QueueChart("Average children number", "#99cc00");
 
     public StatisticsVisualizer() {
 

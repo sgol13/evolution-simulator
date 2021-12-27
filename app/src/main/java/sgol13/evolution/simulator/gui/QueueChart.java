@@ -20,7 +20,7 @@ public class QueueChart {
     private final NumberAxis yAxis;
     private int day = 0;
 
-    public QueueChart(String label, Color color) {
+    public QueueChart(String label, String color) {
 
         xAxis = new NumberAxis();
         xAxis.setAutoRanging(false);
@@ -39,7 +39,7 @@ public class QueueChart {
         chart = new LineChart<Number, Number>(xAxis, yAxis);
         chart.setCreateSymbols(false);
         chart.getData().add(dataSeries);
-        chart.setStyle(".default-color0.chart-series-line { -fx-stroke: blue; }");
+        chart.setStyle("CHART_COLOR_1:" + color + ";");
 
         chartBox.getChildren().add(new Label(label));
         chartBox.getChildren().add(chart);

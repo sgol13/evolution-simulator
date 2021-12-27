@@ -46,7 +46,7 @@ public class SimulationVisualizer {
         mapControlsBox.setSpacing(20);
 
         mainGrid.add(mapControlsBox, 1, 0);
-        mainGrid.add(statisticsVisualizer.getNode(), 0, 0);
+        mainGrid.add(statisticsVisualizer.getNode(), 0, 0, 1, 2);
 
         initControls();
     }
