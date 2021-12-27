@@ -4,12 +4,16 @@ public class SimulationSnapshot {
 
     private final MapSnapshot mapSnapshot;
     private final StatisticsSnapshot statisticsSnapshot;
+    private final ObservedAnimalSnapshot observedAnimalSnapshot;
 
-    public SimulationSnapshot(MapSnapshot mapSnapshot,
-            StatisticsSnapshot statisticsSnapshot) {
+    public SimulationSnapshot(
+            MapSnapshot mapSnapshot,
+            StatisticsSnapshot statisticsSnapshot,
+            ObservedAnimalSnapshot observedAnimalSnapshot) {
 
         this.mapSnapshot = mapSnapshot;
         this.statisticsSnapshot = statisticsSnapshot;
+        this.observedAnimalSnapshot = observedAnimalSnapshot;
     }
 
     public MapSnapshot getMapSnapshot() {
@@ -18,5 +22,9 @@ public class SimulationSnapshot {
 
     public StatisticsSnapshot getStatisticsSnapshot() {
         return statisticsSnapshot;
+    }
+
+    public ObservedAnimalSnapshot getObservedAnimalSnapshot() {
+        return observedAnimalSnapshot;
     }
 }

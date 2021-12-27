@@ -32,7 +32,10 @@ public class SimulationVisualizer {
     private final GridPane mainGrid = new GridPane();
     private final VBox mapControlsBox = new VBox();
     private final MapVisualizer mapVisualizer;
-    private final StatisticsVisualizer statisticsVisualizer = new StatisticsVisualizer();
+    private final StatisticsVisualizer statisticsVisualizer =
+            new StatisticsVisualizer();
+    private final ObservedAnimalVisualizer observedAnimalVisualizer =
+            new ObservedAnimalVisualizer();
 
     public SimulationVisualizer(SimulationConfig config) {
 
@@ -40,13 +43,15 @@ public class SimulationVisualizer {
         IMap map = config.boundedMap ? new BoundedMap(config) : new UnboundedMap(config);
         this.engine = new SimulationEngine(this, config, map);
         this.simThread = new Thread(engine);
-        this.mapVisualizer = new MapVisualizer(config);
+        this.mapVisualizer = new MapVisualizer(engine, config);
 
         mapControlsBox.getChildren().add(mapVisualizer.getNode());
         mapControlsBox.setSpacing(20);
 
         mainGrid.add(mapControlsBox, 1, 0);
         mainGrid.add(statisticsVisualizer.getNode(), 0, 0, 1, 2);
+        mainGrid.add(observedAnimalVisualizer.getNode(), 1, 1);
+        mainGrid.setAlignment(Pos.CENTER);
 
         initControls();
     }
@@ -55,6 +60,17 @@ public class SimulationVisualizer {
 
         mapVisualizer.update(snapshot.getMapSnapshot());
         statisticsVisualizer.update(snapshot.getStatisticsSnapshot());
+
+        if (snapshot.getObservedAnimalSnapshot() != null) {
+
+            if (!observedAnimalVisualizer.isOpened())
+                observedAnimalVisualizer.open();
+
+            observedAnimalVisualizer.update(snapshot.getObservedAnimalSnapshot());
+
+        } else if (observedAnimalVisualizer.isOpened()) {
+            observedAnimalVisualizer.close();
+        }
     }
 
     public void start() {

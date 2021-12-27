@@ -13,7 +13,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import sgol13.evolution.simulator.SimulationConfig;
+import sgol13.evolution.simulator.simulation.Animal;
+import sgol13.evolution.simulator.simulation.SimulationEngine;
 import sgol13.evolution.simulator.snapshots.MapSnapshot;
 import static java.lang.System.out;
 
@@ -21,6 +24,7 @@ public class MapVisualizer {
 
     //colors
     private static final Color GRASS_COLOR = Color.GREEN;
+    private static final Color OBSERVED_ANIMAL_COLOR = Color.ORANGE;
     private static final Color MAX_ENERGY_COLOR = Color.color(1, 0, 1);
     private static final Color MIN_ENERGY_COLOR = Color.color(0, 1, 1);
     private static final double MAX_ENERGY_TO_START_ENERGY_RATIO = 2.0;
@@ -29,15 +33,17 @@ public class MapVisualizer {
     private static final int MAP_WIDTH_PX = 550;
     private static final int INTERNAL_MARGIN_WIDTH = 2;
     private static final int GAP_BETWEEN_FIELDS_PX = 2;
-    private static final double[] RADIUS_MULTIPLIERS = {0.5, 1.2, 1.4, 1.6, 1.8};
+    private static final double[] RADIUS_MULTIPLIERS = {1.0, 1.2, 1.4, 1.6, 1.8};
     private int squareSide;
 
+    private final SimulationEngine engine;
     private final SimulationConfig config;
     private final GridPane mapGrid = new GridPane();
     private final VBox mapBox = new VBox();
 
-    public MapVisualizer(SimulationConfig config) {
+    public MapVisualizer(SimulationEngine engine, SimulationConfig config) {
 
+        this.engine = engine;
         this.config = config;
 
         mapBox.getChildren().add(mapGrid);
@@ -66,11 +72,31 @@ public class MapVisualizer {
 
             var animalCircle = new Circle(calculateCircleRadius(animalsNum));
             var color = calculateFieldColor(snapshot.getMaxEnergy(row, col));
-            animalCircle.setFill(color);
+
+            if (snapshot.getObservedAnimalColumn() == col &&
+                    snapshot.getObservedAnimalRow() == row) {
+                animalCircle.setFill(OBSERVED_ANIMAL_COLOR);
+            } else {
+                animalCircle.setFill(color);
+            }
+
+            animalCircle.setOnMouseClicked(event -> {
+                engine.setObservedAnimal(row, col);
+            });
+
+            animalCircle.setOnMouseEntered(event -> {
+                animalCircle.setRadius(2 * animalCircle.getRadius());
+            });
+
+            animalCircle.setOnMouseExited(event -> {
+                animalCircle.setRadius(0.5 * animalCircle.getRadius());
+            });
+
             mapGrid.add(animalCircle, col, row);
 
             GridPane.setHalignment(animalCircle, HPos.CENTER);
             GridPane.setValignment(animalCircle, VPos.CENTER);
+
 
         } else if (snapshot.isGrassed(row, col)) {
 

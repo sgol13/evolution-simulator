@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import sgol13.evolution.simulator.simulation.Animal;
 import sgol13.evolution.simulator.simulation.Vector2d;
 
 public class MapSnapshot {
@@ -22,6 +23,7 @@ public class MapSnapshot {
     private final Set<Vector2d> grassFields = new HashSet<Vector2d>();
     private final Map<Vector2d, AnimalsField> animalsFields =
             new HashMap<Vector2d, AnimalsField>();
+    private Vector2d observedAnimalPosition;
 
     public MapSnapshot(Vector2d mapSize) {
         this.mapSize = mapSize;
@@ -43,6 +45,18 @@ public class MapSnapshot {
         return mapSize.x;
     }
 
+    public int getObservedAnimalRow() {
+        if (observedAnimalPosition != null)
+            return mapSize.y - observedAnimalPosition.y - 1;
+        return -1;
+    }
+
+    public int getObservedAnimalColumn() {
+        if (observedAnimalPosition != null)
+            return observedAnimalPosition.x;
+        return -1;
+    }
+
     public void addGrassField(Vector2d position) {
         grassFields.add(position);
     }
@@ -51,11 +65,17 @@ public class MapSnapshot {
         animalsFields.put(position, new AnimalsField(animalsNumber, maxEnergy));
     }
 
+    public void setObservedAnimal(Animal observedAnimal) {
+        if (observedAnimal != null)
+            observedAnimalPosition = observedAnimal.getPosition();
+    }
+
     public int getAnimalsNumber(int row, int col) {
 
         var field = animalsFields.get(calculateVector(row, col));
         return field != null ? field.animalsNumber : 0;
     }
+
 
     public int getMaxEnergy(int row, int col) {
 

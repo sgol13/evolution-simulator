@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import javafx.application.Platform;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.gui.SimulationVisualizer;
+import sgol13.evolution.simulator.snapshots.ObservedAnimalSnapshot;
 import sgol13.evolution.simulator.snapshots.SimulationSnapshot;
 import sgol13.evolution.simulator.snapshots.StatisticsSnapshot;
 import static java.lang.System.out;
@@ -23,6 +24,7 @@ public class SimulationEngine implements Runnable {
     private long daysCounter = 0;
     private long deathAnimalsCounter = 0;
     private long totalDeathAnimalsLifespan = 0;
+    private Animal observedAnimal = null;
 
     public SimulationEngine(SimulationVisualizer visualizer,
             SimulationConfig config, IMap map) {
@@ -43,7 +45,7 @@ public class SimulationEngine implements Runnable {
 
             simulateDay();
 
-            Platform.runLater(() -> visualizer.update(getSimulationSnapshot()));
+            sendSimulationSnapshot();
 
             // wait for the next day
             var currentTime = Instant.now();
@@ -88,9 +90,12 @@ public class SimulationEngine implements Runnable {
     synchronized private SimulationSnapshot getSimulationSnapshot() {
 
         var mapSnapshot = map.getMapSnapshot();
+        mapSnapshot.setObservedAnimal(observedAnimal);
         var statisticsSnapshot = getStatisticsSnapshot();
+        var observedAnimalSnapshot = getObservedAnimalSnapshot();
 
-        return new SimulationSnapshot(mapSnapshot, statisticsSnapshot);
+        return new SimulationSnapshot(mapSnapshot,
+                statisticsSnapshot, observedAnimalSnapshot);
     }
 
     private StatisticsSnapshot getStatisticsSnapshot() {
@@ -101,6 +106,14 @@ public class SimulationEngine implements Runnable {
         animals.forEach(animal -> snapshot.addAnimal(animal));
 
         return snapshot;
+    }
+
+    private ObservedAnimalSnapshot getObservedAnimalSnapshot() {
+
+        if (observedAnimal != null)
+            return new ObservedAnimalSnapshot(observedAnimal);
+
+        return null;
     }
 
     private void removeDead() {
@@ -120,6 +133,9 @@ public class SimulationEngine implements Runnable {
                 map.removeAnimal(animal);
                 it.remove();
                 deadAnimals.add(animal);
+
+                if (animal == observedAnimal)
+                    observedAnimal = null;
             }
         }
 
@@ -177,6 +193,10 @@ public class SimulationEngine implements Runnable {
         }
     }
 
+    public void sendSimulationSnapshot() {
+        Platform.runLater(() -> visualizer.update(getSimulationSnapshot()));
+    }
+
     private void initAnimals() {
 
         var newAnimals = map.placeRandomAnimals(config.initialAnimals);
@@ -200,5 +220,21 @@ public class SimulationEngine implements Runnable {
 
     public void changeSpeed(double newValue) {
         simulationSpeed = newValue;
+    }
+
+    synchronized public void setObservedAnimal(int row, int col) {
+
+        var field = map.getField(new Vector2d(col, config.mapHeight - row - 1));
+        var animalsOnPosition = field.getAnimalsGroup();
+
+        if (animalsOnPosition.length > 0) {
+            observedAnimal = animalsOnPosition[0];
+            sendSimulationSnapshot();
+        } else
+            observedAnimal = null;
+    }
+
+    synchronized public void removeObservedAnimal() {
+        observedAnimal = null;
     }
 }

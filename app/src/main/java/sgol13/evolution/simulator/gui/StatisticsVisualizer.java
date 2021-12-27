@@ -9,53 +9,54 @@ import static java.lang.System.out;
 
 public class StatisticsVisualizer {
 
-    private static final int DOMINANT_GENOTYPE_FONT_SIZE = 12;
+        private static final int DOMINANT_GENOTYPE_FONT_SIZE = 12;
 
-    private final VBox chartsBox = new VBox();
-    private final QueueChart animalsNumChart =
-            new QueueChart("Animals", "#00ccff");
+        private final VBox chartsBox = new VBox();
+        private final QueueChart animalsNumChart =
+                        new QueueChart("Animals", "#00ccff");
 
-    private final QueueChart grassFieldsNumChart =
-            new QueueChart("Grass", "#009933");
+        private final QueueChart grassFieldsNumChart =
+                        new QueueChart("Grass", "#009933");
 
-    private final QueueChart averageEnergyChart =
-            new QueueChart("Average energy", "#cc0099");
+        private final QueueChart averageEnergyChart =
+                        new QueueChart("Average energy", "#cc0099");
 
-    private final QueueChart averageLifespanChart =
-            new QueueChart("Average lifespan", "#ff9900");
+        private final QueueChart averageLifespanChart =
+                        new QueueChart("Average lifespan", "#ff9900");
 
-    private final QueueChart averageChildrenNumChart =
-            new QueueChart("Average children number", "#99cc00");
+        private final QueueChart averageChildrenNumChart =
+                        new QueueChart("Average children number", "#99cc00");
 
-    private final Text dominantGenotype = new Text();
+        private final Text dominantGenotype = new Text();
 
-    public StatisticsVisualizer() {
+        public StatisticsVisualizer() {
 
-        chartsBox.getChildren().add(dominantGenotype);
+                chartsBox.getChildren().add(dominantGenotype);
 
-        chartsBox.getChildren().add(animalsNumChart.getNode());
-        chartsBox.getChildren().add(grassFieldsNumChart.getNode());
-        chartsBox.getChildren().add(averageEnergyChart.getNode());
-        chartsBox.getChildren().add(averageLifespanChart.getNode());
-        chartsBox.getChildren().add(averageChildrenNumChart.getNode());
+                chartsBox.getChildren().add(animalsNumChart.getNode());
+                chartsBox.getChildren().add(grassFieldsNumChart.getNode());
+                chartsBox.getChildren().add(averageEnergyChart.getNode());
+                chartsBox.getChildren().add(averageLifespanChart.getNode());
+                chartsBox.getChildren().add(averageChildrenNumChart.getNode());
 
-        // dominantGenotype.setFont(new Font(DOMINANT_GENOTYPE_FONT_SIZE));
+                // dominantGenotype.setFont(new Font(DOMINANT_GENOTYPE_FONT_SIZE));
 
-        chartsBox.setAlignment(Pos.CENTER);
-    }
+                chartsBox.setAlignment(Pos.CENTER);
+        }
 
-    public void update(StatisticsSnapshot snapshot) {
+        public void update(StatisticsSnapshot snapshot) {
 
-        animalsNumChart.update(snapshot.getAnimalsNum());
-        grassFieldsNumChart.update(snapshot.getGrassFieldsNum());
-        averageEnergyChart.update(snapshot.getAverageEnergyLevel());
-        averageLifespanChart.update(snapshot.getAverageLifespan());
-        averageChildrenNumChart.update(snapshot.getAverageChildrenNum());
+                animalsNumChart.update(snapshot.getAnimalsNum());
+                grassFieldsNumChart.update(snapshot.getGrassFieldsNum());
+                averageEnergyChart.update(snapshot.getAverageEnergyLevel());
+                averageLifespanChart.update(snapshot.getAverageLifespan());
+                averageChildrenNumChart.update(snapshot.getAverageChildrenNum());
 
-        dominantGenotype.setText("Dominant genotype\n" + snapshot.getDominantGenotype());
-    }
+                dominantGenotype.setText("Dominant genotype    " +
+                                snapshot.getDominantGenotype());
+        }
 
-    public VBox getNode() {
-        return chartsBox;
-    }
+        public VBox getNode() {
+                return chartsBox;
+        }
 }

@@ -78,8 +78,19 @@ public class Genotype {
     }
 
     public String toString() {
-        return Arrays.toString(genes)
-                .replace(",", "")
-                .replace(" ", "");
+
+        var counters = new int[GENES_VALUES_NUM];
+        for (int genValue = 0; genValue < GENES_VALUES_NUM; genValue++) {
+
+            counters[genValue] = 0;
+            for (int i = 0; i < GENOTYPE_SIZE; i++) {
+                if (genes[i] == genValue)
+                    counters[genValue]++;
+                else if (genes[i] > genValue)
+                    break;
+            }
+        }
+
+        return Arrays.toString(counters);
     }
 }
