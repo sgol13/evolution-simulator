@@ -58,7 +58,7 @@ public class ObservedAnimalVisualizer {
         grid.setVisible(true);
     }
 
-    public void close() {
+    public void died() {
         openFlag = false;
 
         // animal is dead

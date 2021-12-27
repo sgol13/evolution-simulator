@@ -13,7 +13,12 @@ public class StatisticsSnapshot {
     private double averageLifespan = 0;
     private double totalChildrenNum = 0;
 
-    private Map<Genotype, Integer> genotypesCounters = new HashMap<Genotype, Integer>();
+    public void addAnimal(Animal animal) {
+
+        animalsNum++;
+        totalChildrenNum += animal.getChildrenNumber();
+        totalEnergyLevel += animal.getEnergy();
+    }
 
     public int getAnimalsNum() {
         return animalsNum;
@@ -33,34 +38,6 @@ public class StatisticsSnapshot {
 
     public double getAverageChildrenNum() {
         return totalChildrenNum / animalsNum;
-    }
-
-    public String getDominantGenotype() {
-
-        Map.Entry<Genotype, Integer> maxEntry = null;
-        for (var entry : genotypesCounters.entrySet()) {
-            if (maxEntry == null ||
-                    entry.getValue().compareTo(maxEntry.getValue()) > 0) {
-
-                maxEntry = entry;
-            }
-        }
-
-        return maxEntry != null ? maxEntry.getKey().toString() : null;
-    }
-
-    public void addAnimal(Animal animal) {
-
-        animalsNum++;
-        totalChildrenNum += animal.getChildrenNumber();
-        totalEnergyLevel += animal.getEnergy();
-
-        var genotype = animal.getGenotype();
-        if (genotypesCounters.containsKey(genotype)) {
-            genotypesCounters.put(genotype, genotypesCounters.get(genotype));
-        } else {
-            genotypesCounters.put(genotype, 1);
-        }
     }
 
     public void setGrassFieldsNum(int grassFieldsNum) {

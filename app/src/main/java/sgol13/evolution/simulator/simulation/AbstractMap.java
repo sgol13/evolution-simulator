@@ -179,9 +179,7 @@ public abstract class AbstractMap implements IMap {
 
                     var animalsGroup = field.getAnimalsGroup();
                     if (animalsGroup.length > 0) {
-
-                        snapshot.addAnimalsGroup(position, animalsGroup.length,
-                                animalsGroup[0].getEnergy());
+                        snapshot.addAnimalsGroup(animalsGroup);
                     }
                 }
             }

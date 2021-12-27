@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.simulation.BoundedMap;
 import sgol13.evolution.simulator.simulation.IMap;
@@ -31,6 +32,9 @@ public class SimulationVisualizer {
 
     private final GridPane mainGrid = new GridPane();
     private final VBox mapControlsBox = new VBox();
+    private final HBox genotypeBox = new HBox();
+    private final Text genotypeText = new Text();
+
     private final MapVisualizer mapVisualizer;
     private final StatisticsVisualizer statisticsVisualizer =
             new StatisticsVisualizer();
@@ -46,7 +50,7 @@ public class SimulationVisualizer {
         this.mapVisualizer = new MapVisualizer(engine, config);
 
         mapControlsBox.getChildren().add(mapVisualizer.getNode());
-        mapControlsBox.setSpacing(20);
+        mapControlsBox.setSpacing(40);
 
         mainGrid.add(mapControlsBox, 1, 0);
         mainGrid.add(statisticsVisualizer.getNode(), 0, 0, 1, 2);
@@ -54,6 +58,7 @@ public class SimulationVisualizer {
         mainGrid.setAlignment(Pos.CENTER);
 
         initControls();
+        initDominantGenotype();
     }
 
     public void update(SimulationSnapshot snapshot) {
@@ -69,8 +74,11 @@ public class SimulationVisualizer {
             observedAnimalVisualizer.update(snapshot.getObservedAnimalSnapshot());
 
         } else if (observedAnimalVisualizer.isOpened()) {
-            observedAnimalVisualizer.close();
+            observedAnimalVisualizer.died();
         }
+
+        var genotype = snapshot.getMapSnapshot().getDominantGenotype();
+        genotypeText.setText(genotype);
     }
 
     public void start() {
@@ -127,5 +135,20 @@ public class SimulationVisualizer {
         });
 
         controlsBox.getChildren().add(button);
+    }
+
+    private void initDominantGenotype() {
+
+        genotypeText.setStyle("-fx-font-size:20");
+
+        var label = new Label("Dominant genotype");
+        label.setStyle("-fx-font-size:20");
+        var button = new Button("Show");
+        button.setStyle("-fx-font-size:20");
+        button.setMinWidth(120);
+
+        genotypeBox.setSpacing(20);
+        genotypeBox.getChildren().addAll(label, genotypeText, button);
+        mapControlsBox.getChildren().add(genotypeBox);
     }
 }

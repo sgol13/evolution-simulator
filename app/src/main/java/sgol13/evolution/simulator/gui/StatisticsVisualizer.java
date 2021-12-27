@@ -9,8 +9,6 @@ import static java.lang.System.out;
 
 public class StatisticsVisualizer {
 
-        private static final int DOMINANT_GENOTYPE_FONT_SIZE = 12;
-
         private final VBox chartsBox = new VBox();
         private final QueueChart animalsNumChart =
                         new QueueChart("Animals", "#00ccff");
@@ -27,11 +25,7 @@ public class StatisticsVisualizer {
         private final QueueChart averageChildrenNumChart =
                         new QueueChart("Average children number", "#99cc00");
 
-        private final Text dominantGenotype = new Text();
-
         public StatisticsVisualizer() {
-
-                chartsBox.getChildren().add(dominantGenotype);
 
                 chartsBox.getChildren().add(animalsNumChart.getNode());
                 chartsBox.getChildren().add(grassFieldsNumChart.getNode());
@@ -51,9 +45,6 @@ public class StatisticsVisualizer {
                 averageEnergyChart.update(snapshot.getAverageEnergyLevel());
                 averageLifespanChart.update(snapshot.getAverageLifespan());
                 averageChildrenNumChart.update(snapshot.getAverageChildrenNum());
-
-                dominantGenotype.setText("Dominant genotype    " +
-                                snapshot.getDominantGenotype());
         }
 
         public VBox getNode() {

@@ -1,10 +1,13 @@
 package sgol13.evolution.simulator.snapshots;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import sgol13.evolution.simulator.simulation.Animal;
+import sgol13.evolution.simulator.simulation.Genotype;
 import sgol13.evolution.simulator.simulation.Vector2d;
 
 public class MapSnapshot {
@@ -12,6 +15,7 @@ public class MapSnapshot {
     private class AnimalsField {
         public int animalsNumber;
         public int maxEnergy;
+        public boolean isDominantGenotype = false;
 
         AnimalsField(int animalsNumber, int maxEnergy) {
             this.animalsNumber = animalsNumber;
@@ -24,6 +28,7 @@ public class MapSnapshot {
     private final Map<Vector2d, AnimalsField> animalsFields =
             new HashMap<Vector2d, AnimalsField>();
     private Vector2d observedAnimalPosition;
+    private Genotype dominantGenotype;
 
     public MapSnapshot(Vector2d mapSize) {
         this.mapSize = mapSize;
@@ -61,8 +66,28 @@ public class MapSnapshot {
         grassFields.add(position);
     }
 
-    public void addAnimalsGroup(Vector2d position, int animalsNumber, int maxEnergy) {
-        animalsFields.put(position, new AnimalsField(animalsNumber, maxEnergy));
+    public void addAnimalsGroup(Animal[] animalsGroup) {
+
+        var position = animalsGroup[0].getPosition();
+        Arrays.sort(animalsGroup);
+
+        animalsFields.put(position,
+                new AnimalsField(animalsGroup.length, animalsGroup[0].getEnergy()));
+    }
+
+    public void addDominantGenotypePositions(Set<Vector2d> dominantPositions) {
+
+        for (var position : dominantPositions)
+            animalsFields.get(position).isDominantGenotype = true;
+    }
+
+    public boolean isDominantGenotype(int row, int col) {
+
+        var field = animalsFields.get(calculateVector(row, col));
+        if (field != null)
+            return field.isDominantGenotype;
+
+        return false;
     }
 
     public void setObservedAnimal(Animal observedAnimal) {
@@ -75,7 +100,6 @@ public class MapSnapshot {
         var field = animalsFields.get(calculateVector(row, col));
         return field != null ? field.animalsNumber : 0;
     }
-
 
     public int getMaxEnergy(int row, int col) {
 
@@ -114,5 +138,13 @@ public class MapSnapshot {
         }
 
         return sb.toString();
+    }
+
+    public void setDominantGenotype(Genotype genotype) {
+        dominantGenotype = genotype;
+    }
+
+    public String getDominantGenotype() {
+        return dominantGenotype.toString();
     }
 }

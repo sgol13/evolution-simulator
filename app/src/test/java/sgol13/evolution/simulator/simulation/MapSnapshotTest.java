@@ -26,19 +26,4 @@ public class MapSnapshotTest {
         assertFalse(snap.isGrassed(3, 3));
         assertFalse(snap.isGrassed(4, 4));
     }
-
-    @Test
-    public void animalsTest() {
-
-        var snap = new MapSnapshot(new Vector2d(5, 5));
-        snap.addAnimalsGroup(new Vector2d(2, 0), 4, 2);
-        snap.addAnimalsGroup(new Vector2d(3, 3), 3, 8);
-
-        assertEquals(snap.getAnimalsNumber(4, 2), 4);
-        assertEquals(snap.getMaxEnergy(4, 2), 2);
-
-        assertEquals(snap.getAnimalsNumber(1, 3), 3);
-        assertEquals(snap.getMaxEnergy(1, 3), 8);
-    }
-
 }

@@ -91,6 +91,6 @@ public class Genotype {
             }
         }
 
-        return Arrays.toString(counters);
+        return Arrays.toString(counters).replace(",", "");
     }
 }

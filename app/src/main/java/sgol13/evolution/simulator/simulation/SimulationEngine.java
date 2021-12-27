@@ -1,6 +1,12 @@
 package sgol13.evolution.simulator.simulation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 import javafx.application.Platform;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.gui.SimulationVisualizer;
@@ -91,6 +97,10 @@ public class SimulationEngine implements Runnable {
 
         var mapSnapshot = map.getMapSnapshot();
         mapSnapshot.setObservedAnimal(observedAnimal);
+        var dominantGenotype = findDominantGenotype();
+        mapSnapshot.setDominantGenotype(dominantGenotype);
+        mapSnapshot.addDominantGenotypePositions(
+                findAllDominantGenotypes(dominantGenotype));
         var statisticsSnapshot = getStatisticsSnapshot();
         var observedAnimalSnapshot = getObservedAnimalSnapshot();
 
@@ -106,6 +116,41 @@ public class SimulationEngine implements Runnable {
         animals.forEach(animal -> snapshot.addAnimal(animal));
 
         return snapshot;
+    }
+
+    private Genotype findDominantGenotype() {
+
+        var genotypesCounters = new HashMap<Genotype, Integer>();
+
+        for (var animal : animals) {
+            var genotype = animal.getGenotype();
+            if (genotypesCounters.containsKey(genotype)) {
+                genotypesCounters.put(genotype, genotypesCounters.get(genotype));
+            } else {
+                genotypesCounters.put(genotype, 1);
+            }
+        }
+
+        Map.Entry<Genotype, Integer> maxEntry = null;
+        for (var entry : genotypesCounters.entrySet()) {
+            if (maxEntry == null ||
+                    entry.getValue().compareTo(maxEntry.getValue()) > 0) {
+
+                maxEntry = entry;
+            }
+        }
+
+        return maxEntry.getKey();
+    }
+
+    private Set<Vector2d> findAllDominantGenotypes(Genotype dominantGenotype) {
+
+        var allDominant = new HashSet<Vector2d>();
+        for (var animal : animals)
+            if (animal.getGenotype().equals(dominantGenotype))
+                allDominant.add(animal.getPosition());
+
+        return allDominant;
     }
 
     private ObservedAnimalSnapshot getObservedAnimalSnapshot() {
