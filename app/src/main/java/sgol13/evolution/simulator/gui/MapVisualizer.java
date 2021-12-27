@@ -2,6 +2,7 @@ package sgol13.evolution.simulator.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -37,11 +38,13 @@ public class MapVisualizer {
     public MapVisualizer(SimulationConfig config) {
 
         this.config = config;
+
         mapBox.getChildren().add(mapGrid);
         mapBox.setStyle("-fx-border-style: solid inside;" +
                 "-fx-border-width: 2;" +
                 "-fx-border-color: black;" +
                 "-fx-background-color: whitesmoke");
+
 
         initMapGrid();
     }
@@ -120,7 +123,6 @@ public class MapVisualizer {
     private void initMapGrid() {
 
         mapGrid.setAlignment(Pos.CENTER);
-        // mapGrid.setAlignment(Pos.BASELINE_CENTER);
 
         mapGrid.setVgap(GAP_BETWEEN_FIELDS_PX);
         mapGrid.setHgap(GAP_BETWEEN_FIELDS_PX);
@@ -137,4 +139,5 @@ public class MapVisualizer {
         for (int col = 0; col < config.mapWidth; col++)
             mapGrid.getColumnConstraints().add(new ColumnConstraints(squareSide));
     }
+
 }

@@ -15,7 +15,7 @@ public class SimulationEngine implements Runnable {
     private final SimulationVisualizer visualizer;
     private final IMap map;
     private boolean finishFlag = false;
-    private boolean pauseFlag = false;
+    private boolean pauseFlag = true;
     private final LinkedList<Animal> animals = new LinkedList<Animal>();
     private Instant previousTime;
     private long dayTime;
