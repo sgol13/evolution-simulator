@@ -5,7 +5,7 @@ public class SimulationConfig {
     public boolean boundedMap = true;
 
     public int mapWidth = 40;
-    public int mapHeight = 30;
+    public int mapHeight = 40;
     public double jungleRatio = 0.2;
 
     public int startEnergy = 200;

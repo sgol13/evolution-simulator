@@ -51,6 +51,26 @@ public class Genotype {
         return new_genotype;
     }
 
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(genes);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (other == null)
+            return false;
+
+        if (other == this)
+            return true;
+
+        if (other instanceof Genotype)
+            return Arrays.equals(genes, ((Genotype) other).genes);
+
+        return false;
+    }
+
     public MoveDirection randomDirection() {
 
         int gene = genes[randomGenerator.nextInt(GENOTYPE_SIZE)];

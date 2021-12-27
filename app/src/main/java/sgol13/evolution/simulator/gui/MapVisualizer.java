@@ -14,7 +14,6 @@ import javafx.scene.shape.Rectangle;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.snapshots.MapSnapshot;
 import static java.lang.System.out;
-import org.checkerframework.checker.units.qual.g;
 
 public class MapVisualizer {
 

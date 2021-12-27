@@ -15,6 +15,7 @@ public class Animal implements Comparable<Animal> {
     private Vector2d position;
     private final IMap map;
     private final int moveEnergy;
+    private int childrenNumber = 0;
 
     // create an animal with random genotype
     public Animal(IMap map, Vector2d position, int startEnergy, int moveEnergy) {
@@ -72,6 +73,10 @@ public class Animal implements Comparable<Animal> {
         return genotype;
     }
 
+    public int getChildrenNumber() {
+        return childrenNumber;
+    }
+
     public void move() {
 
         var relativeDirection = genotype.randomDirection();
@@ -124,6 +129,7 @@ public class Animal implements Comparable<Animal> {
 
     private int giveEnergyForChild() {
 
+        childrenNumber++;
         int energyForChild = energy / 4;
         energy -= energyForChild;
         return energyForChild;
