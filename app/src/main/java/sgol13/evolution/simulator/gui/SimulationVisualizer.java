@@ -32,6 +32,7 @@ public class SimulationVisualizer {
     private final GridPane mainGrid = new GridPane();
     private final VBox mapControlsBox = new VBox();
     private final MapVisualizer mapVisualizer;
+    private final StatisticsVisualizer statisticsVisualizer = new StatisticsVisualizer();
 
     public SimulationVisualizer(SimulationConfig config) {
 
@@ -44,7 +45,8 @@ public class SimulationVisualizer {
         mapControlsBox.getChildren().add(mapVisualizer.getNode());
         mapControlsBox.setSpacing(20);
 
-        mainGrid.add(mapControlsBox, 0, 0);
+        mainGrid.add(mapControlsBox, 1, 0);
+        mainGrid.add(statisticsVisualizer.getNode(), 0, 0);
 
         initControls();
     }
@@ -52,15 +54,7 @@ public class SimulationVisualizer {
     public void update(SimulationSnapshot snapshot) {
 
         mapVisualizer.update(snapshot.getMapSnapshot());
-
-        var s = snapshot.getStatisticsSnapshot();
-        out.println("animals: " + s.getAnimalsNum());
-        out.println("grass: " + s.getGrassFieldsNum());
-        out.println("av energy: " + s.getAverageEnergyLevel());
-        out.println("av lifespan: " + s.getAverageLifespan());
-        out.println("av children: " + s.getAverageChildrenNumber());
-        out.println("genotype: " + s.getDominantGenotype());
-        out.println("");
+        statisticsVisualizer.update(snapshot.getStatisticsSnapshot());
     }
 
     public void start() {

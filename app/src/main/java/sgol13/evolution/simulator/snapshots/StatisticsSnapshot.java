@@ -31,7 +31,7 @@ public class StatisticsSnapshot {
         return averageLifespan;
     }
 
-    public double getAverageChildrenNumber() {
+    public double getAverageChildrenNum() {
         return totalChildrenNum / animalsNum;
     }
 
