@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Set;
-import sgol13.evolution.simulator.SimulationConfig;
 
 public class MapField implements Comparable<MapField> {
 

@@ -3,7 +3,6 @@ package sgol13.evolution.simulator.simulation;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import sgol13.evolution.simulator.SimulationConfig;
 import static java.lang.System.out;
 
 public class MapFieldTest {

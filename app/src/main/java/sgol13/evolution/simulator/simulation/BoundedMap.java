@@ -1,7 +1,5 @@
 package sgol13.evolution.simulator.simulation;
 
-import sgol13.evolution.simulator.SimulationConfig;
-
 public class BoundedMap extends RectangularMap {
 
     public BoundedMap(SimulationConfig config) {

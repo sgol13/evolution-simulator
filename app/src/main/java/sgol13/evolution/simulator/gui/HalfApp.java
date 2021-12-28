@@ -2,7 +2,7 @@ package sgol13.evolution.simulator.gui;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import sgol13.evolution.simulator.SimulationConfig;
+import sgol13.evolution.simulator.simulation.SimulationConfig;
 
 public class HalfApp {
 

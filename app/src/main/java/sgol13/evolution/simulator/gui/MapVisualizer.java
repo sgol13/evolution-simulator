@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import sgol13.evolution.simulator.SimulationConfig;
+import sgol13.evolution.simulator.simulation.SimulationConfig;
 import sgol13.evolution.simulator.simulation.SimulationEngine;
 import sgol13.evolution.simulator.snapshots.MapSnapshot;
 

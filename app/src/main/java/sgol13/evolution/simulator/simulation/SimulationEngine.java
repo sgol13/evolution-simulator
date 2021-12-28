@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 import javafx.application.Platform;
-import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.gui.SimulationVisualizer;
 import sgol13.evolution.simulator.snapshots.ObservedAnimalSnapshot;
 import sgol13.evolution.simulator.snapshots.SimulationSnapshot;

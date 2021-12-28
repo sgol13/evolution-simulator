@@ -11,7 +11,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-import sgol13.evolution.simulator.SimulationConfig;
+import sgol13.evolution.simulator.simulation.SimulationConfig;
 
 public class Configurator {
 
