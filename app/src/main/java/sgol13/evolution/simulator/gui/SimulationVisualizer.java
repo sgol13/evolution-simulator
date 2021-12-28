@@ -1,11 +1,13 @@
 package sgol13.evolution.simulator.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -53,9 +55,13 @@ public class SimulationVisualizer {
         mapControlsBox.setSpacing(40);
 
         mainGrid.add(mapControlsBox, 1, 0);
+        mainGrid.setPadding(new Insets(10, 10, 80, 10));
         mainGrid.add(statisticsVisualizer.getNode(), 0, 0, 1, 2);
         mainGrid.add(observedAnimalVisualizer.getNode(), 1, 1);
         mainGrid.setAlignment(Pos.CENTER);
+
+        mainGrid.getColumnConstraints().add(new ColumnConstraints(390));
+        mainGrid.getColumnConstraints().add(new ColumnConstraints(550));
 
         initControls();
         initDominantGenotype();

@@ -28,7 +28,7 @@ public class Configurator {
 
     private final Slider[] sliders = new Slider[6];
     private final CheckBox magicStrategyCheckBox = new CheckBox();
-    private final Button startButton = new Button();
+    private final Button acceptButton = new Button();
     private final Button defaultButton = new Button();
 
     private final HalfApp myApp;
@@ -54,7 +54,7 @@ public class Configurator {
     private void initGrid() {
 
         grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setPadding(new Insets(0, 160, 100, 160));
         grid.setVgap(40);
         grid.setHgap(35);
 
@@ -109,12 +109,12 @@ public class Configurator {
     private void initButtons() {
 
         // start button
-        startButton.setText("Start");
-        startButton.setMinHeight(40);
-        startButton.setMinWidth(150);
-        startButton.setStyle("-fx-font-size:20");
-        startButton.setOnAction(event -> finishConfiguration());
-        grid.add(startButton, 0, 7);
+        acceptButton.setText("Accept");
+        acceptButton.setMinHeight(40);
+        acceptButton.setMinWidth(150);
+        acceptButton.setStyle("-fx-font-size:20");
+        acceptButton.setOnAction(event -> finishConfiguration());
+        grid.add(acceptButton, 0, 7);
 
 
         // default button

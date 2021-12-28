@@ -3,7 +3,6 @@ package sgol13.evolution.simulator.gui;
 import javafx.application.*;
 import javafx.geometry.Pos;
 import javafx.stage.*;
-import sgol13.evolution.simulator.SimulationConfig;
 import javafx.scene.*;
 import javafx.scene.layout.HBox;
 

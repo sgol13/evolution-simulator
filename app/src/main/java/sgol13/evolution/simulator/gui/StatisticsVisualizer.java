@@ -2,8 +2,6 @@ package sgol13.evolution.simulator.gui;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import sgol13.evolution.simulator.snapshots.StatisticsSnapshot;
 import static java.lang.System.out;
 
@@ -32,8 +30,6 @@ public class StatisticsVisualizer {
                 chartsBox.getChildren().add(averageEnergyChart.getNode());
                 chartsBox.getChildren().add(averageLifespanChart.getNode());
                 chartsBox.getChildren().add(averageChildrenNumChart.getNode());
-
-                // dominantGenotype.setFont(new Font(DOMINANT_GENOTYPE_FONT_SIZE));
 
                 chartsBox.setAlignment(Pos.CENTER);
         }

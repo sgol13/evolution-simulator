@@ -1,5 +1,6 @@
 package sgol13.evolution.simulator.gui;
 
+import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import sgol13.evolution.simulator.SimulationConfig;
 
@@ -13,8 +14,11 @@ public class HalfApp {
     public HalfApp(boolean isBoundedMap) {
 
         this.isBoundedMap = isBoundedMap;
+        halfAppBox.setAlignment(Pos.CENTER);
 
-        openConfigurator();
+        // openConfigurator();
+        var config = new SimulationConfig();
+        startSimulation(config);
     }
 
     public void openConfigurator() {
@@ -27,6 +31,7 @@ public class HalfApp {
 
         simulationVisualizer = new SimulationVisualizer(config, this);
         config.isBoundedMap = isBoundedMap;
+        config = new SimulationConfig();
         halfAppBox.getChildren().clear();
         halfAppBox.getChildren().add(simulationVisualizer.getNode());
         simulationVisualizer.start();

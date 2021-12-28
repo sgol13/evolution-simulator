@@ -31,11 +31,11 @@ public class MapVisualizer {
     private static final double MAX_ENERGY_TO_START_ENERGY_RATIO = 2.0;
 
     // sizes
-    private static final int MAP_WIDTH_PX = 550;
+    private static final int MAP_WIDTH_PX = 500;
     private static final int INTERNAL_MARGIN_WIDTH = 2;
     private static final int GAP_BETWEEN_FIELDS_PX = 2;
     private static final double[] RADIUS_MULTIPLIERS = {1.0, 1.2, 1.4, 1.6, 1.8};
-    private int squareSide;
+    private double squareSide;
 
     private final SimulationEngine engine;
     private final SimulationConfig config;
@@ -121,7 +121,7 @@ public class MapVisualizer {
         }
     }
 
-    private int calculateCircleRadius(int animalsNum) {
+    private double calculateCircleRadius(int animalsNum) {
 
         double multiplier = 1;
         if (animalsNum >= RADIUS_MULTIPLIERS.length)
@@ -129,7 +129,7 @@ public class MapVisualizer {
         else
             multiplier = RADIUS_MULTIPLIERS[animalsNum - 1];
 
-        return (int) (multiplier * squareSide / 2.0);
+        return (multiplier * squareSide / 2.0);
     }
 
     private Color calculateFieldColor(int energy) {
