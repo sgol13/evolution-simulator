@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 
 public class QueueChart {
 
-    private static final int CHART_DAYS_SPAN = 500;
+    private static final int CHART_DAYS_SPAN = 1000;
 
     private final VBox chartBox = new VBox();
     private final LineChart<Number, Number> chart;
