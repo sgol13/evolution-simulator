@@ -168,6 +168,7 @@ public abstract class RectangularMap implements IMap {
     public MapSnapshot getMapSnapshot() {
 
         var snapshot = new MapSnapshot(mapSize);
+        snapshot.setJungle(jungleLowerLeft, jungleUpperRight);
         for (int x = 0; x < mapSize.x; x++) {
             for (int y = 0; y < mapSize.y; y++) {
 

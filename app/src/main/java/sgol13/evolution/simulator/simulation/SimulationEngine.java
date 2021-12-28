@@ -65,6 +65,7 @@ public class SimulationEngine implements Runnable {
                 try {
                     Thread.sleep(leftTime);
                 } catch (InterruptedException e) {
+                    out.println("XXX");
                     // chill out, really no serious consequences if interrupted
                 }
             }

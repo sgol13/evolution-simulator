@@ -6,9 +6,9 @@ import sgol13.evolution.simulator.SimulationConfig;
 
 public class HalfApp {
 
-    SimulationVisualizer simulationVisualizer = null;
-    Configurator configurator = new Configurator(this);
-    VBox halfAppBox = new VBox();
+    private SimulationVisualizer simulationVisualizer = null;
+    private Configurator configurator = new Configurator(this);
+    private VBox halfAppBox = new VBox();
     private boolean isBoundedMap;
 
     public HalfApp(boolean isBoundedMap) {
@@ -42,4 +42,8 @@ public class HalfApp {
         return halfAppBox;
     }
 
+    public void stop() {
+        if (simulationVisualizer != null)
+            simulationVisualizer.finish();
+    }
 }

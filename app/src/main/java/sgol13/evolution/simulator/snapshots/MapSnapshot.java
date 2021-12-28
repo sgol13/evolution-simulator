@@ -18,6 +18,7 @@ public class MapSnapshot {
         public boolean isDominantGenotype = false;
 
         AnimalsField(int animalsNumber, int maxEnergy) {
+
             this.animalsNumber = animalsNumber;
             this.maxEnergy = maxEnergy;
         }
@@ -29,6 +30,8 @@ public class MapSnapshot {
             new HashMap<Vector2d, AnimalsField>();
     private Vector2d observedAnimalPosition;
     private Genotype dominantGenotype;
+    private Vector2d jungleLowerLeft;
+    private Vector2d jungleUpperRight;
 
     public MapSnapshot(Vector2d mapSize) {
         this.mapSize = mapSize;
@@ -71,7 +74,8 @@ public class MapSnapshot {
         var position = animalsGroup[0].getPosition();
         Arrays.sort(animalsGroup);
 
-        animalsFields.put(position,
+        animalsFields.put(
+                position,
                 new AnimalsField(animalsGroup.length, animalsGroup[0].getEnergy()));
     }
 
@@ -150,5 +154,22 @@ public class MapSnapshot {
             return null;
 
         return dominantGenotype.toString();
+    }
+
+    public void setJungle(Vector2d jungleLowerLeft, Vector2d jungleUpperRight) {
+
+        this.jungleLowerLeft = jungleLowerLeft;
+        this.jungleUpperRight = jungleUpperRight;
+    }
+
+    public int[] getJungleSpan() {
+
+        int x1 = jungleLowerLeft.x;
+        int y1 = jungleLowerLeft.y;
+        int x2 = jungleUpperRight.x - 1;
+        int y2 = jungleUpperRight.y - 1;
+
+        int[] jungleSpan = {x1, mapSize.y - y2 - 1, x2 - x1 + 1, y2 - y1 + 1};
+        return jungleSpan;
     }
 }

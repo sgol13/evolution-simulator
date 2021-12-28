@@ -26,6 +26,7 @@ public class MapVisualizer {
     private static final Color GRASS_COLOR = Color.GREEN;
     private static final Color DOMINANT_GENOTYPE_COLOR = Color.ORANGE;
     private static final Color OBSERVED_ANIMAL_COLOR = Color.RED;
+    private static final Color JUNGLE_COLOR = Color.color(0.94, 1, 0.8);
     private static final Color MAX_ENERGY_COLOR = Color.color(1, 0, 1);
     private static final Color MIN_ENERGY_COLOR = Color.color(0, 1, 1);
     private static final double MAX_ENERGY_TO_START_ENERGY_RATIO = 2.0;
@@ -43,6 +44,7 @@ public class MapVisualizer {
     private final VBox mapBox = new VBox();
     private boolean showDominantGenotypeFlag = false;
     private MapSnapshot previousSnapshot;
+    private double circleRadius;
 
     public MapVisualizer(SimulationEngine engine, SimulationConfig config) {
 
@@ -62,6 +64,8 @@ public class MapVisualizer {
     public void update(MapSnapshot snapshot) {
 
         mapGrid.getChildren().clear();
+
+        displayJungle(snapshot);
 
         for (int row = 0; row < config.mapHeight; row++)
             for (int col = 0; col < config.mapWidth; col++)
@@ -191,5 +195,23 @@ public class MapVisualizer {
 
     public boolean isShowingDominantGenotype() {
         return showDominantGenotypeFlag;
+    }
+
+    public void displayJungle(MapSnapshot snapshot) {
+
+        var jungleSpan = snapshot.getJungleSpan();
+        int row = jungleSpan[0];
+        int col = jungleSpan[1];
+        int rowSpan = jungleSpan[2];
+        int colSpan = jungleSpan[3];
+
+        double width = colSpan * squareSide + (colSpan - 1) * GAP_BETWEEN_FIELDS_PX;
+        double height = rowSpan * squareSide + (rowSpan - 1) * GAP_BETWEEN_FIELDS_PX;
+
+        var jungle = new Rectangle(width, height);
+        jungle.setFill(JUNGLE_COLOR);
+        jungle.setArcHeight(squareSide * 5);
+        jungle.setArcWidth(squareSide * 5);
+        mapGrid.add(jungle, row, col, rowSpan, colSpan);
     }
 }
