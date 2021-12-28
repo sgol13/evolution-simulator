@@ -25,7 +25,7 @@ public class HalfApp {
 
     public void startSimulation(SimulationConfig config) {
 
-        simulationVisualizer = new SimulationVisualizer(config);
+        simulationVisualizer = new SimulationVisualizer(config, this);
         config.isBoundedMap = isBoundedMap;
         halfAppBox.getChildren().clear();
         halfAppBox.getChildren().add(simulationVisualizer.getNode());

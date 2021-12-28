@@ -1,6 +1,6 @@
 package sgol13.evolution.simulator.gui;
 
-import com.google.common.collect.ImmutableBiMap.Builder;
+
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

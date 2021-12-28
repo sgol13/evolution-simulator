@@ -23,6 +23,7 @@ public class SimulationVisualizer {
 
     private final SimulationConfig config;
     private final SimulationEngine engine;
+    private final HalfApp myApp;
     private boolean pauseFlag = true;
     private boolean finishFlag = false;
     private boolean beforeStart = true;
@@ -39,8 +40,9 @@ public class SimulationVisualizer {
     private final ObservedAnimalVisualizer observedAnimalVisualizer =
             new ObservedAnimalVisualizer();
 
-    public SimulationVisualizer(SimulationConfig config) {
+    public SimulationVisualizer(SimulationConfig config, HalfApp myApp) {
 
+        this.myApp = myApp;
         this.config = config;
         IMap map = config.isBoundedMap ? new BoundedMap(config) : new UnboundedMap(config);
         this.engine = new SimulationEngine(this, config, map);
@@ -117,25 +119,31 @@ public class SimulationVisualizer {
             }
         });
 
-        var button = new Button("Start");
-        button.setStyle("-fx-font-size:20");
-        button.setMinWidth(150);
+        var pauseButton = new Button("Start");
+        pauseButton.setStyle("-fx-font-size:20");
+        pauseButton.setMinWidth(150);
 
-        button.setOnAction(event -> {
+        pauseButton.setOnAction(event -> {
 
             if (pauseFlag) { // resume
-                button.setText("Pause");
+                pauseButton.setText("Pause");
                 engine.resumeSimulation();
                 pauseFlag = false;
 
             } else { // pause
-                button.setText("Resume");
+                pauseButton.setText("Resume");
                 engine.pauseSimulation();
                 pauseFlag = true;
             }
         });
 
-        controlsBox.getChildren().add(button);
+        var exitButton = new Button("Exit");
+        exitButton.setStyle("-fx-font-size:20");
+        exitButton.setMinWidth(80);
+
+        exitButton.setOnAction(event -> myApp.openConfigurator());
+
+        controlsBox.getChildren().addAll(pauseButton, exitButton);
     }
 
     private void initDominantGenotype() {
