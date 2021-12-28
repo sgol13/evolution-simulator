@@ -16,9 +16,7 @@ public class HalfApp {
         this.isBoundedMap = isBoundedMap;
         halfAppBox.setAlignment(Pos.CENTER);
 
-        // openConfigurator();
-        var config = new SimulationConfig();
-        startSimulation(config);
+        openConfigurator();
     }
 
     public void openConfigurator() {

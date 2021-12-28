@@ -127,7 +127,7 @@ public class SimulationVisualizer {
 
         var pauseButton = new Button("Start");
         pauseButton.setStyle("-fx-font-size:20");
-        pauseButton.setMinWidth(150);
+        pauseButton.setMinWidth(130);
 
         pauseButton.setOnAction(event -> {
 
@@ -160,7 +160,7 @@ public class SimulationVisualizer {
         label.setStyle("-fx-font-size:20");
         var button = new Button("Show");
         button.setStyle("-fx-font-size:20");
-        button.setMinWidth(120);
+        button.setMinWidth(100);
         button.setOnAction(event -> {
 
             mapVisualizer.toggleShowDominantGenotype();

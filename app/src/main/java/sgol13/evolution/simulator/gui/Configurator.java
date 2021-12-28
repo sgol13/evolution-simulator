@@ -114,7 +114,7 @@ public class Configurator {
         acceptButton.setMinWidth(150);
         acceptButton.setStyle("-fx-font-size:20");
         acceptButton.setOnAction(event -> finishConfiguration());
-        grid.add(acceptButton, 0, 7);
+        grid.add(acceptButton, 1, 7);
 
 
         // default button
@@ -124,7 +124,7 @@ public class Configurator {
         defaultButton.setStyle("-fx-font-size:20");
         defaultButton.setOnAction(event -> setDefaultValues());
 
-        grid.add(defaultButton, 1, 7);
+        grid.add(defaultButton, 0, 7);
     }
 
     private void setDefaultValues() {
