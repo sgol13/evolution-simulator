@@ -9,22 +9,21 @@ import javafx.scene.layout.HBox;
 public class App extends Application {
 
     private static final String WINDOW_TITLE = "Evolution Simulator";
+    private static final int WINDOW_WIDTH = 1920;
+    private static final int WINDOW_HEIGHT = 1080;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         var leftApp = new HalfApp(false);
         var rightApp = new HalfApp(true);
 
         var appsBox = new HBox();
-        appsBox.setAlignment(Pos.CENTER);
         appsBox.getChildren().addAll(leftApp.getNode(), rightApp.getNode());
 
-        primaryStage.setScene(new Scene(appsBox, 1920, 1080));
-        primaryStage.setX(0);
-        primaryStage.setY(0);
-        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(appsBox, WINDOW_WIDTH, WINDOW_HEIGHT));
         primaryStage.setTitle(WINDOW_TITLE);
+
         primaryStage.show();
     }
 

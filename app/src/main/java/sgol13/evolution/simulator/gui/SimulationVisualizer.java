@@ -94,10 +94,14 @@ public class SimulationVisualizer {
         simThread.start();
     }
 
-    public void finish() throws InterruptedException {
+    public void finish() {
 
         engine.finishSimulation();
-        simThread.join();
+        try {
+            simThread.join();
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public GridPane getNode() {

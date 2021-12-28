@@ -21,6 +21,9 @@ public class HalfApp {
 
     public void openConfigurator() {
 
+        if (simulationVisualizer != null)
+            simulationVisualizer.finish();
+
         halfAppBox.getChildren().clear();
         halfAppBox.getChildren().add(configurator.getNode());
     }
