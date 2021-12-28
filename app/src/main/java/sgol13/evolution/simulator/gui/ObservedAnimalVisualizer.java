@@ -7,13 +7,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import sgol13.evolution.simulator.snapshots.ObservedAnimalSnapshot;
-import static java.lang.System.out;
 import java.util.ArrayList;
 
 public class ObservedAnimalVisualizer {
 
     private static final int FONT_SIZE = 20;
-    private static final int DISPLAY_AFTER_DEATH_TIME_MS = 3000;
 
     private final GridPane grid = new GridPane();
     private boolean openFlag = false;

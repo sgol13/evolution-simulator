@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.Random;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.snapshots.MapSnapshot;
-import static java.lang.System.out;
 
 public abstract class RectangularMap implements IMap {
 

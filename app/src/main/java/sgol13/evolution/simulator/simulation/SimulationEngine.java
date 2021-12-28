@@ -1,19 +1,16 @@
 package sgol13.evolution.simulator.simulation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 import javafx.application.Platform;
 import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.gui.SimulationVisualizer;
 import sgol13.evolution.simulator.snapshots.ObservedAnimalSnapshot;
 import sgol13.evolution.simulator.snapshots.SimulationSnapshot;
 import sgol13.evolution.simulator.snapshots.StatisticsSnapshot;
-import static java.lang.System.out;
 import java.time.Duration;
 import java.time.Instant;
 

@@ -1,11 +1,9 @@
 package sgol13.evolution.simulator.gui;
 
 import javafx.application.*;
-import javafx.geometry.Pos;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.HBox;
-import static java.lang.System.out;
 
 public class App extends Application {
 

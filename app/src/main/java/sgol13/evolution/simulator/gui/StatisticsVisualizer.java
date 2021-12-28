@@ -3,7 +3,6 @@ package sgol13.evolution.simulator.gui;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import sgol13.evolution.simulator.snapshots.StatisticsSnapshot;
-import static java.lang.System.out;
 
 public class StatisticsVisualizer {
 

@@ -4,8 +4,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -13,12 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import sgol13.evolution.simulator.SimulationConfig;
-import sgol13.evolution.simulator.simulation.Animal;
 import sgol13.evolution.simulator.simulation.SimulationEngine;
 import sgol13.evolution.simulator.snapshots.MapSnapshot;
-import static java.lang.System.out;
 
 public class MapVisualizer {
 
@@ -29,7 +24,7 @@ public class MapVisualizer {
     private static final Color JUNGLE_COLOR = Color.color(0.94, 1, 0.8);
     private static final Color MAX_ENERGY_COLOR = Color.color(1, 0, 1);
     private static final Color MIN_ENERGY_COLOR = Color.color(0, 1, 1);
-    private static final double MAX_ENERGY_TO_START_ENERGY_RATIO = 2.0;
+    private static final double MAX_ENERGY_TO_START_ENERGY_RATIO = 1.5;
 
     // sizes
     private static final int MAP_WIDTH_PX = 500;
@@ -44,7 +39,6 @@ public class MapVisualizer {
     private final VBox mapBox = new VBox();
     private boolean showDominantGenotypeFlag = false;
     private MapSnapshot previousSnapshot;
-    private double circleRadius;
 
     public MapVisualizer(SimulationEngine engine, SimulationConfig config) {
 

@@ -6,13 +6,10 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class QueueChart {
 
-    private static final int CHART_DAYS_SPAN = 1000;
-    private static final int WIDTH_PX = 350;
-    private static final int HEIGHT_PX = 100;
+    private static final int CHART_DAYS_SPAN = 500;
 
     private final VBox chartBox = new VBox();
     private final LineChart<Number, Number> chart;

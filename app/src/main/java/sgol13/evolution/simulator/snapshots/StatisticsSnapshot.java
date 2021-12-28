@@ -1,9 +1,6 @@
 package sgol13.evolution.simulator.snapshots;
 
-import java.util.HashMap;
-import java.util.Map;
 import sgol13.evolution.simulator.simulation.Animal;
-import sgol13.evolution.simulator.simulation.Genotype;
 
 public class StatisticsSnapshot {
 
