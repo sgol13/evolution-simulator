@@ -17,9 +17,9 @@ public class Configurator {
 
     private static final int LABELS_FONT_SIZE = 25;
     private static final int VALUES_FONT_SIZE = 20;
-    private static final double[] SLIDERS_DEFAULT_VALUES = {30, 100, 0.2, 500, 1, 200};
+    private static final double[] SLIDERS_DEFAULT_VALUES = {30, 20, 0.2, 100, 1, 30};
     private static final double[] SLIDERS_MIN_VALUES = {20, 1, 0, 1, 1, 1};
-    private static final double[] SLIDERS_MAX_VALUES = {40, 400, 0.5, 1000, 100, 1000};
+    private static final double[] SLIDERS_MAX_VALUES = {40, 400, 0.5, 500, 10, 400};
 
     private final GridPane grid = new GridPane();
     private static final String[] labelsTexts = {"Map size", "Initial animals",

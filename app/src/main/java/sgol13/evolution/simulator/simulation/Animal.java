@@ -1,7 +1,6 @@
 package sgol13.evolution.simulator.simulation;
 
 import java.util.Random;
-import static java.lang.System.out;
 
 public class Animal implements Comparable<Animal> {
 

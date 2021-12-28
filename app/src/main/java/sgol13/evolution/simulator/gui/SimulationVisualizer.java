@@ -2,11 +2,9 @@ package sgol13.evolution.simulator.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.Alert.AlertType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.ColumnConstraints;
@@ -21,16 +19,12 @@ import sgol13.evolution.simulator.simulation.IMap;
 import sgol13.evolution.simulator.simulation.SimulationEngine;
 import sgol13.evolution.simulator.simulation.UnboundedMap;
 import sgol13.evolution.simulator.snapshots.SimulationSnapshot;
-import static java.lang.System.out;
 
 public class SimulationVisualizer {
 
-    private final SimulationConfig config;
     private final SimulationEngine engine;
     private final HalfApp myApp;
     private boolean pauseFlag = true;
-    private boolean finishFlag = false;
-    private boolean beforeStart = true;
     private final Thread simThread;
 
     private final GridPane mainGrid = new GridPane();
@@ -47,7 +41,6 @@ public class SimulationVisualizer {
     public SimulationVisualizer(SimulationConfig config, HalfApp myApp) {
 
         this.myApp = myApp;
-        this.config = config;
         IMap map = config.isBoundedMap ? new BoundedMap(config) : new UnboundedMap(config);
         this.engine = new SimulationEngine(this, config, map);
         this.simThread = new Thread(engine);
