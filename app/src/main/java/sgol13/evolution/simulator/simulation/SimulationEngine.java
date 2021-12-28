@@ -30,6 +30,8 @@ public class SimulationEngine implements Runnable {
     private long daysCounter = 0;
     private long deathAnimalsCounter = 0;
     private long totalDeathAnimalsLifespan = 0;
+    private int magicFunctionCalls = 0;
+    private boolean usedMagicFunction = false;
     private Animal observedAnimal = null;
 
     public SimulationEngine(SimulationVisualizer visualizer,
@@ -50,25 +52,8 @@ public class SimulationEngine implements Runnable {
         while (!finishFlag) {
 
             simulateDay();
-
             sendSimulationSnapshot();
-
-            // wait for the next day
-            var currentTime = Instant.now();
-            var elapsedTime = Duration.between(previousTime, currentTime);
-            previousTime = currentTime;
-
-            long dayTime = (long) (config.minSpeedDayTime / simulationSpeed);
-            long leftTime = dayTime - elapsedTime.toMillis();
-            if (leftTime > 0) {
-
-                try {
-                    Thread.sleep(leftTime);
-                } catch (InterruptedException e) {
-                    out.println("XXX");
-                    // chill out, really no serious consequences if interrupted
-                }
-            }
+            keepFramerate();
 
             // pause if the flag is set
             synchronized (this) {
@@ -82,6 +67,25 @@ public class SimulationEngine implements Runnable {
             }
 
             daysCounter++;
+        }
+    }
+
+    private void keepFramerate() {
+
+        // wait for the next day
+        var currentTime = Instant.now();
+        var elapsedTime = Duration.between(previousTime, currentTime);
+        previousTime = currentTime;
+
+        long dayTime = (long) (config.minSpeedDayTime / simulationSpeed);
+        long leftTime = dayTime - elapsedTime.toMillis();
+        if (leftTime > 0) {
+
+            try {
+                Thread.sleep(leftTime);
+            } catch (InterruptedException e) {
+                // chill out, really no problem if interrupted here
+            }
         }
     }
 
@@ -107,8 +111,12 @@ public class SimulationEngine implements Runnable {
         var statisticsSnapshot = getStatisticsSnapshot();
         var observedAnimalSnapshot = getObservedAnimalSnapshot();
 
+        int magicUsed = 0;
+        if (usedMagicFunction)
+            magicUsed = magicFunctionCalls;
+
         return new SimulationSnapshot(mapSnapshot,
-                statisticsSnapshot, observedAnimalSnapshot);
+                statisticsSnapshot, observedAnimalSnapshot, magicUsed);
     }
 
     private StatisticsSnapshot getStatisticsSnapshot() {
@@ -191,22 +199,32 @@ public class SimulationEngine implements Runnable {
         }
 
         // magic strategy - add 5 new animals if not more than 5 left
-        if (config.magicStrategy && animals.size() <= 5) {
+        if (config.magicStrategy && animals.size() <= 5 && magicFunctionCalls < 3) {
+
+            magicFunctionCalls++;
+            usedMagicFunction = true;
 
             var newAnimals = new LinkedList<Animal>();
             for (var animal : animals)
                 newAnimals.add(animal.clone());
 
-            it = deadAnimals.iterator();
-            while (it.hasNext() && newAnimals.size() < 5)
-                newAnimals.add(it.next());
+            // ----------------------------------------------------------------
+            // comment if the interpretation of 'magic strategy' changes
+            // it = deadAnimals.iterator();
+            // while (it.hasNext() && newAnimals.size() < 5)
+            //     newAnimals.add(it.next());
+            // ----------------------------------------------------------------
 
             for (var animal : newAnimals) {
+
                 animal.eat(config.startEnergy);
                 animal.setBirthDay(daysCounter);
                 animals.add(animal);
                 map.placeAnimalOnRandomField(animal);
             }
+
+        } else {
+            usedMagicFunction = false;
         }
     }
 
@@ -222,26 +240,20 @@ public class SimulationEngine implements Runnable {
         animals.forEach(animal -> animal.move());
     }
 
-    private int simulateEating() {
-
-        int eatenGrass = 0;
-        for (var field : map.getAllFields())
-            if (field.doEating())
-                eatenGrass++;
-
-        return eatenGrass;
+    private void simulateEating() {
+        map.getAllFields().forEach(field -> field.doEating());
     }
 
     private void simulateReproducing() {
 
-        for (var field : map.getAllFields()) {
-
-            var newAnimal = field.doReproducing();
-            if (newAnimal != null) {
-                map.placeAnimal(newAnimal);
-                animals.add(newAnimal);
-            }
-        }
+        map.getAllFields().forEach(
+                field -> {
+                    var newAnimal = field.doReproducing();
+                    if (newAnimal != null) {
+                        map.placeAnimal(newAnimal);
+                        animals.add(newAnimal);
+                    }
+                });
     }
 
     public void sendSimulationSnapshot() {

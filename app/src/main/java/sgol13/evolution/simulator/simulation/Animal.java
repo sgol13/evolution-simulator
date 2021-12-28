@@ -10,7 +10,7 @@ public class Animal implements Comparable<Animal> {
 
     private final int id;
     private Genotype genotype;
-    private int energy;
+    private int energy = 0;
     private MoveDirection direction;
     private Vector2d position;
     private final IMap map;

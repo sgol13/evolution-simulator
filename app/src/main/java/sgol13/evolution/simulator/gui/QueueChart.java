@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 
 public class QueueChart {
 
-    private static final int CHART_DAYS_SPAN = 200;
+    private static final int CHART_DAYS_SPAN = 1000;
     private static final int WIDTH_PX = 350;
     private static final int HEIGHT_PX = 100;
 

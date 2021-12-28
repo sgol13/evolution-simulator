@@ -2,9 +2,11 @@ package sgol13.evolution.simulator.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Alert.AlertType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.ColumnConstraints;
@@ -83,11 +85,21 @@ public class SimulationVisualizer {
             observedAnimalVisualizer.died();
         }
 
+        // genotype
         var genotype = snapshot.getMapSnapshot().getDominantGenotype();
         if (genotype != null)
             genotypeText.setText(genotype);
         else
             genotypeText.setText("[- - - - - - - -]");
+
+        //magic function
+        // int magicUsed = snapshot.getUsedMagicFunction();
+        // if (magicUsed > 0) {
+
+        //     var alert = new Alert(AlertType.INFORMATION);
+        //     alert.setContentText("Used a magic function " + magicUsed + "/3!");
+        //     alert.show();
+        // }
     }
 
     public void start() {

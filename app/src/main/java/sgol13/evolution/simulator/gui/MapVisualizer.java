@@ -208,10 +208,12 @@ public class MapVisualizer {
         double width = colSpan * squareSide + (colSpan - 1) * GAP_BETWEEN_FIELDS_PX;
         double height = rowSpan * squareSide + (rowSpan - 1) * GAP_BETWEEN_FIELDS_PX;
 
-        var jungle = new Rectangle(width, height);
-        jungle.setFill(JUNGLE_COLOR);
-        jungle.setArcHeight(squareSide * 5);
-        jungle.setArcWidth(squareSide * 5);
-        mapGrid.add(jungle, row, col, rowSpan, colSpan);
+        if (colSpan > 0 && rowSpan > 0) {
+            var jungle = new Rectangle(width, height);
+            jungle.setFill(JUNGLE_COLOR);
+            jungle.setArcHeight(squareSide * 5);
+            jungle.setArcWidth(squareSide * 5);
+            mapGrid.add(jungle, row, col, rowSpan, colSpan);
+        }
     }
 }
