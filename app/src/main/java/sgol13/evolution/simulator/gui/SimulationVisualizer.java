@@ -93,6 +93,10 @@ public class SimulationVisualizer {
         //     alert.setContentText("Used a magic function " + magicUsed + "/3!");
         //     alert.show();
         // }
+
+        if (snapshot.getStatisticsSnapshot().getAnimalsNum() == 0) {
+            engine.finishSimulation();
+        }
     }
 
     public void start() {
@@ -166,6 +170,7 @@ public class SimulationVisualizer {
         genotypeText.setFont(Font.font("Monospaced", 20));
 
         var label = new Label("Dominant genotype");
+        label.setMinWidth(100);
         label.setStyle("-fx-font-size:20");
         var button = new Button("Show");
         button.setStyle("-fx-font-size:20");
