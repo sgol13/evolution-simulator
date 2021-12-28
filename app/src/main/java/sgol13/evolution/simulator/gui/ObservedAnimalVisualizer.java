@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class ObservedAnimalVisualizer {
 
     private static final int FONT_SIZE = 20;
+    private static final int DISPLAY_AFTER_DEATH_TIME_MS = 3000;
 
     private final GridPane grid = new GridPane();
     private boolean openFlag = false;

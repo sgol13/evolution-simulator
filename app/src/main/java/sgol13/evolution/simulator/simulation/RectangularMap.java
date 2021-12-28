@@ -10,7 +10,7 @@ import sgol13.evolution.simulator.SimulationConfig;
 import sgol13.evolution.simulator.snapshots.MapSnapshot;
 import static java.lang.System.out;
 
-public abstract class AbstractMap implements IMap {
+public abstract class RectangularMap implements IMap {
 
     private final SimulationConfig config;
     private final Random randomGenerator = new Random();
@@ -21,7 +21,7 @@ public abstract class AbstractMap implements IMap {
     protected final LinkedHashMap<Vector2d, MapField> fields =
             new LinkedHashMap<Vector2d, MapField>();
 
-    public AbstractMap(SimulationConfig config) {
+    public RectangularMap(SimulationConfig config) {
 
         this.config = config;
         this.mapSize = new Vector2d(config.mapWidth, config.mapHeight);

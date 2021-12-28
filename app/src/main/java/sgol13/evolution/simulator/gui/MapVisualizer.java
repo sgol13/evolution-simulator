@@ -108,7 +108,6 @@ public class MapVisualizer {
             GridPane.setHalignment(animalCircle, HPos.CENTER);
             GridPane.setValignment(animalCircle, VPos.CENTER);
 
-
         } else if (snapshot.isGrassed(row, col)) {
 
             var grassSquare = new Rectangle(squareSide, squareSide);

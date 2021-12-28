@@ -12,7 +12,7 @@ public class SimulationConfig {
     public int moveEnergy = 5;
     public int plantEnergy = 200;
 
-    public int initialAnimals = 400;
+    public int initialAnimals = 200;
 
     public boolean magicStrategy = false;
     public long minSpeedDayTime = 500;
