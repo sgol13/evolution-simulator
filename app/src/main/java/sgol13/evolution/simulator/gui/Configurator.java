@@ -31,7 +31,11 @@ public class Configurator {
     private final Button startButton = new Button();
     private final Button defaultButton = new Button();
 
-    public Configurator() {
+    private final HalfApp myApp;
+
+    public Configurator(HalfApp myApp) {
+
+        this.myApp = myApp;
 
         initGrid();
 
@@ -109,7 +113,7 @@ public class Configurator {
         startButton.setMinHeight(40);
         startButton.setMinWidth(150);
         startButton.setStyle("-fx-font-size:20");
-
+        startButton.setOnAction(event -> finishConfiguration());
         grid.add(startButton, 0, 7);
 
 
@@ -130,5 +134,20 @@ public class Configurator {
         }
 
         magicStrategyCheckBox.setSelected(false);
+    }
+
+    private void finishConfiguration() {
+
+        var config = new SimulationConfig();
+
+        config.mapHeight = config.mapWidth = (int) sliders[0].getValue();
+        config.initialAnimals = (int) sliders[1].getValue();
+        config.jungleRatio = sliders[2].getValue();
+        config.startEnergy = (int) sliders[3].getValue();
+        config.moveEnergy = (int) sliders[4].getValue();
+        config.plantEnergy = (int) sliders[5].getValue();
+        config.magicStrategy = magicStrategyCheckBox.isSelected();
+
+        myApp.startSimulation(config);
     }
 }

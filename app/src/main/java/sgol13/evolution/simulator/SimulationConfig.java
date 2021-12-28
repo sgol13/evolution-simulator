@@ -2,7 +2,7 @@ package sgol13.evolution.simulator;
 
 public class SimulationConfig {
 
-    public boolean boundedMap = true;
+    public boolean isBoundedMap = true;
 
     public int mapWidth = 40;
     public int mapHeight = 40;

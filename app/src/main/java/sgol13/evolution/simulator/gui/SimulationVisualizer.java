@@ -42,7 +42,7 @@ public class SimulationVisualizer {
     public SimulationVisualizer(SimulationConfig config) {
 
         this.config = config;
-        IMap map = config.boundedMap ? new BoundedMap(config) : new UnboundedMap(config);
+        IMap map = config.isBoundedMap ? new BoundedMap(config) : new UnboundedMap(config);
         this.engine = new SimulationEngine(this, config, map);
         this.simThread = new Thread(engine);
         this.mapVisualizer = new MapVisualizer(engine, config);

@@ -6,13 +6,15 @@ import sgol13.evolution.simulator.SimulationConfig;
 public class HalfApp {
 
     SimulationVisualizer simulationVisualizer = null;
-    Configurator configurator = new Configurator();
+    Configurator configurator = new Configurator(this);
     VBox halfAppBox = new VBox();
     private boolean isBoundedMap;
 
     public HalfApp(boolean isBoundedMap) {
 
         this.isBoundedMap = isBoundedMap;
+
+        openConfigurator();
     }
 
     public void openConfigurator() {
@@ -24,6 +26,7 @@ public class HalfApp {
     public void startSimulation(SimulationConfig config) {
 
         simulationVisualizer = new SimulationVisualizer(config);
+        config.isBoundedMap = isBoundedMap;
         halfAppBox.getChildren().clear();
         halfAppBox.getChildren().add(simulationVisualizer.getNode());
         simulationVisualizer.start();
