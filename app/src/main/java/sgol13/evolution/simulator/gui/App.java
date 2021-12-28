@@ -10,14 +10,15 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        var config = new SimulationConfig();
-        var visualizer = new SimulationVisualizer(config);
+        // var config = new SimulationConfig();
+        // var visualizer = new SimulationVisualizer(config);
 
-        var scene = new Scene(visualizer.getNode(), 950, 1080);
+        var configurator = new Configurator();
+        var scene = new Scene(configurator.getNode(), 950, 1080);
         primaryStage.setX(0);
         primaryStage.setY(0);
 
-        visualizer.start();
+        // visualizer.start();
 
         primaryStage.setScene(scene);
         primaryStage.show();
