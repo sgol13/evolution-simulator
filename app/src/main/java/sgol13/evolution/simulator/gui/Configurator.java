@@ -1,5 +1,7 @@
-package sgol13.evolution.simulator.gui;
+// Szymon Golebiowski
+// Evolution Simulator
 
+package sgol13.evolution.simulator.gui;
 
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;

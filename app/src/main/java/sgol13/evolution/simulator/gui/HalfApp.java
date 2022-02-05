@@ -1,3 +1,6 @@
+// Szymon Golebiowski
+// Evolution Simulator
+
 package sgol13.evolution.simulator.gui;
 
 import javafx.geometry.Pos;

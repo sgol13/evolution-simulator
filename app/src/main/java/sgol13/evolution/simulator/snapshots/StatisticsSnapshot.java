@@ -1,3 +1,6 @@
+// Szymon Golebiowski
+// Evolution Simulator
+
 package sgol13.evolution.simulator.snapshots;
 
 import sgol13.evolution.simulator.simulation.Animal;
