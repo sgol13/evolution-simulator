@@ -129,11 +129,12 @@ public class SimulationVisualizer {
 
         var speedLabel = new Label("Speed");
         speedLabel.setStyle("-fx-font-size:20");
+        speedLabel.setMinWidth(65);
         controlsBox.getChildren().add(speedLabel);
 
         var slider = new Slider(1, 40, 10);
         controlsBox.getChildren().add(slider);
-        slider.setPrefWidth(200);
+        slider.setMinWidth(200);
         slider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue,
                     Number newValue) {
@@ -177,7 +178,7 @@ public class SimulationVisualizer {
         label.setStyle("-fx-font-size:20");
         var button = new Button("Show");
         button.setStyle("-fx-font-size:20");
-        button.setMinWidth(100);
+        button.setMinWidth(80);
         button.setOnAction(event -> {
 
             mapVisualizer.toggleShowDominantGenotype();
@@ -190,6 +191,7 @@ public class SimulationVisualizer {
 
         genotypeBox.setAlignment(Pos.CENTER);
         genotypeBox.setSpacing(20);
+        genotypeBox.setMinWidth(295);
         genotypeBox.getChildren().addAll(label, genotypeText, button);
         mapControlsBox.getChildren().add(genotypeBox);
     }

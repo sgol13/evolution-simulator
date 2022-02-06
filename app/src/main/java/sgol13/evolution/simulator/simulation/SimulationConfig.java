@@ -18,6 +18,6 @@ public class SimulationConfig {
     public int initialAnimals = 200;
 
     public boolean magicStrategy = false;
-    public long minSpeedDayTime = 500;
+    public long minSpeedDayTime = 1500;
     public double defaultSimulationSpeed = 10;
 }
