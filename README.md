@@ -6,6 +6,7 @@ The program allows you to run a simulation with custom parameters, for example s
 
 <a href="https://youtu.be/ABD29XPm-eA">
          <img alt="Evolution Simulator video" src="https://i.postimg.cc/yN4T37h7/play-screen.png" width=600>
+</a>
 
 ## Compilation
 
