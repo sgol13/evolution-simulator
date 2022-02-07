@@ -4,7 +4,8 @@ I have created this project during my OOP course at AGH UST. It is written in Ja
 
 The program allows you to run a simulation with custom parameters, choosig map size, initial number of animals, the amount of energy that is consumed by moving and so on. You can start two simulations with different parameters parallely and observe the results.
 
-[![Evolution Simulator video](https://i.postimg.cc/yN4T37h7/play-screen.png)](https://youtu.be/ABD29XPm-eA)
+<a href="https://youtu.be/ABD29XPm-eA">
+         <img alt="Evolution Simulator video" src="https://i.postimg.cc/yN4T37h7/play-screen.png" width=600>
 
 ## Compilation
 
